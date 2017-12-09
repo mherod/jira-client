@@ -35,7 +35,7 @@ import java.util.List;
 public class AgileClient {
 
     @Nullable
-    private RestClient restclient = null;
+    private RestClient restClient;
 
     /**
      * Creates an Agile client.
@@ -43,7 +43,7 @@ public class AgileClient {
      * @param jira JIRA client
      */
     public AgileClient(JiraClient jira) {
-        restclient = jira.getRestClient();
+        restClient = jira.getRestClient();
     }
 
     /**
@@ -54,7 +54,7 @@ public class AgileClient {
      * @throws JiraException when something goes wrong
      */
     public Board getBoard(long id) throws JiraException {
-        return Board.get(restclient, id);
+        return Board.get(restClient, id);
     }
 
     /**
@@ -64,7 +64,7 @@ public class AgileClient {
      * @throws JiraException when something goes wrong
      */
     public List<Board> getBoards() throws JiraException {
-        return Board.getAll(restclient);
+        return Board.getAll(restClient);
     }
 
     /**
@@ -75,7 +75,7 @@ public class AgileClient {
      * @throws JiraException when something goes wrong
      */
     public Sprint getSprint(long id) throws JiraException {
-        return Sprint.get(restclient, id);
+        return Sprint.get(restClient, id);
     }
 
     /**
@@ -86,7 +86,7 @@ public class AgileClient {
      * @throws JiraException when something goes wrong
      */
     public Issue getIssue(long id) throws JiraException {
-        return Issue.get(restclient, id);
+        return Issue.get(restClient, id);
     }
 
     /**
@@ -97,7 +97,7 @@ public class AgileClient {
      * @throws JiraException when something goes wrong
      */
     public Issue getIssue(String key) throws JiraException {
-        return Issue.get(restclient, key);
+        return Issue.get(restClient, key);
     }
 
     /**
@@ -108,12 +108,12 @@ public class AgileClient {
      * @throws JiraException when something goes wrong
      */
     public Epic getEpic(long id) throws JiraException {
-        return Epic.get(restclient, id);
+        return Epic.get(restClient, id);
     }
 
     @Nullable
-    public RestClient getRestclient() {
-        return restclient;
+    public RestClient getRestClient() {
+        return restClient;
     }
 }
 

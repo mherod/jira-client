@@ -73,27 +73,6 @@ public class Project extends Resource {
             deserialise(json);
     }
 
-    private void deserialise(JSONObject json) {
-
-        self = Field.getString(((Map) json).get("self"));
-        id = Field.getString(((Map) json).get("id"));
-        avatarUrls = Field.getMap(String.class, String.class, ((Map) json).get("avatarUrls"));
-        key = Field.getString(((Map) json).get("key"));
-        name = Field.getString(((Map) json).get("name"));
-        description = Field.getString(((Map) json).get("description"));
-        lead = Field.getResource(User.class, ((Map) json).get("lead"), restclient);
-        assigneeType = Field.getString(((Map) json).get("assigneeType"));
-        components = Field.getResourceArray(Component.class, ((Map) json).get("components"), restclient);
-        issueTypes = Field.getResourceArray(
-            IssueType.class,
-            json.containsKey("issueTypes") ? ((Map) json).get("issueTypes") : ((Map) json).get("issuetypes"),
-            restclient);
-        versions = Field.getResourceArray(Version.class, ((Map) json).get("versions"), restclient);
-        roles = Field.getMap(String.class, String.class, ((Map) json).get("roles"));
-        category = Field.getResource(ProjectCategory.class, ((Map) json).get( "projectCategory" ), restclient);
-        email = Field.getString( ((Map) json).get("email"));
-    }
-
     /**
      * Retrieves the given project record.
      *
@@ -107,7 +86,7 @@ public class Project extends Resource {
     public static Project get(@NotNull RestClient restclient, String key)
         throws JiraException {
 
-        JSON result = null;
+        JSON result;
 
         try {
             result = restclient.get(getBaseUri() + "project/" + key);
@@ -132,7 +111,7 @@ public class Project extends Resource {
      */
     @NotNull
     public static List<Project> getAll(@NotNull RestClient restclient) throws JiraException {
-        JSON result = null;
+        JSON result;
 
         try {
             result = restclient.get(getBaseUri() + "project");
@@ -146,9 +125,30 @@ public class Project extends Resource {
         return Field.getResourceArray(Project.class, result, restclient);
     }
 
+    private void deserialise(JSONObject json) {
+
+        self = Field.getString(json.get("self"));
+        id = Field.getString(json.get("id"));
+        avatarUrls = Field.getMap(String.class, String.class, json.get("avatarUrls"));
+        key = Field.getString(json.get("key"));
+        name = Field.getString(json.get("name"));
+        description = Field.getString(json.get("description"));
+        lead = Field.getResource(User.class, json.get("lead"), restclient);
+        assigneeType = Field.getString(json.get("assigneeType"));
+        components = Field.getResourceArray(Component.class, json.get("components"), restclient);
+        issueTypes = Field.getResourceArray(
+            IssueType.class,
+            json.containsKey("issueTypes") ? json.get("issueTypes") : json.get("issuetypes"),
+            restclient);
+        versions = Field.getResourceArray(Version.class, json.get("versions"), restclient);
+        roles = Field.getMap(String.class, String.class, json.get("roles"));
+        category = Field.getResource(ProjectCategory.class, json.get( "projectCategory" ), restclient);
+        email = Field.getString( json.get("email"));
+    }
+
     @NotNull
     public List<User> getAssignableUsers() throws JiraException {
-        JSON result = null;
+        JSON result;
 
         try {			
             Map<String, String> queryParams = new HashMap<String, String>();

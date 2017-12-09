@@ -31,13 +31,13 @@ class AgileClientDemoTest {
     static void demoSprint(AgileClient agileClient) {
         println "********** Sprint demo"
         // Retrieve all sprints
-        List<Sprint> sprints = Sprint.getAll(agileClient.getRestclient(), BOARD_ID)
+        List<Sprint> sprints = Sprint.getAll(agileClient.getRestClient(), BOARD_ID)
         println sprints
 
         // Retrieve a specific Sprint
         Sprint sprint1 = agileClient.getSprint(SPRINT_ID)
         println sprint1
-        Sprint sprint2 = Sprint.get(agileClient.getRestclient(), SPRINT_ID)
+        Sprint sprint2 = Sprint.get(agileClient.getRestClient(), SPRINT_ID)
         println sprint2
         println sprint1.toString() == sprint2.toString()
         println sprint1.getSelfURL()
@@ -52,7 +52,7 @@ class AgileClientDemoTest {
         // Retrieve a specific Issue
         Issue issue1 = agileClient.getIssue(ISSUE_ID)
         println issue1
-        Issue issue2 = Issue.get(agileClient.getRestclient(), ISSUE_ID)
+        Issue issue2 = Issue.get(agileClient.getRestClient(), ISSUE_ID)
         println issue2
         println issue1.toString() == issue2.toString()
         Issue issue3 = agileClient.getIssue(ISSUE_KEY)
@@ -87,7 +87,7 @@ class AgileClientDemoTest {
         // Retrieve a specific Epic
         Epic epic1 = agileClient.getEpic(EPIC_ID)
         println epic1
-        Epic epic2 = Epic.get(agileClient.getRestclient(), EPIC_ID)
+        Epic epic2 = Epic.get(agileClient.getRestClient(), EPIC_ID)
         println epic2
         println epic1.toString() == epic2.toString()
         println epic1.getSelfURL()
@@ -111,7 +111,7 @@ class AgileClientDemoTest {
         // Retrieve a specific Board
         Board board1 = agileClient.getBoard(BOARD_ID)
         println board1
-        Board board2 = Board.get(agileClient.getRestclient(), BOARD_ID)
+        Board board2 = Board.get(agileClient.getRestClient(), BOARD_ID)
         println board2
         println board1.toString() == board2.toString()
         println board1.getSelfURL()
