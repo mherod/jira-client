@@ -10,32 +10,32 @@ import static org.junit.Assert.assertEquals;
 public class WorklogUtilsFormatDurationTest {
 
     @Test
-    public void testEmpty() throws Exception {
+    public void testEmpty() {
         assertEquals("0m", WorklogUtils.formatDurationFromSeconds(0));
     }
 
     @Test
-    public void testNegative() throws Exception {
+    public void testNegative() {
         assertEquals("0m", WorklogUtils.formatDurationFromSeconds(-200));
     }
 
     @Test
-    public void testLowSecond() throws Exception {
+    public void testLowSecond() {
         assertEquals("0m", WorklogUtils.formatDurationFromSeconds(1));
     }
 
     @Test
-    public void testSeconds() throws Exception {
+    public void testSeconds() {
         assertEquals("0m", WorklogUtils.formatDurationFromSeconds(59));
     }
 
     @Test
-    public void testMinutes() throws Exception {
+    public void testMinutes() {
         assertEquals("1m", WorklogUtils.formatDurationFromSeconds(60));
     }
 
     @Test
-    public void testMinutesAndSeconds() throws Exception {
+    public void testMinutesAndSeconds() {
         assertEquals("1m", WorklogUtils.formatDurationFromSeconds(
                 60 // 1 minute
                         + 2) // 2 seconds
@@ -43,7 +43,7 @@ public class WorklogUtilsFormatDurationTest {
     }
 
     @Test
-    public void testMinutesAndSeconds2() throws Exception {
+    public void testMinutesAndSeconds2() {
         assertEquals("2m", WorklogUtils.formatDurationFromSeconds(
                 60 // 1 minute
                         + 72) // 72 seconds
@@ -51,7 +51,7 @@ public class WorklogUtilsFormatDurationTest {
     }
 
     @Test
-    public void testHours() throws Exception {
+    public void testHours() {
         assertEquals("1h 10m", WorklogUtils.formatDurationFromSeconds(
                 (60 * 60) // 1 hour
                         + (10 * 60) // 10 minutes
@@ -60,7 +60,7 @@ public class WorklogUtilsFormatDurationTest {
     }
 
     @Test
-    public void testDays() throws Exception {
+    public void testDays() {
         assertEquals("50h 20m", WorklogUtils.formatDurationFromSeconds(
                 (60 * 60 * 50) // 50 hours
                         + (60 * 20) // 20 minutes
@@ -69,7 +69,7 @@ public class WorklogUtilsFormatDurationTest {
     }
 
     @Test
-    public void testDays2() throws Exception {
+    public void testDays2() {
         assertEquals("50h 22m", WorklogUtils.formatDurationFromSeconds(
                 (60 * 60 * 50) // 50 hours
                         + (60 * 20) // 20 minutes

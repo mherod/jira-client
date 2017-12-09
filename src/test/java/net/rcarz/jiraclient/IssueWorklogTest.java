@@ -16,7 +16,7 @@ import static org.mockito.Mockito.*;
 public class IssueWorklogTest {
 
     @Test
-    public void testParsing_inputValid_shouldCreateJsonObject() throws Exception {
+    public void testParsing_inputValid_shouldCreateJsonObject() {
         // Arrange
         // Act
         JSONObject worklogObject = (JSONObject) JSONSerializer.toJSON(RESPONSE_WORKLOG_BODY);
@@ -26,7 +26,7 @@ public class IssueWorklogTest {
     }
 
     @Test
-    public void testParsing_inputValidJson_shouldCreateWorklog() throws Exception {
+    public void testParsing_inputValidJson_shouldCreateWorklog() {
         // Arrange
         // Act
         WorkLog workLog = new WorkLog(mock(RestClient.class), (JSONObject) JSONSerializer.toJSON(RESPONSE_WORKLOG_BODY));

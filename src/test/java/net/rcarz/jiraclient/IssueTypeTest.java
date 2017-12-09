@@ -4,9 +4,7 @@ import net.sf.json.JSONObject;
 import org.junit.Test;
 import org.powermock.api.mockito.PowerMockito;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertSame;
+import static junit.framework.Assert.*;
 import static org.mockito.Matchers.anyString;
 import static org.powermock.api.mockito.PowerMockito.when;
 
@@ -30,7 +28,7 @@ public class IssueTypeTest {
     }
 
     @Test
-    public void testFields() throws Exception {
+    public void testFields() {
         final JSONObject testJSON = getTestJSON();
         final JSONObject fields = new JSONObject();
         fields.put("key1","key1Value");

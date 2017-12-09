@@ -31,7 +31,7 @@ public class WorklogTest {
     }
 
     @Test
-    public void testToString() throws Exception {
+    public void testToString() {
         final RestClient mockRestClient = PowerMockito.mock(RestClient.class);
         final JSONObject mockJSONObject = new JSONObject();
         String dateString = "2015-12-24";

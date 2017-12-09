@@ -109,37 +109,37 @@ public class VersionTest {
 
 
     @Test
-    public void testToString() throws Exception {
+    public void testToString() {
         Version version = new Version(null, getTestJSON());
         assertEquals(version.toString(), "1.0");
     }
 
     @Test
-    public void testGetName() throws Exception {
+    public void testGetName() {
         Version version = new Version(null, getTestJSON());
         assertEquals(version.getName(), "1.0");
     }
 
     @Test
-    public void testIsArchived() throws Exception {
+    public void testIsArchived() {
         Version version = new Version(null, getTestJSON());
         assertFalse(version.isArchived());
     }
 
     @Test
-    public void testIsReleased() throws Exception {
+    public void testIsReleased() {
         Version version = new Version(null, getTestJSON());
         assertFalse(version.isReleased());
     }
 
     @Test
-    public void testGetReleaseDate() throws Exception {
+    public void testGetReleaseDate() {
         Version version = new Version(null, getTestJSON());
         assertEquals("2013-12-01",version.getReleaseDate());
     }
 
     @Test
-    public void testGetDescription() throws Exception {
+    public void testGetDescription() {
         Version version = new Version(null, getTestJSON());
         assertEquals("First Full Functional Build",version.getDescription());
     }

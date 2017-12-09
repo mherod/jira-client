@@ -18,7 +18,7 @@ class AgileClientDemoTest {
 
     @Test
     @Ignore("Demo to use the AgileClient")
-    public void demoUsingAgileClient() {
+    void demoUsingAgileClient() {
         // Init Agile client
         AgileClient agileClient = new AgileClient(new JiraClient("https://jira.example.com/jira", new BasicCredentials("batman", "pow! pow!")))
 

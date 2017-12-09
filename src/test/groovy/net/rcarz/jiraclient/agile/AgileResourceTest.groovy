@@ -17,7 +17,7 @@ import static org.junit.Assert.assertThat
 class AgileResourceTest extends AbstractResourceTest {
 
     @Rule
-    public ExpectedException expectedException = ExpectedException.none();
+    public ExpectedException expectedException = ExpectedException.none()
 
     @Test
     void "given a valid single resource JSON and a valid type, when calling getResource(), then should return an object"() {

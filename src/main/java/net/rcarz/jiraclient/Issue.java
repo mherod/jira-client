@@ -548,8 +548,7 @@ public class Issue extends Resource {
         private int total;
         
         public IssueIterator(RestClient restclient, String jql, String includedFields,
-                             String expandFields, Integer maxResults, Integer startAt)
-                             throws JiraException {
+                             String expandFields, Integer maxResults, Integer startAt) {
             this.restclient = restclient;
             this.jql = jql;
             this.includedFields = includedFields;
@@ -886,7 +885,7 @@ public class Issue extends Resource {
 
         List<Project> projects = Field.getResourceArray(
             Project.class,
-            (JSONArray)jo.get("projects"),
+                jo.get("projects"),
             restclient);
 
         if (projects.isEmpty() || projects.get(0).getIssueTypes().isEmpty())

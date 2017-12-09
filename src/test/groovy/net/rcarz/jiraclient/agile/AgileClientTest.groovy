@@ -21,7 +21,7 @@ class AgileClientTest extends AbstractResourceTest {
         when(mockRestClient.get(AgileResource.RESOURCE_URI + "board"))
                 .thenReturn(JSONSerializer.toJSON(JSONResources.LIST_OF_BOARDS))
 
-        List<Board> boards = agileClient.getBoards();
+        List<Board> boards = agileClient.getBoards()
 
         assertThat boards, new IsNot<>(new IsNull())
         assertThat boards.size(), new IsEqual<Integer>(2)
@@ -34,7 +34,7 @@ class AgileClientTest extends AbstractResourceTest {
         when(mockRestClient.get(AgileResource.RESOURCE_URI + "board/" + JSONResources.BOARD_ID))
                 .thenReturn(JSONSerializer.toJSON(JSONResources.BOARD))
 
-        Board board = agileClient.getBoard(JSONResources.BOARD_ID);
+        Board board = agileClient.getBoard(JSONResources.BOARD_ID)
 
         assertThat board, new IsNot<>(new IsNull())
         "Assert equals to Board"(board)
@@ -46,7 +46,7 @@ class AgileClientTest extends AbstractResourceTest {
         when(mockRestClient.get(AgileResource.RESOURCE_URI + "sprint/" + JSONResources.SPRINT_ID))
                 .thenReturn(JSONSerializer.toJSON(JSONResources.SPRINT))
 
-        Sprint sprint = agileClient.getSprint(JSONResources.SPRINT_ID);
+        Sprint sprint = agileClient.getSprint(JSONResources.SPRINT_ID)
 
         assertThat sprint, new IsNot<>(new IsNull())
         "Assert equals to Sprint"(sprint)
@@ -58,7 +58,7 @@ class AgileClientTest extends AbstractResourceTest {
         when(mockRestClient.get(AgileResource.RESOURCE_URI + "issue/" + JSONResources.ISSUE_ID))
                 .thenReturn(JSONSerializer.toJSON(JSONResources.ISSUE))
 
-        Issue issue = agileClient.getIssue(JSONResources.ISSUE_ID);
+        Issue issue = agileClient.getIssue(JSONResources.ISSUE_ID)
 
         "Assert equals to Issue"(issue)
     }
@@ -69,7 +69,7 @@ class AgileClientTest extends AbstractResourceTest {
         when(mockRestClient.get(AgileResource.RESOURCE_URI + "issue/" + JSONResources.ISSUE_KEY))
                 .thenReturn(JSONSerializer.toJSON(JSONResources.ISSUE))
 
-        Issue issue = agileClient.getIssue(JSONResources.ISSUE_KEY);
+        Issue issue = agileClient.getIssue(JSONResources.ISSUE_KEY)
 
         "Assert equals to Issue"(issue)
     }
@@ -80,7 +80,7 @@ class AgileClientTest extends AbstractResourceTest {
         when(mockRestClient.get(AgileResource.RESOURCE_URI + "epic/" + JSONResources.EPIC_ID))
                 .thenReturn(JSONSerializer.toJSON(JSONResources.EPIC))
 
-        Epic epic = agileClient.getEpic(JSONResources.EPIC_ID);
+        Epic epic = agileClient.getEpic(JSONResources.EPIC_ID)
 
         "Assert equals to Epic"(epic)
     }

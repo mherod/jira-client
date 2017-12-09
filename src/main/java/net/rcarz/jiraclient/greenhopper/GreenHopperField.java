@@ -20,15 +20,13 @@
 package net.rcarz.jiraclient.greenhopper;
 
 import net.rcarz.jiraclient.RestClient;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
 
 /**
  * Utility functions for translating between JSON and fields.
@@ -49,7 +47,7 @@ public final class GreenHopperField {
      * @return the date-time or null
      */
     public static DateTime getDateTime(Object dt) {
-        if(dt == null || ((String)dt).equals(NO_DATE)){
+        if(dt == null || dt.equals(NO_DATE)){
             return null;
         }
         return DateTime.parse((String)dt, DateTimeFormat.forPattern(DATE_TIME_FORMAT));

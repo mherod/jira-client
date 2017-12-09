@@ -22,7 +22,7 @@ import static org.mockito.Mockito.when
 class EpicTest extends AbstractResourceTest {
 
     @Rule
-    public ExpectedException expectedException = ExpectedException.none();
+    public ExpectedException expectedException = ExpectedException.none()
 
     @Test
     void "Given a valid Epic ID, when calling Epic.get(id), then receive one Epic."() {
@@ -30,7 +30,7 @@ class EpicTest extends AbstractResourceTest {
         when(mockRestClient.get(AgileResource.RESOURCE_URI + "epic/" + JSONResources.EPIC_ID))
                 .thenReturn(JSONSerializer.toJSON(JSONResources.EPIC))
 
-        Epic epic = Epic.get(mockRestClient, JSONResources.EPIC_ID);
+        Epic epic = Epic.get(mockRestClient, JSONResources.EPIC_ID)
 
         "Assert equals to Epic"(epic)
     }
@@ -41,10 +41,10 @@ class EpicTest extends AbstractResourceTest {
         RestClient mockRestClient = "given a REST Client"()
         when(mockRestClient.get(AgileResource.RESOURCE_URI + "epic/666"))
                 .thenThrow(unauthorized)
-        expectedException.expect(JiraException.class);
-        expectedException.expectMessage("Failed to retrieve Epic : /rest/agile/1.0/epic/666");
+        expectedException.expect(JiraException.class)
+        expectedException.expectMessage("Failed to retrieve Epic : /rest/agile/1.0/epic/666")
 
-        Epic.get(mockRestClient, 666);
+        Epic.get(mockRestClient, 666)
     }
 
     @Test
@@ -100,7 +100,7 @@ class EpicTest extends AbstractResourceTest {
         when(mockRestClient.get(AgileResource.RESOURCE_URI + "epic/${JSONResources.EPIC_ID}/issue"))
                 .thenReturn(JSONSerializer.toJSON(JSONResources.LIST_OF_ISSUES))
 
-        List<Issue> issues = mockEpic.getIssues();
+        List<Issue> issues = mockEpic.getIssues()
 
         assertThat issues, new IsNot<>(new IsNull())
         assertThat issues.size(), new IsEqual<Integer>(4)

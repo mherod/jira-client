@@ -25,7 +25,7 @@ public class TimeTrackingTest {
 
 
   @Test
-  public void testCreateTimeTracking() throws Exception {
+  public void testCreateTimeTracking() {
 
     final JSONObject testJson = new JSONObject();
     testJson.put("originalEstimate", "1 day");
@@ -48,7 +48,7 @@ public class TimeTrackingTest {
 
 
   @Test
-  public void testGettersAndSetters() throws Exception {
+  public void testGettersAndSetters() {
 
     final JSONObject testJson = new JSONObject();
     testJson.put("originalEstimate", "1 day");
@@ -82,7 +82,7 @@ public class TimeTrackingTest {
   }
 
   @Test
-  public void testEmptyValues() throws Exception {
+  public void testEmptyValues() {
     TimeTracking timeTracking = new TimeTracking();
     assertNull(timeTracking.getOriginalEstimate());
     assertNull(timeTracking.getRemainingEstimate());
@@ -90,7 +90,7 @@ public class TimeTrackingTest {
   }
 
   @Test
-  public void testTimeTrackingFromTimeTracking() throws Exception {
+  public void testTimeTrackingFromTimeTracking() {
 
     final JSONObject testJson = new JSONObject();
     testJson.put("originalEstimate", "1 day");
@@ -121,7 +121,7 @@ public class TimeTrackingTest {
   }
 
   @Test
-  public void testToJSONObject() throws Exception {
+  public void testToJSONObject() {
 
 
     final JSONObject testJson = new JSONObject();

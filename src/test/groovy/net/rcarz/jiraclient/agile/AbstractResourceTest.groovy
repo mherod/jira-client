@@ -17,8 +17,8 @@ import static org.mockito.Mockito.when
  * @author pldupont
  */
 class AbstractResourceTest {
-    AgileClient agileClient;
-    RestClient mockRestClient;
+    AgileClient agileClient
+    RestClient mockRestClient
 
     void "given an Agile Client"() {
         mockRestClient = mock RestClient.class

@@ -19,6 +19,13 @@
 
 package net.rcarz.jiraclient;
 
+import net.sf.json.JSON;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+import org.apache.http.client.HttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.conn.PoolingClientConnectionManager;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -26,14 +33,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.http.client.HttpClient;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.conn.PoolingClientConnectionManager;
-
-import net.sf.json.JSON;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 
 /**
  * A simple JIRA REST client.
@@ -419,7 +418,7 @@ public class JiraClient {
      * @throws JiraException when the search fails
      */
     public List<CustomFieldOption> getCustomFieldAllowedValues(String field, String project, String issueType) throws JiraException {
-        JSONObject createMetadata = (JSONObject) Issue.getCreateMetadata(restclient, project, issueType);
+        JSONObject createMetadata = Issue.getCreateMetadata(restclient, project, issueType);
         JSONObject fieldMetadata = (JSONObject) createMetadata.get(field);
         List<CustomFieldOption> customFieldOptions = Field.getResourceArray(
                 CustomFieldOption.class,
@@ -440,7 +439,7 @@ public class JiraClient {
      * @throws JiraException when the search fails
      */
     public List<Component> getComponentsAllowedValues(String project, String issueType) throws JiraException {
-        JSONObject createMetadata = (JSONObject) Issue.getCreateMetadata(restclient, project, issueType);
+        JSONObject createMetadata = Issue.getCreateMetadata(restclient, project, issueType);
         JSONObject fieldMetadata = (JSONObject) createMetadata.get(Field.COMPONENTS);
         List<Component> componentOptions = Field.getResourceArray(
                 Component.class,

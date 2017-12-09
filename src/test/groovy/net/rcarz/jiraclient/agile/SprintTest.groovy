@@ -22,7 +22,7 @@ import static org.mockito.Mockito.when
 class SprintTest extends AbstractResourceTest {
 
     @Rule
-    public ExpectedException expectedException = ExpectedException.none();
+    public ExpectedException expectedException = ExpectedException.none()
 
     @Test
     void "Given a RestClient, when calling getAll(), then receive a list of Sprint."() {
@@ -30,7 +30,7 @@ class SprintTest extends AbstractResourceTest {
         when(mockRestClient.get(AgileResource.RESOURCE_URI + "board/" + JSONResources.SPRINT_ORIGIN_BOARD_ID + "/sprint"))
                 .thenReturn(JSONSerializer.toJSON(JSONResources.LIST_OF_SPRINTS))
 
-        List<Sprint> sprints = Sprint.getAll(mockRestClient, JSONResources.SPRINT_ORIGIN_BOARD_ID);
+        List<Sprint> sprints = Sprint.getAll(mockRestClient, JSONResources.SPRINT_ORIGIN_BOARD_ID)
 
         assertThat sprints, new IsNot<>(new IsNull())
         assertThat sprints.size(), new IsEqual<Integer>(2)
@@ -43,10 +43,10 @@ class SprintTest extends AbstractResourceTest {
         RestClient mockRestClient = "given a REST Client"()
         when(mockRestClient.get(AgileResource.RESOURCE_URI + "board/" + JSONResources.SPRINT_ORIGIN_BOARD_ID + "/sprint"))
                 .thenThrow(unauthorized)
-        expectedException.expect(JiraException.class);
-        expectedException.expectMessage("Failed to retrieve a list of Sprint : /rest/agile/1.0/board/" + JSONResources.SPRINT_ORIGIN_BOARD_ID + "/sprint");
+        expectedException.expect(JiraException.class)
+        expectedException.expectMessage("Failed to retrieve a list of Sprint : /rest/agile/1.0/board/" + JSONResources.SPRINT_ORIGIN_BOARD_ID + "/sprint")
 
-        Sprint.getAll(mockRestClient, JSONResources.SPRINT_ORIGIN_BOARD_ID);
+        Sprint.getAll(mockRestClient, JSONResources.SPRINT_ORIGIN_BOARD_ID)
     }
 
     @Test
@@ -55,7 +55,7 @@ class SprintTest extends AbstractResourceTest {
         when(mockRestClient.get(AgileResource.RESOURCE_URI + "sprint/${JSONResources.SPRINT_ID}"))
                 .thenReturn(JSONSerializer.toJSON(JSONResources.SPRINT))
 
-        Sprint sprint = Sprint.get(mockRestClient, JSONResources.SPRINT_ID);
+        Sprint sprint = Sprint.get(mockRestClient, JSONResources.SPRINT_ID)
 
         "Assert equals to Sprint"(sprint)
     }
@@ -66,10 +66,10 @@ class SprintTest extends AbstractResourceTest {
         RestClient mockRestClient = "given a REST Client"()
         when(mockRestClient.get(AgileResource.RESOURCE_URI + "sprint/666"))
                 .thenThrow(unauthorized)
-        expectedException.expect(JiraException.class);
-        expectedException.expectMessage("Failed to retrieve Sprint : /rest/agile/1.0/sprint/666");
+        expectedException.expect(JiraException.class)
+        expectedException.expectMessage("Failed to retrieve Sprint : /rest/agile/1.0/sprint/666")
 
-        Sprint.get(mockRestClient, 666);
+        Sprint.get(mockRestClient, 666)
     }
 
     @Test
@@ -79,7 +79,7 @@ class SprintTest extends AbstractResourceTest {
         when(mockRestClient.get(AgileResource.RESOURCE_URI + "sprint/${JSONResources.SPRINT_ID}/issue"))
                 .thenReturn(JSONSerializer.toJSON(JSONResources.LIST_OF_ISSUES))
 
-        List<Issue> issues = mockSprint.getIssues();
+        List<Issue> issues = mockSprint.getIssues()
 
         assertThat issues, new IsNot<>(new IsNull())
         assertThat issues.size(), new IsEqual<Integer>(4)

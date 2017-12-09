@@ -17,7 +17,7 @@ import static org.mockito.Mockito.when
 class IssueTest extends AbstractResourceTest {
 
     @Rule
-    public ExpectedException expectedException = ExpectedException.none();
+    public ExpectedException expectedException = ExpectedException.none()
 
     @Test
     void "Given a valid issue ID, when calling Issue.get(id), then receive one Issue."() {
@@ -25,7 +25,7 @@ class IssueTest extends AbstractResourceTest {
         when(mockRestClient.get(AgileResource.RESOURCE_URI + "issue/" + JSONResources.ISSUE_ID))
                 .thenReturn(JSONSerializer.toJSON(JSONResources.ISSUE))
 
-        Issue issue = Issue.get(mockRestClient, JSONResources.ISSUE_ID);
+        Issue issue = Issue.get(mockRestClient, JSONResources.ISSUE_ID)
 
         "Assert equals to Issue"(issue)
     }
@@ -36,10 +36,10 @@ class IssueTest extends AbstractResourceTest {
         RestClient mockRestClient = "given a REST Client"()
         when(mockRestClient.get(AgileResource.RESOURCE_URI + "issue/666"))
                 .thenThrow(unauthorized)
-        expectedException.expect(JiraException.class);
-        expectedException.expectMessage("Failed to retrieve Issue : /rest/agile/1.0/issue/666");
+        expectedException.expect(JiraException.class)
+        expectedException.expectMessage("Failed to retrieve Issue : /rest/agile/1.0/issue/666")
 
-        Issue.get(mockRestClient, 666);
+        Issue.get(mockRestClient, 666)
     }
 
     @Test
@@ -48,7 +48,7 @@ class IssueTest extends AbstractResourceTest {
         when(mockRestClient.get(AgileResource.RESOURCE_URI + "issue/" + JSONResources.ISSUE_KEY))
                 .thenReturn(JSONSerializer.toJSON(JSONResources.ISSUE))
 
-        Issue issue = Issue.get(mockRestClient, JSONResources.ISSUE_KEY);
+        Issue issue = Issue.get(mockRestClient, JSONResources.ISSUE_KEY)
 
         "Assert equals to Issue"(issue)
     }
@@ -59,10 +59,10 @@ class IssueTest extends AbstractResourceTest {
         RestClient mockRestClient = "given a REST Client"()
         when(mockRestClient.get(AgileResource.RESOURCE_URI + "issue/HSP-2"))
                 .thenThrow(unauthorized)
-        expectedException.expect(JiraException.class);
-        expectedException.expectMessage("Failed to retrieve Issue : /rest/agile/1.0/issue/HSP-2");
+        expectedException.expect(JiraException.class)
+        expectedException.expectMessage("Failed to retrieve Issue : /rest/agile/1.0/issue/HSP-2")
 
-        Issue.get(mockRestClient, "HSP-2");
+        Issue.get(mockRestClient, "HSP-2")
     }
 
     @Test
@@ -71,7 +71,7 @@ class IssueTest extends AbstractResourceTest {
         when(mockRestClient.get(AgileResource.RESOURCE_URI + "issue/" + JSONResources.BLANK_ISSUE1_ID))
                 .thenReturn(JSONSerializer.toJSON(JSONResources.BLANK_ISSUE1))
 
-        Issue issue = Issue.get(mockRestClient, JSONResources.BLANK_ISSUE1_ID);
+        Issue issue = Issue.get(mockRestClient, JSONResources.BLANK_ISSUE1_ID)
 
         "Assert equals to Issue Blank"(issue)
     }

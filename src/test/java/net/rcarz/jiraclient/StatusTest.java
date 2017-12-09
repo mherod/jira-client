@@ -4,7 +4,6 @@ import net.sf.json.JSONObject;
 import org.junit.Test;
 import org.powermock.api.mockito.PowerMockito;
 
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -19,7 +18,7 @@ public class StatusTest {
     private String iconURL = "https://site/images/icons/statuses/open.png";
 
     @Test
-    public void testJSONDeserializer() throws IOException, URISyntaxException {
+    public void testJSONDeserializer() throws URISyntaxException {
         Status status = new Status(new RestClient(null, new URI("/123/asd")), getTestJSON());
         assertEquals(status.getDescription(), description);
         assertEquals(status.getIconUrl(), iconURL);

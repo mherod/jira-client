@@ -22,7 +22,7 @@ import static org.mockito.Mockito.when
 class BoardTest extends AbstractResourceTest {
 
     @Rule
-    public ExpectedException expectedException = ExpectedException.none();
+    public ExpectedException expectedException = ExpectedException.none()
 
     @Test
     void "Given a RestClient, when calling getAll(), then receive a list of Board."() {
@@ -30,7 +30,7 @@ class BoardTest extends AbstractResourceTest {
         when(mockRestClient.get(AgileResource.RESOURCE_URI + "board"))
                 .thenReturn(JSONSerializer.toJSON(JSONResources.LIST_OF_BOARDS))
 
-        List<Board> boards = Board.getAll(mockRestClient);
+        List<Board> boards = Board.getAll(mockRestClient)
 
         assertThat boards, new IsNot<>(new IsNull())
         assertThat boards.size(), new IsEqual<Integer>(2)
@@ -43,10 +43,10 @@ class BoardTest extends AbstractResourceTest {
         RestClient mockRestClient = "given a REST Client"()
         when(mockRestClient.get(AgileResource.RESOURCE_URI + "board"))
                 .thenThrow(unauthorized)
-        expectedException.expect(JiraException.class);
-        expectedException.expectMessage("Failed to retrieve a list of Board : /rest/agile/1.0/board");
+        expectedException.expect(JiraException.class)
+        expectedException.expectMessage("Failed to retrieve a list of Board : /rest/agile/1.0/board")
 
-        Board.getAll(mockRestClient);
+        Board.getAll(mockRestClient)
     }
 
     @Test
@@ -55,7 +55,7 @@ class BoardTest extends AbstractResourceTest {
         when(mockRestClient.get(AgileResource.RESOURCE_URI + "board/${JSONResources.BOARD_ID}"))
                 .thenReturn(JSONSerializer.toJSON(JSONResources.BOARD))
 
-        Board board = Board.get(mockRestClient, JSONResources.BOARD_ID);
+        Board board = Board.get(mockRestClient, JSONResources.BOARD_ID)
 
         "Assert equals to Board"(board)
     }
@@ -66,10 +66,10 @@ class BoardTest extends AbstractResourceTest {
         RestClient mockRestClient = "given a REST Client"()
         when(mockRestClient.get(AgileResource.RESOURCE_URI + "board/666"))
                 .thenThrow(unauthorized)
-        expectedException.expect(JiraException.class);
-        expectedException.expectMessage("Failed to retrieve Board : /rest/agile/1.0/board/666");
+        expectedException.expect(JiraException.class)
+        expectedException.expectMessage("Failed to retrieve Board : /rest/agile/1.0/board/666")
 
-        Board.get(mockRestClient, 666);
+        Board.get(mockRestClient, 666)
     }
 
     @Test
@@ -79,7 +79,7 @@ class BoardTest extends AbstractResourceTest {
         when(mockRestClient.get(AgileResource.RESOURCE_URI + "board/${JSONResources.BOARD_ID}/sprint"))
                 .thenReturn(JSONSerializer.toJSON(JSONResources.LIST_OF_SPRINTS))
 
-        List<Sprint> sprints = mockBoard.getSprints();
+        List<Sprint> sprints = mockBoard.getSprints()
 
         assertThat sprints, new IsNot<>(new IsNull())
         assertThat sprints.size(), new IsEqual<Integer>(2)
@@ -93,7 +93,7 @@ class BoardTest extends AbstractResourceTest {
         when(mockRestClient.get(AgileResource.RESOURCE_URI + "board/${JSONResources.BOARD_ID}/epic"))
                 .thenReturn(JSONSerializer.toJSON(JSONResources.LIST_OF_EPICS))
 
-        List<Epic> epics = mockBoard.getEpics();
+        List<Epic> epics = mockBoard.getEpics()
 
         assertThat epics, new IsNot<>(new IsNull())
         assertThat epics.size(), new IsEqual<Integer>(2)
@@ -107,7 +107,7 @@ class BoardTest extends AbstractResourceTest {
         when(mockRestClient.get(AgileResource.RESOURCE_URI + "board/${JSONResources.BOARD_ID}/backlog"))
                 .thenReturn(JSONSerializer.toJSON(JSONResources.LIST_OF_ISSUES))
 
-        List<Issue> backlog = mockBoard.getBacklog();
+        List<Issue> backlog = mockBoard.getBacklog()
 
         assertThat backlog, new IsNot<>(new IsNull())
         assertThat backlog.size(), new IsEqual<Integer>(4)
@@ -121,7 +121,7 @@ class BoardTest extends AbstractResourceTest {
         when(mockRestClient.get(AgileResource.RESOURCE_URI + "board/${JSONResources.BOARD_ID}/epic/none/issue"))
                 .thenReturn(JSONSerializer.toJSON(JSONResources.LIST_OF_ISSUES))
 
-        List<Issue> issues = mockBoard.getIssuesWithoutEpic();
+        List<Issue> issues = mockBoard.getIssuesWithoutEpic()
 
         assertThat issues, new IsNot<>(new IsNull())
         assertThat issues.size(), new IsEqual<Integer>(4)
