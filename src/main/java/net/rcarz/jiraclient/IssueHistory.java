@@ -2,6 +2,7 @@ package net.rcarz.jiraclient;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,6 +13,7 @@ public class IssueHistory extends Resource {
     private static final long serialVersionUID = 1L;
     private User user;
     private ArrayList<IssueHistoryItem> changes;
+    @Nullable
     private Date created;
 
     /**
@@ -20,7 +22,7 @@ public class IssueHistory extends Resource {
      * @param restclient REST client instance
      * @param json JSON payload
      */
-    protected IssueHistory(RestClient restclient, JSONObject json) {
+    protected IssueHistory(RestClient restclient, @Nullable JSONObject json) {
         super(restclient);
 
         if (json != null) {
@@ -59,6 +61,7 @@ public class IssueHistory extends Resource {
         return changes;
     }
 
+    @Nullable
     public Date getCreated() {
         return created;
     }

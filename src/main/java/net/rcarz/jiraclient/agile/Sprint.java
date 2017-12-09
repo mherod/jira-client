@@ -23,6 +23,7 @@ import net.rcarz.jiraclient.Field;
 import net.rcarz.jiraclient.JiraException;
 import net.rcarz.jiraclient.RestClient;
 import net.sf.json.JSONObject;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Date;
 import java.util.List;
@@ -83,7 +84,7 @@ public class Sprint extends AgileResource {
     }
 
     @Override
-    protected void deserialize(JSONObject json) throws JiraException {
+    protected void deserialize(@NotNull JSONObject json) throws JiraException {
         super.deserialize(json);
         state = Field.getString(json.get("state"));
         originBoardId = getLong(json.get("originBoardId"));

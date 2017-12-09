@@ -19,20 +19,28 @@
 
 package net.rcarz.jiraclient;
 
-import java.util.Map;
-
 import net.sf.json.JSONObject;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Map;
 
 /**
  * Represents issue time tracking data.
  */
 public class TimeTracking {
 
+    @Nullable
     private String originalEstimate = null;
+    @Nullable
     private String remainingEstimate = null;
+    @Nullable
     private String timeSpent = null;
+    @Nullable
     private Integer originalEstimateSeconds = null;
+    @Nullable
     private Integer remainingEstimateSeconds = null;
+    @Nullable
     private Integer timeSpentSeconds = null;
 
     /**
@@ -63,6 +71,7 @@ public class TimeTracking {
         this.timeSpentSeconds =tt.timeSpentSeconds;
     }
 
+    @NotNull
     protected JSONObject toJsonObject() {
         JSONObject object = new JSONObject();
         if (originalEstimate != null)
@@ -80,14 +89,17 @@ public class TimeTracking {
         return object;
     }
 
+    @Nullable
     public String getOriginalEstimate() {
         return originalEstimate;
     }
 
+    @Nullable
     public String getRemainingEstimate() {
         return remainingEstimate;
     }
 
+    @Nullable
     public String getTimeSpent() {
         return timeSpent;
     }

@@ -19,10 +19,11 @@
 
 package net.rcarz.jiraclient;
 
+import net.sf.json.JSONObject;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.List;
 import java.util.Map;
-
-import net.sf.json.JSONObject;
 
 /**
  * Issue change log.
@@ -31,6 +32,7 @@ public class ChangeLog extends Resource {
     /**
      * List of change log entries.
      */
+    @Nullable
     private List<ChangeLogEntry> entries = null;
 
     /**
@@ -39,7 +41,7 @@ public class ChangeLog extends Resource {
      * @param restclient REST client instance
      * @param json JSON payload
      */
-    protected ChangeLog(RestClient restclient, JSONObject json) {
+    protected ChangeLog(RestClient restclient, @Nullable JSONObject json) {
         super(restclient);
 
         if (json != null)
@@ -61,6 +63,7 @@ public class ChangeLog extends Resource {
      * Returns the list of change log entries in the change log.
      * @return the list of entries
      */
+    @Nullable
     public List<ChangeLogEntry> getEntries() {
         return entries;
     }

@@ -22,6 +22,8 @@ package net.rcarz.jiraclient.greenhopper;
 import net.rcarz.jiraclient.RestClient;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 
@@ -46,7 +48,8 @@ public final class GreenHopperField {
      *
      * @return the date-time or null
      */
-    public static DateTime getDateTime(Object dt) {
+    @Nullable
+    public static DateTime getDateTime(@Nullable Object dt) {
         if(dt == null || dt.equals(NO_DATE)){
             return null;
         }
@@ -60,6 +63,7 @@ public final class GreenHopperField {
      *
      * @return a EpicStats instance or null if es isn't a JSONObject instance
      */
+    @Nullable
     public static EpicStats getEpicStats(Object es) {
         EpicStats result = null;
 
@@ -76,6 +80,7 @@ public final class GreenHopperField {
      *
      * @return a EstimateStatistic instance or null if es isn't a JSONObject instance
      */
+    @Nullable
     public static EstimateStatistic getEstimateStatistic(Object es) {
         EstimateStatistic result = null;
 
@@ -92,6 +97,7 @@ public final class GreenHopperField {
      *
      * @return a EstimateSum instance or null if es isn't a JSONObject instance
      */
+    @Nullable
     public static EstimateSum getEstimateSum(Object es) {
         EstimateSum result = null;
 
@@ -108,6 +114,7 @@ public final class GreenHopperField {
      *
      * @return a list of integers
      */
+    @NotNull
     public static List<Integer> getIntegerArray(Object ia) {
         List<Integer> results = new ArrayList<Integer>();
 
@@ -128,6 +135,7 @@ public final class GreenHopperField {
      *
      * @return a Resource instance or null if r isn't a JSONObject instance
      */
+    @Nullable
     public static <T extends GreenHopperResource> T getResource(
         Class<T> type, Object r, RestClient restclient) {
 
@@ -160,6 +168,7 @@ public final class GreenHopperField {
      *
      * @return a list of Resources found in ra
      */
+    @NotNull
     public static <T extends GreenHopperResource> List<T> getResourceArray(
         Class<T> type, Object ra, RestClient restclient) {
 
@@ -183,6 +192,7 @@ public final class GreenHopperField {
      *
      * @return a list of strings
      */
+    @NotNull
     public static List<String> getStringArray(Object ia) {
         List<String> results = new ArrayList<String>();
 

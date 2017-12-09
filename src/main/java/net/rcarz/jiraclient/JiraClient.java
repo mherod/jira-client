@@ -25,6 +25,8 @@ import net.sf.json.JSONObject;
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.PoolingClientConnectionManager;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.net.URI;
@@ -39,7 +41,9 @@ import java.util.Map;
  */
 public class JiraClient {
 
+    @Nullable
     private RestClient restclient = null;
+    @Nullable
     private String username = null;
 
     /**
@@ -48,7 +52,7 @@ public class JiraClient {
      * @param uri Base URI of the JIRA server
      * @throws JiraException 
      */
-    public JiraClient(String uri) throws JiraException {
+    public JiraClient(@NotNull String uri) throws JiraException {
         this(null, uri, null);
     }
 
@@ -59,7 +63,7 @@ public class JiraClient {
      * @param creds Credentials to authenticate with
      * @throws JiraException 
      */
-    public JiraClient(String uri, ICredentials creds) throws JiraException {
+    public JiraClient(@NotNull String uri, ICredentials creds) throws JiraException {
         this(null, uri, creds);
     }
     
@@ -71,7 +75,7 @@ public class JiraClient {
      * @param creds Credentials to authenticate with
      * @throws JiraException 
      */
-    public JiraClient(HttpClient httpClient, String uri, ICredentials creds) throws JiraException {
+    public JiraClient(@Nullable HttpClient httpClient, @NotNull String uri, @Nullable ICredentials creds) throws JiraException {
         if (httpClient == null) {
             PoolingClientConnectionManager connManager = new PoolingClientConnectionManager();
             connManager.setDefaultMaxPerRoute(20);
@@ -98,6 +102,7 @@ public class JiraClient {
      *
      * @throws JiraException when something goes wrong
      */
+    @NotNull
     public Issue.FluentCreate createIssue(String project, String issueType)
             throws JiraException {
 
@@ -113,6 +118,7 @@ public class JiraClient {
      *
      * @throws JiraException when something goes wrong
      */
+    @NotNull
     public Issue getIssue(String key) throws JiraException {
         return Issue.get(restclient, key);
     }
@@ -136,6 +142,7 @@ public class JiraClient {
      *
      * @throws JiraException when something goes wrong
      */
+    @NotNull
     public Issue getIssue(String key, String includedFields) throws JiraException {
         return Issue.get(restclient, key, includedFields);
     }
@@ -161,8 +168,9 @@ public class JiraClient {
      *
      * @throws JiraException when something goes wrong
      */
+    @NotNull
     public Issue getIssue(String key, String includedFields,
-            String expand) throws JiraException {
+                          String expand) throws JiraException {
         return Issue.get(restclient, key, includedFields, expand);
     }
 
@@ -189,6 +197,7 @@ public class JiraClient {
      *
      * @throws JiraException when the search fails
      */
+    @NotNull
     public Issue.SearchResult searchIssues(String jql)
             throws JiraException {
 
@@ -206,6 +215,7 @@ public class JiraClient {
      *
      * @throws JiraException when the search fails
      */
+    @NotNull
     public Issue.SearchResult searchIssues(String jql, Integer maxResults)
             throws JiraException {
 
@@ -233,6 +243,7 @@ public class JiraClient {
      *
      * @throws JiraException when the search fails
      */
+    @NotNull
     public Issue.SearchResult searchIssues(String jql, String includedFields)
             throws JiraException {
 
@@ -261,6 +272,7 @@ public class JiraClient {
      *
      * @throws JiraException when the search fails
      */
+    @NotNull
     public Issue.SearchResult searchIssues(String jql, String includedFields,
                                            String expandFields) throws JiraException {
 
@@ -289,6 +301,7 @@ public class JiraClient {
      *
      * @throws JiraException when the search fails
      */
+    @NotNull
     public Issue.SearchResult searchIssues(String jql, String includedFields, Integer maxResults)
             throws JiraException {
 
@@ -323,8 +336,9 @@ public class JiraClient {
      *
      * @throws JiraException when the search fails
      */
+    @NotNull
     public Issue.SearchResult searchIssues(String jql, String includedFields,
-            Integer maxResults, Integer startAt) throws JiraException {
+                                           Integer maxResults, Integer startAt) throws JiraException {
 
         return searchIssues(jql, includedFields, null, maxResults, startAt);
     }
@@ -359,6 +373,7 @@ public class JiraClient {
      *
      * @throws JiraException when the search fails
      */
+    @NotNull
     public Issue.SearchResult searchIssues(String jql, String includedFields,
                                            String expandFields, Integer maxResults,
                                            Integer startAt) throws JiraException {
@@ -379,6 +394,7 @@ public class JiraClient {
      * @return The Jira filter with the supplied id
      * @throws JiraException
      */
+    @NotNull
     public Filter getFilter(final String id) throws JiraException {
         return  Filter.get(restclient, id);
     }
@@ -388,6 +404,7 @@ public class JiraClient {
      * @return a list of all priorities available in the Jira installation
      * @throws JiraException
      */
+    @NotNull
     public List<Priority> getPriorities() throws JiraException {
         try {
             URI uri = restclient.buildURI(Resource.getBaseUri() + "priority");
@@ -417,6 +434,7 @@ public class JiraClient {
      *
      * @throws JiraException when the search fails
      */
+    @NotNull
     public List<CustomFieldOption> getCustomFieldAllowedValues(String field, String project, String issueType) throws JiraException {
         JSONObject createMetadata = Issue.getCreateMetadata(restclient, project, issueType);
         JSONObject fieldMetadata = (JSONObject) createMetadata.get(field);
@@ -438,6 +456,7 @@ public class JiraClient {
      *
      * @throws JiraException when the search fails
      */
+    @NotNull
     public List<Component> getComponentsAllowedValues(String project, String issueType) throws JiraException {
         JSONObject createMetadata = Issue.getCreateMetadata(restclient, project, issueType);
         JSONObject fieldMetadata = (JSONObject) createMetadata.get(Field.COMPONENTS);
@@ -449,10 +468,12 @@ public class JiraClient {
         return componentOptions;
     }
 
+    @Nullable
     public RestClient getRestClient() {
         return restclient;
     }
 
+    @Nullable
     public String getSelf() {
         return username;
     }
@@ -463,6 +484,7 @@ public class JiraClient {
      * the extra data use {@link #getProject(String)}
      * @throws JiraException failed to obtain the project list.
      */
+    @NotNull
     public List<Project> getProjects() throws JiraException {
         try {
             URI uri = restclient.buildURI(Resource.getBaseUri() + "project");
@@ -487,6 +509,7 @@ public class JiraClient {
      * @return the project
      * @throws JiraException failed to obtain the project
      */
+    @Nullable
     public Project getProject(String key) throws JiraException {
         try {
             URI uri = restclient.buildURI(Resource.getBaseUri() + "project/" + key);
@@ -502,6 +525,7 @@ public class JiraClient {
      * @return all issue types
      * @throws JiraException failed to obtain the issue type list.
      */
+    @NotNull
     public List<IssueType> getIssueTypes() throws JiraException {
         try {
             URI uri = restclient.buildURI(Resource.getBaseUri() + "issuetype");
@@ -527,6 +551,7 @@ public class JiraClient {
      *
      * @return a fluent create instance
      */
+    @NotNull
     public Component.FluentCreate createComponent(String project) {
         return Component.create(restclient, project);
     }
@@ -540,11 +565,13 @@ public class JiraClient {
      * 
      * @throws JiraException failed to obtain the component
      */
+    @NotNull
     public Component getComponent(String id) throws JiraException {
         return Component.get(restclient, id);
     }
     
-    public ArrayList<IssueHistory> filterChangeLog(List<IssueHistory> histoy,String fields) {
+    @NotNull
+    public ArrayList<IssueHistory> filterChangeLog(@NotNull List<IssueHistory> histoy, String fields) {
         ArrayList<IssueHistory> result = new ArrayList<IssueHistory>(histoy.size());
         fields = "," + fields + ",";
 
@@ -563,7 +590,8 @@ public class JiraClient {
         return result;
     }
 
-    public ArrayList<IssueHistory> getIssueChangeLog(Issue issue) throws JiraException {
+    @Nullable
+    public ArrayList<IssueHistory> getIssueChangeLog(@NotNull Issue issue) throws JiraException {
         try {
             ArrayList<IssueHistory> changes = null;
             JSON response = getNextPortion(issue, 0);
@@ -597,7 +625,7 @@ public class JiraClient {
         }
     }
 
-    private JSON getNextPortion(Issue issue, Integer startAt)
+    private JSON getNextPortion(@NotNull Issue issue, @Nullable Integer startAt)
             throws URISyntaxException, RestException, IOException {
 
         Map<String, String> params = new HashMap<String, String>();

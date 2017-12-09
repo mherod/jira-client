@@ -22,19 +22,21 @@ package net.rcarz.jiraclient.greenhopper;
 import net.rcarz.jiraclient.Field;
 import net.rcarz.jiraclient.JiraException;
 import net.rcarz.jiraclient.RestClient;
-
-import java.util.List;
-import java.util.Map;
-
 import net.sf.json.JSON;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Represents a GreenHopper Rapid Board.
  */
 public class RapidView extends GreenHopperResource {
 
+    @Nullable
     private String name = null;
     private boolean canEdit = false;
     private boolean sprintSupportEnabled = false;
@@ -45,7 +47,7 @@ public class RapidView extends GreenHopperResource {
      * @param restclient REST client instance
      * @param json JSON payload
      */
-    protected RapidView(RestClient restclient, JSONObject json) {
+    protected RapidView(RestClient restclient, @Nullable JSONObject json) {
         super(restclient);
 
         if (json != null)
@@ -71,7 +73,7 @@ public class RapidView extends GreenHopperResource {
      *
      * @throws JiraException when the retrieval fails
      */
-    public static RapidView get(RestClient restclient, int id)
+    public static RapidView get(@NotNull RestClient restclient, int id)
         throws JiraException {
 
         JSON result = null;
@@ -97,7 +99,7 @@ public class RapidView extends GreenHopperResource {
      *
      * @throws JiraException when the retrieval fails
      */
-    public static List<RapidView> getAll(RestClient restclient)
+    public static List<RapidView> getAll(@NotNull RestClient restclient)
         throws JiraException {
 
         JSON result = null;
@@ -163,7 +165,8 @@ public class RapidView extends GreenHopperResource {
      *
      * @throws JiraException when the retrieval fails
      */
-    public SprintReport getSprintReport(Sprint sprint) throws JiraException {
+    @NotNull
+    public SprintReport getSprintReport(@NotNull Sprint sprint) throws JiraException {
         return SprintReport.get(restclient, this, sprint);
     }
 
@@ -174,15 +177,18 @@ public class RapidView extends GreenHopperResource {
      *
      * @throws JiraException when the retrieval fails
      */
+    @NotNull
     public Backlog getBacklogData() throws JiraException {
         return Backlog.get(restclient, this);
     }
 
+    @Nullable
     @Override
     public String toString() {
         return name;
     }
 
+    @Nullable
     public String getName() {
         return name;
     }

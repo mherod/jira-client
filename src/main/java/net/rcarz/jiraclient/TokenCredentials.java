@@ -21,8 +21,8 @@ package net.rcarz.jiraclient;
 
 import net.sf.json.JSON;
 import net.sf.json.JSONObject;
-
 import org.apache.http.HttpRequest;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Basic HTTP authentication credentials.
@@ -32,7 +32,8 @@ public class TokenCredentials implements ICredentials {
     private String username;
     private String password;
     private String token;
-	private String cookieName="JSESSIONID";
+	@NotNull
+    private String cookieName="JSESSIONID";
 
     /**
      * Creates new basic HTTP credentials.
@@ -54,7 +55,7 @@ public class TokenCredentials implements ICredentials {
      *
      * @param req HTTP request to authenticate
      */
-    public void authenticate(HttpRequest req) {
+    public void authenticate(@NotNull HttpRequest req) {
         if (token != null) {
             req.addHeader("Cookie",cookieName+"="+token+";");
         }
@@ -69,7 +70,7 @@ public class TokenCredentials implements ICredentials {
         return username;
     }
 
-    public void initialize(RestClient client) throws JiraException {
+    public void initialize(@NotNull RestClient client) throws JiraException {
         if (token==null) {
             try {
                 JSONObject req = new JSONObject();
@@ -89,7 +90,7 @@ public class TokenCredentials implements ICredentials {
         }
     }
 
-    public void logout(RestClient client) throws JiraException {
+    public void logout(@NotNull RestClient client) throws JiraException {
         if (token != null) {
            try {
                 client.delete(Resource.getAuthUri() + "session");

@@ -1,22 +1,28 @@
 package net.rcarz.jiraclient;
 
-import java.util.Map;
-
 import net.sf.json.JSONObject;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Map;
 
 public class IssueHistoryItem extends Resource {
 
+    @Nullable
     private String field;
+    @Nullable
     private String from;
+    @Nullable
     private String to;
+    @Nullable
     private String fromStr;
+    @Nullable
     private String toStr;
 
     public IssueHistoryItem(RestClient restclient) {
         super(restclient);
     }
 
-    public IssueHistoryItem(RestClient restclient, JSONObject json) {
+    public IssueHistoryItem(RestClient restclient, @Nullable JSONObject json) {
         this(restclient);
         if (json != null) {
             deserialise(restclient,json);
@@ -34,22 +40,27 @@ public class IssueHistoryItem extends Resource {
         toStr = Field.getString(map.get("toString"));
     }
 
+    @Nullable
     public String getField() {
         return field;
     }
 
+    @Nullable
     public String getFrom() {
         return from;
     }
 
+    @Nullable
     public String getTo() {
         return to;
     }
 
+    @Nullable
     public String getFromStr() {
         return fromStr;
     }
 
+    @Nullable
     public String getToStr() {
         return toStr;
     }

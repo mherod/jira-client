@@ -21,6 +21,8 @@ package net.rcarz.jiraclient;
 
 import net.sf.json.JSON;
 import net.sf.json.JSONObject;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Date;
 import java.util.Map;
@@ -30,17 +32,25 @@ import java.util.Map;
  */
 public class Comment extends Resource {
 
+    @Nullable
     private String issueKey = null;
+    @Nullable
     private User author = null;
+    @Nullable
     private String body = null;
+    @Nullable
     private Date created = null;
+    @Nullable
     private Date updated = null;
+    @Nullable
     private User updatedAuthor = null;
 
+    @Nullable
     public Visibility getVisibility() {
         return visibility;
     }
 
+    @Nullable
     private Visibility visibility = null;
 
     /**
@@ -49,7 +59,7 @@ public class Comment extends Resource {
      * @param restclient REST client instance
      * @param json JSON payload
      */
-    protected Comment(RestClient restclient, JSONObject json, String issueKey) {
+    protected Comment(RestClient restclient, @Nullable JSONObject json, String issueKey) {
         super(restclient);
 
         this.issueKey = issueKey;
@@ -82,7 +92,7 @@ public class Comment extends Resource {
      *
      * @throws JiraException when the retrieval fails
      */
-    public static Comment get(RestClient restclient, String issue, String id)
+    public static Comment get(@NotNull RestClient restclient, String issue, String id)
         throws JiraException {
 
         JSON result = null;
@@ -121,7 +131,7 @@ public class Comment extends Resource {
      *
      * @throws JiraException when the comment update fails
      */
-    public void update(String body, String visType, String visName)
+    public void update(String body, @Nullable String visType, @Nullable String visName)
         throws JiraException {
 
         JSONObject req = new JSONObject();
@@ -151,27 +161,33 @@ public class Comment extends Resource {
         deserialise((JSONObject) result);
     }
 
+    @Nullable
     @Override
     public String toString() {
         return created + " by " + author;
     }
 
+    @Nullable
     public User getAuthor() {
         return author;
     }
 
+    @Nullable
     public String getBody() {
         return body;
     }
 
+    @Nullable
     public Date getCreatedDate() {
         return created;
     }
 
+    @Nullable
     public User getUpdateAuthor() {
         return updatedAuthor;
     }
 
+    @Nullable
     public Date getUpdatedDate() {
         return updated;
     }

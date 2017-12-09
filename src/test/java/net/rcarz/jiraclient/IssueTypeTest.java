@@ -1,6 +1,7 @@
 package net.rcarz.jiraclient;
 
 import net.sf.json.JSONObject;
+import org.jetbrains.annotations.NotNull;
 import org.junit.Test;
 import org.powermock.api.mockito.PowerMockito;
 
@@ -74,6 +75,7 @@ public class IssueTypeTest {
         assertEquals(issueType.toString(),"Story");
     }
 
+    @NotNull
     private JSONObject getTestJSON() {
         JSONObject jsonObject = new JSONObject();
 

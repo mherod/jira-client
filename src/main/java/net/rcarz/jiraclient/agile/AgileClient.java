@@ -22,6 +22,7 @@ package net.rcarz.jiraclient.agile;
 import net.rcarz.jiraclient.JiraClient;
 import net.rcarz.jiraclient.JiraException;
 import net.rcarz.jiraclient.RestClient;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -33,6 +34,7 @@ import java.util.List;
  */
 public class AgileClient {
 
+    @Nullable
     private RestClient restclient = null;
 
     /**
@@ -109,6 +111,7 @@ public class AgileClient {
         return Epic.get(restclient, id);
     }
 
+    @Nullable
     public RestClient getRestclient() {
         return restclient;
     }

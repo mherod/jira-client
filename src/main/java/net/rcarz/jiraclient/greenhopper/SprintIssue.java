@@ -21,17 +21,19 @@ package net.rcarz.jiraclient.greenhopper;
 
 import net.rcarz.jiraclient.Field;
 import net.rcarz.jiraclient.RestClient;
+import net.sf.json.JSONObject;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
-
-import net.sf.json.JSONObject;
 
 /**
  * Represents a GreenHopper sprint issue.
  */
 public class SprintIssue extends GreenHopperIssue {
 
+    @Nullable
     private String epic = null;
+    @Nullable
     private EstimateStatistic estimateStatistic = null;
 
     /**
@@ -40,7 +42,7 @@ public class SprintIssue extends GreenHopperIssue {
      * @param restclient REST client instance
      * @param json JSON payload
      */
-    protected SprintIssue(RestClient restclient, JSONObject json) {
+    protected SprintIssue(RestClient restclient, @Nullable JSONObject json) {
         super(restclient, json);
 
         if (json != null)
@@ -54,10 +56,12 @@ public class SprintIssue extends GreenHopperIssue {
         estimateStatistic = GreenHopperField.getEstimateStatistic(map.get("estimateStatistic"));
     }
 
+    @Nullable
     public String getEpic() {
         return epic;
     }
 
+    @Nullable
     public EstimateStatistic getEstimateStatistic() {
         return estimateStatistic;
     }

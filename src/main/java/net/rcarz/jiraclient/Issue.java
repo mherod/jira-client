@@ -23,6 +23,8 @@ import net.rcarz.utils.WorklogUtils;
 import net.sf.json.JSON;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 
@@ -42,8 +44,11 @@ public class Issue extends Resource {
      */
     public static final class FluentCreate {
 
+        @NotNull
         Map<String, Object> fields = new HashMap<String, Object>();
+        @Nullable
         RestClient restclient = null;
+        @Nullable
         JSONObject createmeta = null;
 
         private FluentCreate(RestClient restclient, JSONObject createmeta) {
@@ -94,7 +99,7 @@ public class Issue extends Resource {
          *
          * @throws JiraException when the create fails
          */
-        private Issue executeCreate(String includedFields) throws JiraException {
+        private Issue executeCreate(@Nullable String includedFields) throws JiraException {
             JSONObject fieldmap = new JSONObject();
 
             if (fields.size() == 0) {
@@ -137,6 +142,7 @@ public class Issue extends Resource {
          *
          * @return the current fluent update instance
          */
+        @NotNull
         public FluentCreate field(String name, Object value) {
             fields.put(name, value);
             return this;
@@ -152,7 +158,9 @@ public class Issue extends Resource {
 
         final private RestClient restclient;
         final private String key;
+        @NotNull
         final private JSONObject request;
+        @NotNull
         final private JSONObject object;
 
 
@@ -171,6 +179,7 @@ public class Issue extends Resource {
          * @param globalId the global id
          * @return this instance
          */
+        @NotNull
         public FluentRemoteLink globalId(final String globalId) {
             request.put("globalId", globalId);
             url(globalId);
@@ -183,6 +192,7 @@ public class Issue extends Resource {
          * @param url A hyperlink to the object in the remote system.
          * @return this instance
          */
+        @NotNull
         public FluentRemoteLink url(final String url) {
             object.put("url", url);
             return this;
@@ -194,6 +204,7 @@ public class Issue extends Resource {
          * @param title The title of the remote object.
          * @return this instance
          */
+        @NotNull
         public FluentRemoteLink title(final String title) {
             object.put("title", title);
             return this;
@@ -206,6 +217,7 @@ public class Issue extends Resource {
          * @param title Text for the tooltip of the main icon describing the type of the object in the remote system.
          * @return this instance
          */
+        @NotNull
         public FluentRemoteLink icon(final String url, final String title) {
             final JSONObject icon = new JSONObject();
             icon.put("url16x16", url);
@@ -223,7 +235,8 @@ public class Issue extends Resource {
          * @param statusUrl A hyperlink for the tooltip of the the status icon.
          * @return this instance
          */
-        public FluentRemoteLink status(final boolean resolved, final String iconUrl, final String title, final String statusUrl) {
+        @NotNull
+        public FluentRemoteLink status(final boolean resolved, @Nullable final String iconUrl, final String title, @Nullable final String statusUrl) {
             final JSONObject status = new JSONObject();
             status.put("resolved", Boolean.toString(resolved));
             final JSONObject icon = new JSONObject();
@@ -245,6 +258,7 @@ public class Issue extends Resource {
          * @param summary Textual summary of the remote object.
          * @return this instance
          */
+        @NotNull
         public FluentRemoteLink summary(final String summary) {
             object.put("summary", summary);
             return this;
@@ -257,6 +271,7 @@ public class Issue extends Resource {
          * @param relationship Relationship between the remote object and the JIRA issue.
          * @return this instance
          */
+        @NotNull
         public FluentRemoteLink relationship(final String relationship) {
             request.put("relationship", relationship);
             return this;
@@ -271,7 +286,8 @@ public class Issue extends Resource {
          * @param name The human-readable name of the remote application instance that stores the remote object.
          * @return this instance
          */
-        public FluentRemoteLink application(final String type, final String name) {
+        @NotNull
+        public FluentRemoteLink application(@Nullable final String type, final String name) {
             final JSONObject application = new JSONObject();
             if (type != null) {
                 application.put("type", type);
@@ -309,7 +325,7 @@ public class Issue extends Resource {
      *
      * @throws JiraException when the search fails
      */
-    public static int count(RestClient restclient, String jql) throws JiraException {
+    public static int count(@NotNull RestClient restclient, String jql) throws JiraException {
         final String j = jql;
         JSON result = null;
         try {
@@ -334,8 +350,11 @@ public class Issue extends Resource {
      */
     public final class FluentUpdate {
 
+        @NotNull
         Map<String, Object> fields = new HashMap<String, Object>();
+        @NotNull
         Map<String, List> fieldOpers = new HashMap<String, List>();
+        @Nullable
         JSONObject editmeta = null;
 
         private FluentUpdate(JSONObject editmeta) {
@@ -387,11 +406,13 @@ public class Issue extends Resource {
          *
          * @return the current fluent update instance
          */
+        @NotNull
         public FluentUpdate field(String name, Object value) {
             fields.put(name, value);
             return this;
         }
 
+        @NotNull
         private FluentUpdate fieldOperation(String oper, String name, Object value) {
             if (!fieldOpers.containsKey(name))
                 fieldOpers.put(name, new ArrayList());
@@ -408,6 +429,7 @@ public class Issue extends Resource {
          *
          *  @return the current fluent update instance
          */
+        @NotNull
         public FluentUpdate fieldAdd(String name, Object value) {
             return fieldOperation("add", name, value);
         }
@@ -420,6 +442,7 @@ public class Issue extends Resource {
          *
          *  @return the current fluent update instance
          */
+        @NotNull
         public FluentUpdate fieldRemove(String name, Object value) {
             return fieldOperation("remove", name, value);
         }
@@ -430,14 +453,17 @@ public class Issue extends Resource {
      */
     public final class FluentTransition {
 
+        @NotNull
         Map<String, Object> fields = new HashMap<String, Object>();
+        @Nullable
         List<Transition> transitions = null;
 
         private FluentTransition(List<Transition> transitions) {
             this.transitions = transitions;
         }
 
-        private Transition getTransition(String id, boolean isName) throws JiraException {
+        @Nullable
+        private Transition getTransition(@NotNull String id, boolean isName) throws JiraException {
             Transition result = null;
 
             for (Transition transition : transitions) {
@@ -455,7 +481,7 @@ public class Issue extends Resource {
             return result;
         }
 
-        private void realExecute(Transition trans) throws JiraException {
+        private void realExecute(@Nullable Transition trans) throws JiraException {
 
             if (trans == null || trans.getFields() == null)
                 throw new JiraException("Transition is missing fields");
@@ -512,7 +538,7 @@ public class Issue extends Resource {
          *
          * @throws JiraException when the transition fails
          */
-        public void execute(String name) throws JiraException {
+        public void execute(@NotNull String name) throws JiraException {
             realExecute(getTransition(name, true));
         }
 
@@ -524,6 +550,7 @@ public class Issue extends Resource {
          *
          * @return the current fluent transition instance
          */
+        @NotNull
         public FluentTransition field(String name, Object value) {
             fields.put(name, value);
             return this;
@@ -538,6 +565,7 @@ public class Issue extends Resource {
     private static class IssueIterator implements Iterator<Issue> {
         private Iterator<Issue> currentPage;
         private RestClient restclient;
+        @Nullable
         private Issue nextIssue;
         private Integer maxResults = -1;
         private String jql;
@@ -570,6 +598,7 @@ public class Issue extends Resource {
             return nextIssue != null;
         }
 
+        @Nullable
         @Override
         public Issue next() {
             if (! hasNext()) {
@@ -676,6 +705,7 @@ public class Issue extends Resource {
         public int start = 0;
         public int max = 0;
         public int total = 0;
+        @Nullable
         public List<Issue> issues = null;
         private IssueIterator issueIterator;
 
@@ -710,10 +740,12 @@ public class Issue extends Resource {
 
     public static final class NewAttachment {
 
+        @Nullable
         private final String filename;
+        @Nullable
         private final Object content;
 
-        public NewAttachment(File content) {
+        public NewAttachment(@NotNull File content) {
             this(content.getName(), content);
         }
 
@@ -732,15 +764,18 @@ public class Issue extends Resource {
             this.content = requireContent(content);
         }
 
+        @Nullable
         String getFilename() {
             return filename;
         }
 
+        @Nullable
         Object getContent() {
             return content;
         }
 
-        private static String requireFilename(String filename) {
+        @Nullable
+        private static String requireFilename(@Nullable String filename) {
             if (filename == null) {
                 throw new NullPointerException("filename may not be null");
             }
@@ -750,7 +785,8 @@ public class Issue extends Resource {
             return filename;
         }
 
-        private static Object requireContent(Object content) {
+        @Nullable
+        private static Object requireContent(@Nullable Object content) {
             if (content == null) {
                 throw new NullPointerException("content may not be null");
             }
@@ -759,39 +795,71 @@ public class Issue extends Resource {
 
     }
 
+    @Nullable
     private String key = null;
+    @Nullable
     private Map fields = null;
 
     /* system fields */
+    @Nullable
     private User assignee = null;
+    @Nullable
     private List<Attachment> attachments = null;
+    @Nullable
     private ChangeLog changeLog = null;
+    @Nullable
     private List<Comment> comments = null;
+    @Nullable
     private List<Component> components = null;
+    @Nullable
     private String description = null;
+    @Nullable
     private Date dueDate = null;
+    @Nullable
     private List<Version> fixVersions = null;
+    @Nullable
     private List<IssueLink> issueLinks = null;
+    @Nullable
     private IssueType issueType = null;
+    @Nullable
     private List<String> labels = null;
+    @Nullable
     private Issue parent = null;
+    @Nullable
     private Priority priority = null;
+    @Nullable
     private Project project = null;
+    @Nullable
     private User reporter = null;
+    @Nullable
     private Resolution resolution = null;
+    @Nullable
     private Date resolutionDate = null;
+    @Nullable
     private Status status = null;
+    @Nullable
     private List<Issue> subtasks = null;
+    @Nullable
     private String summary = null;
+    @Nullable
     private TimeTracking timeTracking = null;
+    @Nullable
     private List<Version> versions = null;
+    @Nullable
     private Votes votes = null;
+    @Nullable
     private Watches watches = null;
+    @Nullable
     private List<WorkLog> workLogs = null;
+    @Nullable
     private Integer timeEstimate = null;
+    @Nullable
     private Integer timeSpent = null;
+    @Nullable
     private Date createdDate = null;
+    @Nullable
     private Date updatedDate = null;
+    @Nullable
     private Security security = null;
 
     /**
@@ -800,7 +868,7 @@ public class Issue extends Resource {
      * @param restclient REST client instance
      * @param json JSON payload
      */
-    protected Issue(RestClient restclient, JSONObject json) {
+    protected Issue(RestClient restclient, @Nullable JSONObject json) {
         super(restclient);
 
         if (json != null)
@@ -850,12 +918,12 @@ public class Issue extends Resource {
         security = Field.getResource(Security.class, fields.get(Field.SECURITY), restclient);
     }
 
-    private static String getRestUri(String key) {
+    private static String getRestUri(@Nullable String key) {
         return getBaseUri() + "issue/" + (key != null ? key : "");
     }
 
     public static JSONObject getCreateMetadata(
-        RestClient restclient, String project, String issueType) throws JiraException {
+            @NotNull RestClient restclient, String project, String issueType) throws JiraException {
 
         final String pval = project;
         final String itval = issueType;
@@ -895,6 +963,7 @@ public class Issue extends Resource {
         return projects.get(0).getIssueTypes().get(0).getFields();
     }
 
+    @NotNull
     private JSONObject getEditMetadata() throws JiraException {
         JSON result = null;
 
@@ -916,6 +985,7 @@ public class Issue extends Resource {
         return (JSONObject)jo.get("fields");
     }
 
+    @NotNull
     public List<Transition> getTransitions() throws JiraException {
         JSON result = null;
 
@@ -985,6 +1055,7 @@ public class Issue extends Resource {
      *
      * @return a fluent remote link instance
      */
+    @NotNull
     public FluentRemoteLink remoteLink() {
         return new FluentRemoteLink(restclient, getKey());
     }
@@ -996,7 +1067,7 @@ public class Issue extends Resource {
      *
      * @throws JiraException when the attachments creation fails
      */
-    public void addAttachments(NewAttachment... attachments) throws JiraException {
+    public void addAttachments(@Nullable NewAttachment... attachments) throws JiraException {
         if (attachments == null) {
             throw new NullPointerException("attachments may not be null");
         }
@@ -1017,7 +1088,7 @@ public class Issue extends Resource {
      *
      * @throws JiraException when the attachment removal fails
      */
-    public void removeAttachment(String attachmentId) throws JiraException {
+    public void removeAttachment(@Nullable String attachmentId) throws JiraException {
     
         if (attachmentId == null) {
             throw new NullPointerException("attachmentId may not be null");
@@ -1037,6 +1108,7 @@ public class Issue extends Resource {
      *
      * @throws JiraException when the comment creation fails
      */
+    @Nullable
     public Comment addComment(String body) throws JiraException {
         return addComment(body, null, null);
     }
@@ -1050,7 +1122,8 @@ public class Issue extends Resource {
      *
      * @throws JiraException when the comment creation fails
      */
-    public Comment addComment(String body, String visType, String visName)
+    @Nullable
+    public Comment addComment(String body, @Nullable String visType, @Nullable String visName)
         throws JiraException {
 
         JSONObject req = new JSONObject();
@@ -1087,7 +1160,8 @@ public class Issue extends Resource {
    * @return
    * @throws JiraException when worklog creation fails
    */
-    public WorkLog addWorkLog(String comment, DateTime startDate, long timeSpentSeconds) throws JiraException {
+    @NotNull
+    public WorkLog addWorkLog(@Nullable String comment, @Nullable DateTime startDate, long timeSpentSeconds) throws JiraException {
         try {
             if (comment == null)
                 throw new IllegalArgumentException("Invalid comment.");
@@ -1145,7 +1219,7 @@ public class Issue extends Resource {
      *
      * @throws JiraException when the link creation fails
      */
-    public void link(String issue, String type, String body, String visType, String visName)
+    public void link(String issue, String type, @Nullable String body, @Nullable String visType, @Nullable String visName)
         throws JiraException {
 
         JSONObject req = new JSONObject();
@@ -1195,7 +1269,8 @@ public class Issue extends Resource {
      *
      * @throws JiraException when the client fails to retrieve issue metadata
      */
-    public static FluentCreate create(RestClient restclient, String project, String issueType)
+    @NotNull
+    public static FluentCreate create(@NotNull RestClient restclient, String project, String issueType)
         throws JiraException {
 
         FluentCreate fc = new FluentCreate(
@@ -1214,12 +1289,14 @@ public class Issue extends Resource {
      *
      * @throws JiraException when the client fails to retrieve issue metadata
      */
+    @NotNull
     public FluentCreate createSubtask() throws JiraException {
         return Issue.create(restclient, getProject().getKey(), "Sub-task")
                 .field(Field.PARENT, getKey());
     }
 
-    private static JSONObject realGet(RestClient restclient, String key, Map<String, String> queryParams)
+    @NotNull
+    private static JSONObject realGet(@NotNull RestClient restclient, String key, Map<String, String> queryParams)
             throws JiraException {
 
         JSON result = null;
@@ -1248,7 +1325,7 @@ public class Issue extends Resource {
      *
      * @throws JiraException when the retrieval fails
      */
-    public static Issue get(RestClient restclient, String key)
+    public static Issue get(@NotNull RestClient restclient, String key)
             throws JiraException {
 
         return new Issue(restclient, realGet(restclient, key, new HashMap<String, String>()));
@@ -1275,7 +1352,7 @@ public class Issue extends Resource {
      *
      * @throws JiraException when the retrieval fails
      */
-    public static Issue get(RestClient restclient, String key, final String includedFields)
+    public static Issue get(@NotNull RestClient restclient, String key, final String includedFields)
             throws JiraException {
 
         Map<String, String> queryParams = new HashMap<String, String>();
@@ -1306,8 +1383,8 @@ public class Issue extends Resource {
      *
      * @throws JiraException when the retrieval fails
      */
-    public static Issue get(RestClient restclient, String key, final String includedFields,
-            final String expand) throws JiraException {
+    public static Issue get(@NotNull RestClient restclient, String key, final String includedFields,
+                            @Nullable final String expand) throws JiraException {
 
         Map<String, String> queryParams = new HashMap<String, String>();
         queryParams.put("fields", includedFields);
@@ -1375,9 +1452,9 @@ public class Issue extends Resource {
      * @return the URI to execute a jql search.
      * @throws URISyntaxException
      */
-    private static URI createSearchURI(RestClient restclient, String jql,
-            String includedFields, String expandFields, Integer maxResults,
-            Integer startAt) throws URISyntaxException {
+    private static URI createSearchURI(@NotNull RestClient restclient, String jql,
+                                       @Nullable String includedFields, @Nullable String expandFields, @Nullable Integer maxResults,
+                                       @Nullable Integer startAt) throws URISyntaxException {
         Map<String, String> queryParams = new HashMap<String, String>();
         queryParams.put("jql", jql);
         if(maxResults != null){
@@ -1439,6 +1516,7 @@ public class Issue extends Resource {
      *
      * @return the field value or null if not found
      */
+    @Nullable
     public Object getField(String name) {
 
         return fields != null ? fields.get(name) : null;
@@ -1451,6 +1529,7 @@ public class Issue extends Resource {
      *
      * @throws JiraException when the client fails to retrieve issue metadata
      */
+    @NotNull
     public FluentTransition transition() throws JiraException {
         return new FluentTransition(getTransitions());
     }
@@ -1462,6 +1541,7 @@ public class Issue extends Resource {
      *
      * @throws JiraException when the client fails to retrieve issue metadata
      */
+    @NotNull
     public FluentUpdate update() throws JiraException {
         return new FluentUpdate(getEditMetadata());
     }
@@ -1536,75 +1616,93 @@ public class Issue extends Resource {
         }
     }
 
+    @Nullable
     @Override
     public String toString() {
         return getKey();
     }
 
+    @Nullable
     public ChangeLog getChangeLog() {
         return changeLog;
     }
 
+    @Nullable
     public String getKey() {
         return key;
     }
 
+    @Nullable
     public User getAssignee() {
         return assignee;
     }
 
+    @Nullable
     public List<Attachment> getAttachments() {
         return attachments;
     }
 
+    @Nullable
     public List<Comment> getComments() {
         return comments;
     }
 
+    @Nullable
     public List<Component> getComponents() {
         return components;
     }
 
+    @Nullable
     public String getDescription() {
         return description;
     }
 
+    @Nullable
     public Date getDueDate() {
         return dueDate;
     }
 
+    @Nullable
     public List<Version> getFixVersions() {
         return fixVersions;
     }
 
+    @Nullable
     public List<IssueLink> getIssueLinks() {
         return issueLinks;
     }
 
+    @Nullable
     public IssueType getIssueType() {
         return issueType;
     }
 
+    @Nullable
     public List<String> getLabels() {
         return labels;
     }
 
+    @Nullable
     public Issue getParent() {
         return parent;
     }
 
+    @Nullable
     public Priority getPriority() {
         return priority;
     }
 
+    @Nullable
     public Project getProject() {
         return project;
     }
 
+    @Nullable
     public User getReporter() {
         return reporter;
     }
 
+    @NotNull
     public List<RemoteLink> getRemoteLinks() throws JiraException {
         JSONArray obj;
         try {
@@ -1619,46 +1717,57 @@ public class Issue extends Resource {
         return Field.getRemoteLinks(obj, restclient);
     }
 
+    @Nullable
     public Resolution getResolution() {
         return resolution;
     }
 
+    @Nullable
     public Date getResolutionDate() {
         return resolutionDate;
     }
 
+    @Nullable
     public Status getStatus() {
         return status;
     }
 
+    @Nullable
     public List<Issue> getSubtasks() {
         return subtasks;
     }
 
+    @Nullable
     public String getSummary() {
         return summary;
     }
 
+    @Nullable
     public TimeTracking getTimeTracking() {
         return timeTracking;
     }
 
+    @Nullable
     public List<Version> getVersions() {
         return versions;
     }
 
+    @Nullable
     public Votes getVotes() {
         return votes;
     }
 
+    @Nullable
     public Watches getWatches() {
         return watches;
     }
 
+    @Nullable
     public List<WorkLog> getWorkLogs() {
         return workLogs;
     }
 
+    @NotNull
     public List<WorkLog> getAllWorkLogs() throws JiraException {
         JSONObject obj;
         try {
@@ -1673,22 +1782,27 @@ public class Issue extends Resource {
         return Field.getWorkLogs(obj, restclient);
     }
 
+    @Nullable
     public Integer getTimeSpent() {
         return timeSpent;
     }
 
+    @Nullable
     public Integer getTimeEstimate() {
         return timeEstimate;
     }
 
+    @Nullable
     public Date getCreatedDate() {
         return createdDate;
     }
 
+    @Nullable
     public Date getUpdatedDate() {
         return updatedDate;
     }
 
+    @Nullable
     public Security getSecurity() {
         return security;
     }

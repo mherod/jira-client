@@ -1,6 +1,7 @@
 package net.rcarz.jiraclient;
 
 import net.sf.json.JSONObject;
+import org.jetbrains.annotations.NotNull;
 import org.junit.Test;
 import org.powermock.api.mockito.PowerMockito;
 
@@ -16,9 +17,13 @@ import static org.powermock.api.mockito.PowerMockito.when;
 
 public class UserTest {
 
+    @NotNull
     private String username = "joseph";
+    @NotNull
     private String displayName = "Joseph McCarthy";
+    @NotNull
     private String email = "joseph.b.mccarthy2012@googlemail.com";
+    @NotNull
     private String userID = "10";
 
     @Test
@@ -39,6 +44,7 @@ public class UserTest {
         assertTrue(user.isActive());
     }
 
+    @NotNull
     private JSONObject getTestJSON() {
         JSONObject json = new JSONObject();
 

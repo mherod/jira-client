@@ -19,29 +19,35 @@
 
 package net.rcarz.jiraclient;
 
+import net.sf.json.JSON;
+import net.sf.json.JSONObject;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
 import java.util.Map;
 
-import net.sf.json.JSON;
-import net.sf.json.JSONObject;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-
 /**
  * Represents an issue attachment.
  */
 public class Attachment extends Resource {
 
+    @Nullable
     private User author = null;
+    @Nullable
     private String filename = null;
+    @Nullable
     private Date created = null;
     private int size = 0;
+    @Nullable
     private String mimeType = null;
+    @Nullable
     private String content = null;
 
     /**
@@ -50,7 +56,7 @@ public class Attachment extends Resource {
      * @param restclient REST client instance
      * @param json JSON payload
      */
-    protected Attachment(RestClient restclient, JSONObject json) {
+    protected Attachment(RestClient restclient, @Nullable JSONObject json) {
         super(restclient);
 
         if (json != null)
@@ -80,7 +86,7 @@ public class Attachment extends Resource {
      *
      * @throws JiraException when the retrieval fails
      */
-    public static Attachment get(RestClient restclient, String id)
+    public static Attachment get(@NotNull RestClient restclient, String id)
         throws JiraException {
 
         JSON result = null;
@@ -126,27 +132,33 @@ public class Attachment extends Resource {
     	return bos.toByteArray();
     }
 
+    @Nullable
     @Override
     public String toString() {
         return getContentUrl();
     }
 
+    @Nullable
     public User getAuthor() {
         return author;
     }
 
+    @Nullable
     public Date getCreatedDate() {
         return created;
     }
 
+    @Nullable
     public String getContentUrl() {
         return content;
     }
 
+    @Nullable
     public String getFileName() {
         return filename;
     }
 
+    @Nullable
     public String getMimeType() {
         return mimeType;
     }

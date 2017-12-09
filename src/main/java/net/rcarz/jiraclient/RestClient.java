@@ -22,20 +22,9 @@ package net.rcarz.jiraclient;
 import net.sf.json.JSON;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
-
-import org.apache.http.Header;
-import org.apache.http.HeaderElement;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.StatusLine;
+import org.apache.http.*;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpDelete;
-import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpPut;
-import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.client.methods.*;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.entity.mime.MultipartEntity;
@@ -43,13 +32,10 @@ import org.apache.http.entity.mime.content.ByteArrayBody;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.InputStreamBody;
 import org.apache.http.util.EntityUtils;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Map;
@@ -59,8 +45,11 @@ import java.util.Map;
  */
 public class RestClient {
 
+    @Nullable
     private HttpClient httpClient = null;
+    @Nullable
     private ICredentials creds = null;
+    @Nullable
     private URI uri = null;
 
     /**
@@ -109,7 +98,7 @@ public class RestClient {
      *
      * @throws URISyntaxException when the path is invalid
      */
-    public URI buildURI(String path, Map<String, String> params) throws URISyntaxException {
+    public URI buildURI(String path, @Nullable Map<String, String> params) throws URISyntaxException {
         URIBuilder ub = new URIBuilder(uri);
         ub.setPath(ub.getPath() + path);
 
@@ -173,7 +162,8 @@ public class RestClient {
         return result.length() > 0 ? JSONSerializer.toJSON(result.toString()): null;
     }
 
-    private JSON request(HttpEntityEnclosingRequestBase req, String payload)
+    @Nullable
+    private JSON request(@NotNull HttpEntityEnclosingRequestBase req, @Nullable String payload)
         throws RestException, IOException {
 
         if (payload != null) {
@@ -193,7 +183,8 @@ public class RestClient {
         return request(req);
     }
     
-    private JSON request(HttpEntityEnclosingRequestBase req, File file)
+    @Nullable
+    private JSON request(@NotNull HttpEntityEnclosingRequestBase req, @Nullable File file)
         throws RestException, IOException {
         if (file != null) {
             File fileUpload = file;
@@ -205,7 +196,8 @@ public class RestClient {
         return request(req);
     }
 
-    private JSON request(HttpEntityEnclosingRequestBase req, Issue.NewAttachment... attachments)
+    @Nullable
+    private JSON request(@NotNull HttpEntityEnclosingRequestBase req, @Nullable Issue.NewAttachment... attachments)
         throws RestException, IOException {
         if (attachments != null) {
             req.setHeader("X-Atlassian-Token", "nocheck");
@@ -232,7 +224,8 @@ public class RestClient {
         return request(req);
     }
 
-    private JSON request(HttpEntityEnclosingRequestBase req, JSON payload)
+    @Nullable
+    private JSON request(@NotNull HttpEntityEnclosingRequestBase req, @Nullable JSON payload)
         throws RestException, IOException {
 
         return request(req, payload != null ? payload.toString() : null);
@@ -248,6 +241,7 @@ public class RestClient {
      * @throws RestException when an HTTP-level error occurs
      * @throws IOException when an error reading the response occurs
      */
+    @Nullable
     public JSON delete(URI uri) throws RestException, IOException {
         return request(new HttpDelete(uri));
     }
@@ -263,6 +257,7 @@ public class RestClient {
      * @throws IOException when an error reading the response occurs
      * @throws URISyntaxException when an error occurred appending the path to the URI
      */
+    @Nullable
     public JSON delete(String path) throws RestException, IOException, URISyntaxException {
         return delete(buildURI(path));
     }
@@ -277,6 +272,7 @@ public class RestClient {
      * @throws RestException when an HTTP-level error occurs
      * @throws IOException when an error reading the response occurs
      */
+    @Nullable
     public JSON get(URI uri) throws RestException, IOException {
         return request(new HttpGet(uri));
     }
@@ -293,6 +289,7 @@ public class RestClient {
      * @throws IOException when an error reading the response occurs
      * @throws URISyntaxException when an error occurred appending the path to the URI
      */
+    @Nullable
     public JSON get(String path, Map<String, String> params) throws RestException, IOException, URISyntaxException {
         return get(buildURI(path, params));
     }
@@ -308,6 +305,7 @@ public class RestClient {
      * @throws IOException when an error reading the response occurs
      * @throws URISyntaxException when an error occurred appending the path to the URI
      */
+    @Nullable
     public JSON get(String path) throws RestException, IOException, URISyntaxException {
         return get(path, null);
     }
@@ -324,6 +322,7 @@ public class RestClient {
      * @throws RestException when an HTTP-level error occurs
      * @throws IOException when an error reading the response occurs
      */
+    @Nullable
     public JSON post(URI uri, JSON payload) throws RestException, IOException {
         return request(new HttpPost(uri), payload);
     }
@@ -346,7 +345,8 @@ public class RestClient {
      * @throws RestException when an HTTP-level error occurs
      * @throws IOException when an error reading the response occurs
      */
-    public JSON post(URI uri, String payload) throws RestException, IOException {
+    @Nullable
+    public JSON post(URI uri, @Nullable String payload) throws RestException, IOException {
     	String quoted = null;
     	if(payload != null && !payload.equals(new JSONObject())){
     		quoted = String.format("\"%s\"", payload);
@@ -366,6 +366,7 @@ public class RestClient {
      * @throws IOException when an error reading the response occurs
      * @throws URISyntaxException when an error occurred appending the path to the URI
      */
+    @Nullable
     public JSON post(String path, JSON payload)
         throws RestException, IOException, URISyntaxException {
 
@@ -383,6 +384,7 @@ public class RestClient {
      * @throws IOException when an error reading the response occurs
      * @throws URISyntaxException when an error occurred appending the path to the URI
      */
+    @Nullable
     public JSON post(String path)
         throws RestException, IOException, URISyntaxException {
     	
@@ -399,6 +401,7 @@ public class RestClient {
      * @throws IOException 
      * @throws RestException 
      */
+    @Nullable
     public JSON post(String path, File file) throws RestException, IOException, URISyntaxException{
         return request(new HttpPost(buildURI(path)), file);
     }
@@ -413,6 +416,7 @@ public class RestClient {
      * @throws IOException
      * @throws RestException
      */
+    @Nullable
     public JSON post(String path, Issue.NewAttachment... attachments)
         throws RestException, IOException, URISyntaxException
     {
@@ -430,6 +434,7 @@ public class RestClient {
      * @throws RestException when an HTTP-level error occurs
      * @throws IOException when an error reading the response occurs
      */
+    @Nullable
     public JSON put(URI uri, JSON payload) throws RestException, IOException {
         return request(new HttpPut(uri), payload);
     }
@@ -446,6 +451,7 @@ public class RestClient {
      * @throws IOException when an error reading the response occurs
      * @throws URISyntaxException when an error occurred appending the path to the URI
      */
+    @Nullable
     public JSON put(String path, JSON payload)
         throws RestException, IOException, URISyntaxException {
 
@@ -457,6 +463,7 @@ public class RestClient {
      *
      * @return the httpClient property
      */
+    @Nullable
     public HttpClient getHttpClient(){
         return this.httpClient;
     }

@@ -23,6 +23,8 @@ import net.rcarz.jiraclient.JiraException;
 import net.rcarz.jiraclient.RestClient;
 import net.sf.json.JSON;
 import net.sf.json.JSONObject;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.net.URI;
 import java.util.HashMap;
@@ -34,15 +36,25 @@ import java.util.Map;
  */
 public class SprintReport {
 
+    @Nullable
     private RestClient restclient = null;
+    @Nullable
     private Sprint sprint = null;
+    @Nullable
     private List<SprintIssue> completedIssues = null;
+    @Nullable
     private List<SprintIssue> incompletedIssues = null;
+    @Nullable
     private List<SprintIssue> puntedIssues = null;
+    @Nullable
     private EstimateSum completedIssuesEstimateSum = null;
+    @Nullable
     private EstimateSum incompletedIssuesEstimateSum = null;
+    @Nullable
     private EstimateSum allIssuesEstimateSum = null;
+    @Nullable
     private EstimateSum puntedIssuesEstimateSum = null;
+    @Nullable
     private List<String> issueKeysAddedDuringSprint = null;
 
     /**
@@ -51,7 +63,7 @@ public class SprintReport {
      * @param restclient REST client instance
      * @param json JSON payload
      */
-    protected SprintReport(RestClient restclient, JSONObject json) {
+    protected SprintReport(RestClient restclient, @Nullable JSONObject json) {
         this.restclient = restclient;
 
         if (json != null)
@@ -97,7 +109,7 @@ public class SprintReport {
      *
      * @throws JiraException when the retrieval fails
      */
-    public static SprintReport get(RestClient restclient, RapidView rv, Sprint sprint)
+    public static SprintReport get(@NotNull RestClient restclient, RapidView rv, Sprint sprint)
         throws JiraException {
 
         final int rvId = rv.getId();
@@ -127,38 +139,47 @@ public class SprintReport {
         return new SprintReport(restclient, (JSONObject)jo.get("contents"));
     }
 
+    @Nullable
     public Sprint getSprint() {
         return sprint;
     }
 
+    @Nullable
     public List<SprintIssue> getCompletedIssues() {
         return completedIssues;
     }
 
+    @Nullable
     public List<SprintIssue> getIncompletedIssues() {
         return incompletedIssues;
     }
 
+    @Nullable
     public List<SprintIssue> getPuntedIssues() {
         return puntedIssues;
     }
 
+    @Nullable
     public EstimateSum getCompletedIssuesEstimateSum() {
         return completedIssuesEstimateSum;
     }
 
+    @Nullable
     public EstimateSum getIncompletedIssuesEstimateSum() {
         return incompletedIssuesEstimateSum;
     }
 
+    @Nullable
     public EstimateSum getAllIssuesEstimateSum() {
         return allIssuesEstimateSum;
     }
 
+    @Nullable
     public EstimateSum getPuntedIssuesEstimateSum() {
         return puntedIssuesEstimateSum;
     }
 
+    @Nullable
     public List<String> getIssueKeysAddedDuringSprint() {
         return issueKeysAddedDuringSprint;
     }

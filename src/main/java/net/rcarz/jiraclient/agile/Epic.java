@@ -23,6 +23,7 @@ import net.rcarz.jiraclient.Field;
 import net.rcarz.jiraclient.JiraException;
 import net.rcarz.jiraclient.RestClient;
 import net.sf.json.JSONObject;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -87,7 +88,7 @@ public class Epic extends AgileResource {
      * @param json The JSON object to read.
      */
     @Override
-    void deserialize(JSONObject json) throws JiraException {
+    void deserialize(@NotNull JSONObject json) throws JiraException {
         super.deserialize(json);
 
         this.key = Field.getString(json.get("key"));

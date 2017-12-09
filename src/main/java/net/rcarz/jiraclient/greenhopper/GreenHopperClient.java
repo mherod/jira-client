@@ -22,6 +22,8 @@ package net.rcarz.jiraclient.greenhopper;
 import net.rcarz.jiraclient.JiraClient;
 import net.rcarz.jiraclient.JiraException;
 import net.rcarz.jiraclient.RestClient;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -30,6 +32,7 @@ import java.util.List;
  */
 public class GreenHopperClient {
 
+    @Nullable
     private RestClient restclient = null;
 
     /**
@@ -50,6 +53,7 @@ public class GreenHopperClient {
      *
      * @throws JiraException when something goes wrong
      */
+    @NotNull
     public RapidView getRapidView(int id) throws JiraException {
         return RapidView.get(restclient, id);
     }

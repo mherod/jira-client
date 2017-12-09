@@ -2,9 +2,11 @@ package net.rcarz.jiraclient;
 
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
+import org.jetbrains.annotations.NotNull;
 
 public class Utils {
 
+    @NotNull
     public static JSONObject getTestIssue() {
         JSONObject jsonObject = (JSONObject) JSONSerializer.toJSON("{\n" +
         "  \"expand\": \"renderedFields,names,schema,transitions,operations,editmeta,changelog\",\n" +
@@ -202,6 +204,7 @@ public class Utils {
         return jsonObject;
     }
 
+    @NotNull
     public static JSONObject getTestIssueWorklogs() {
         JSONObject jsonObject = (JSONObject) JSONSerializer.toJSON("{\n" +
                 "   \"startAt\":0,\n" +
@@ -281,6 +284,7 @@ public class Utils {
         return jsonObject;
     }
 
+    @NotNull
     public static JSONObject getTestProject() {
         JSONObject jsonObject = (JSONObject) JSONSerializer.toJSON("{" +
                 "    \"expand\": \"description,lead,url,projectKeys\"," +

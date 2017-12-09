@@ -19,16 +19,19 @@
 
 package net.rcarz.jiraclient;
 
-import java.util.Map;
-
 import net.sf.json.JSON;
 import net.sf.json.JSONObject;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Map;
 
 /**
  * Represents an custom field option.
  */
 public class CustomFieldOption extends Resource {
 
+    @Nullable
     private String value = null;
 
     /**
@@ -37,7 +40,7 @@ public class CustomFieldOption extends Resource {
      * @param restclient REST client instance
      * @param json JSON payload
      */
-    protected CustomFieldOption(RestClient restclient, JSONObject json) {
+    protected CustomFieldOption(RestClient restclient, @Nullable JSONObject json) {
         super(restclient);
 
         if (json != null)
@@ -62,7 +65,7 @@ public class CustomFieldOption extends Resource {
      *
      * @throws JiraException when the retrieval fails
      */
-    public static CustomFieldOption get(RestClient restclient, String id)
+    public static CustomFieldOption get(@NotNull RestClient restclient, String id)
         throws JiraException {
 
         JSON result = null;
@@ -79,11 +82,13 @@ public class CustomFieldOption extends Resource {
         return new CustomFieldOption(restclient, (JSONObject)result);
     }
 
+    @Nullable
     @Override
     public String toString() {
         return getValue();
     }
 
+    @Nullable
     public String getValue() {
         return value;
     }

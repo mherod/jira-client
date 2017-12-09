@@ -19,17 +19,21 @@
 
 package net.rcarz.jiraclient;
 
-import java.util.Map;
-
 import net.sf.json.JSON;
 import net.sf.json.JSONObject;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Map;
 
 /**
  * Represents a project category.
  */
 public class ProjectCategory extends Resource {
 
+    @Nullable
     private String name = null;
+    @Nullable
     private String description = null;
 
     /**
@@ -38,7 +42,7 @@ public class ProjectCategory extends Resource {
      * @param restclient REST client instance
      * @param json JSON payload
      */
-    protected ProjectCategory(RestClient restclient, JSONObject json) {
+    protected ProjectCategory(RestClient restclient, @Nullable JSONObject json) {
         super(restclient);
 
         if (json != null)
@@ -64,7 +68,7 @@ public class ProjectCategory extends Resource {
      *
      * @throws JiraException when the retrieval fails
      */
-    public static ProjectCategory get(RestClient restclient, String id)
+    public static ProjectCategory get(@NotNull RestClient restclient, String id)
             throws JiraException {
 
         JSON result = null;
@@ -81,15 +85,18 @@ public class ProjectCategory extends Resource {
         return new ProjectCategory(restclient, (JSONObject)result);
     }
 
+    @Nullable
     @Override
     public String toString() {
         return getName();
     }
 
+    @Nullable
     public String getDescription() {
         return description;
     }
 
+    @Nullable
     public String getName() {
         return name;
     }

@@ -23,6 +23,7 @@ import net.rcarz.jiraclient.Field;
 import net.rcarz.jiraclient.JiraException;
 import net.rcarz.jiraclient.RestClient;
 import net.sf.json.JSONObject;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -69,7 +70,7 @@ public class Board extends AgileResource {
     }
 
     @Override
-    protected void deserialize(JSONObject json) throws JiraException {
+    protected void deserialize(@NotNull JSONObject json) throws JiraException {
         super.deserialize(json);
         type = Field.getString(json.get("type"));
     }

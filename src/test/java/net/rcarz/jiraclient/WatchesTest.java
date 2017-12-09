@@ -1,14 +1,15 @@
 package net.rcarz.jiraclient;
 
 import net.sf.json.JSONObject;
+import org.jetbrains.annotations.NotNull;
 import org.junit.Test;
 import org.powermock.api.mockito.PowerMockito;
+
+import java.util.ArrayList;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static org.mockito.Matchers.anyString;
-
-import java.util.ArrayList;
 
 public class WatchesTest {
 
@@ -60,6 +61,7 @@ public class WatchesTest {
         assertEquals(watches.toString(), "0");
     }
 
+    @NotNull
     private JSONObject getTestJSON() {
         JSONObject jsonObject = new JSONObject();
 

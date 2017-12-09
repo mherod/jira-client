@@ -23,33 +23,49 @@ import net.rcarz.jiraclient.Field;
 import net.rcarz.jiraclient.Issue;
 import net.rcarz.jiraclient.JiraException;
 import net.rcarz.jiraclient.RestClient;
+import net.sf.json.JSONObject;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Map;
-
-import net.sf.json.JSONObject;
 
 /**
  * A base class for GreenHopper issues.
  */
 public abstract class GreenHopperIssue extends GreenHopperResource {
 
+    @Nullable
     private String key = null;
     private boolean hidden = false;
+    @Nullable
     private String summary = null;
+    @Nullable
     private String typeName = null;
+    @Nullable
     private String typeId = null;
+    @Nullable
     private String typeUrl = null;
+    @Nullable
     private String priorityUrl = null;
+    @Nullable
     private String priorityName = null;
     private boolean done = false;
+    @Nullable
     private String assignee = null;
+    @Nullable
     private String assigneeName = null;
+    @Nullable
     private String avatarUrl = null;
+    @Nullable
     private String colour = null;
+    @Nullable
     private String statusId = null;
+    @Nullable
     private String statusName = null;
+    @Nullable
     private String statusUrl = null;
+    @Nullable
     private List<Integer> fixVersions = null;
     private int projectId = 0;
 
@@ -59,7 +75,7 @@ public abstract class GreenHopperIssue extends GreenHopperResource {
      * @param restclient REST client instance
      * @param json JSON payload
      */
-    protected GreenHopperIssue(RestClient restclient, JSONObject json) {
+    protected GreenHopperIssue(RestClient restclient, @Nullable JSONObject json) {
         super(restclient);
 
         if (json != null)
@@ -97,15 +113,18 @@ public abstract class GreenHopperIssue extends GreenHopperResource {
      *
      * @throws JiraException when the retrieval fails
      */
+    @NotNull
     public Issue getJiraIssue() throws JiraException {
         return Issue.get(restclient, key);
     }
 
+    @Nullable
     @Override
     public String toString() {
         return key;
     }
 
+    @Nullable
     public String getKey() {
         return key;
     }
@@ -114,26 +133,32 @@ public abstract class GreenHopperIssue extends GreenHopperResource {
         return hidden;
     }
 
+    @Nullable
     public String getSummary() {
         return summary;
     }
 
+    @Nullable
     public String getTypeName() {
         return typeName;
     }
 
+    @Nullable
     public String getTypeId() {
         return typeId;
     }
 
+    @Nullable
     public String getTypeUrl() {
         return typeUrl;
     }
 
+    @Nullable
     public String getPriorityUrl() {
         return priorityUrl;
     }
 
+    @Nullable
     public String getPriorityName() {
         return priorityName;
     }
@@ -142,34 +167,42 @@ public abstract class GreenHopperIssue extends GreenHopperResource {
         return done;
     }
 
+    @Nullable
     public String getAssignee() {
         return assignee;
     }
 
+    @Nullable
     public String getAssigneeName() {
         return assigneeName;
     }
 
+    @Nullable
     public String getAvatarUrl() {
         return avatarUrl;
     }
 
+    @Nullable
     public String getColour() {
         return colour;
     }
 
+    @Nullable
     public String getStatusId() {
         return statusId;
     }
 
+    @Nullable
     public String getStatusName() {
         return statusName;
     }
 
+    @Nullable
     public String getStatusUrl() {
         return statusUrl;
     }
 
+    @Nullable
     public List<Integer> getFixVersions() {
         return fixVersions;
     }

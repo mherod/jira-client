@@ -21,26 +21,31 @@ package net.rcarz.jiraclient.greenhopper;
 
 import net.rcarz.jiraclient.Field;
 import net.rcarz.jiraclient.RestClient;
+import net.sf.json.JSONObject;
+import org.jetbrains.annotations.Nullable;
+import org.joda.time.DateTime;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import net.sf.json.JSONObject;
-
-import org.joda.time.DateTime;
 
 /**
  * Represents a GreenHopper sprint.
  */
 public class Sprint extends GreenHopperResource {
 
+    @Nullable
     private String name = null;
     private boolean closed = false;
+    @Nullable
     private DateTime startDate = null;
+    @Nullable
     private DateTime endDate = null;
+    @Nullable
     private DateTime completeDate = null;
+    @Nullable
     private List<Integer> issuesIds = null;
+    @Nullable
     private List<SprintIssue> issues = null;
 
     /**
@@ -49,7 +54,7 @@ public class Sprint extends GreenHopperResource {
      * @param restclient REST client instance
      * @param json JSON payload
      */
-    protected Sprint(RestClient restclient, JSONObject json) {
+    protected Sprint(RestClient restclient, @Nullable JSONObject json) {
         super(restclient);
 
         if (json != null)
@@ -68,11 +73,13 @@ public class Sprint extends GreenHopperResource {
         issuesIds = GreenHopperField.getIntegerArray(map.get("issuesIds"));
     }
 
+    @Nullable
     @Override
     public String toString() {
         return name;
     }
 
+    @Nullable
     public String getName() {
         return name;
     }
@@ -81,18 +88,22 @@ public class Sprint extends GreenHopperResource {
         return closed;
     }
 
+    @Nullable
     public DateTime getStartDate() {
         return startDate;
     }
 
+    @Nullable
     public DateTime getEndDate() {
         return endDate;
     }
 
+    @Nullable
     public DateTime getCompleteDate() {
         return completeDate;
     }
 
+    @Nullable
     public List<SprintIssue> getIssues(){
         if(issues == null){
             issues = new ArrayList<SprintIssue>();
@@ -100,6 +111,7 @@ public class Sprint extends GreenHopperResource {
         return issues;
     }
 
+    @Nullable
     public List<Integer> getIssuesIds() {
         return issuesIds;
     }

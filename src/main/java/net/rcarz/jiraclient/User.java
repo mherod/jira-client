@@ -21,6 +21,8 @@ package net.rcarz.jiraclient;
 
 import net.sf.json.JSON;
 import net.sf.json.JSONObject;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,9 +33,13 @@ import java.util.Map;
 public class User extends Resource {
 
     private boolean active = false;
+    @Nullable
     private Map<String, String> avatarUrls = null;
+    @Nullable
     private String displayName = null;
+    @Nullable
     private String email = null;
+    @Nullable
     private String name = null;
 
     /**
@@ -42,7 +48,7 @@ public class User extends Resource {
      * @param restclient REST client instance
      * @param json       JSON payload
      */
-    protected User(RestClient restclient, JSONObject json) {
+    protected User(RestClient restclient, @Nullable JSONObject json) {
         super(restclient);
 
         if (json != null)
@@ -57,7 +63,7 @@ public class User extends Resource {
      * @return a user instance
      * @throws JiraException when the retrieval fails
      */
-    public static User get(RestClient restclient, String username)
+    public static User get(@NotNull RestClient restclient, String username)
             throws JiraException {
 
         JSON result = null;
@@ -103,6 +109,7 @@ public class User extends Resource {
         }
     }
 
+    @Nullable
     @Override
     public String toString() {
         return getName();
@@ -112,18 +119,22 @@ public class User extends Resource {
         return active;
     }
 
+    @Nullable
     public Map<String, String> getAvatarUrls() {
         return avatarUrls;
     }
 
+    @Nullable
     public String getDisplayName() {
         return displayName;
     }
 
+    @Nullable
     public String getEmail() {
         return email;
     }
 
+    @Nullable
     public String getName() {
         return name;
     }

@@ -19,9 +19,10 @@
 
 package net.rcarz.jiraclient;
 
-import java.util.Map;
-
 import net.sf.json.JSONObject;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Map;
 
 /**
  * Item in a {@link ChangeLogEntry}.
@@ -30,31 +31,37 @@ public class ChangeLogItem extends Resource {
     /**
      * Field changed.
      */
+    @Nullable
     private String field = null;
 
     /**
      * Type of field changed.
      */
+    @Nullable
     private String fieldType = null;
 
     /**
      * What the field changed from.
      */
+    @Nullable
     private String from = null;
 
     /**
      * What the field changed from in user-readable format.
      */
+    @Nullable
     private String fromString = null;
 
     /**
      * What the field changed to.
      */
+    @Nullable
     private String to = null;
 
     /**
      * What the field changed to in user-readable format.
      */
+    @Nullable
     private String toString = null;
 
     /**
@@ -63,7 +70,7 @@ public class ChangeLogItem extends Resource {
      * @param restclient REST client instance
      * @param json JSON payload
      */
-    protected ChangeLogItem(RestClient restclient, JSONObject json) {
+    protected ChangeLogItem(RestClient restclient, @Nullable JSONObject json) {
         super(restclient);
 
         if (json != null)
@@ -89,6 +96,7 @@ public class ChangeLogItem extends Resource {
      * Obtains the field changed.
      * @return the field changed
      */
+    @Nullable
     public String getField() {
         return field;
     }
@@ -97,6 +105,7 @@ public class ChangeLogItem extends Resource {
      * Obtains the type of field changed.
      * @return the type of field
      */
+    @Nullable
     public String getFieldType() {
         return fieldType;
     }
@@ -105,6 +114,7 @@ public class ChangeLogItem extends Resource {
      * Obtains the value the field was changed from.
      * @return the value
      */
+    @Nullable
     public String getFrom() {
         return from;
     }
@@ -113,6 +123,7 @@ public class ChangeLogItem extends Resource {
      * Obtains the value the field was changed from.
      * @return the value in user-readable format
      */
+    @Nullable
     public String getFromString() {
         return fromString;
     }
@@ -121,6 +132,7 @@ public class ChangeLogItem extends Resource {
      * Obtains the value the field was changed to.
      * @return the value
      */
+    @Nullable
     public String getTo() {
         return to;
     }
@@ -129,6 +141,7 @@ public class ChangeLogItem extends Resource {
      * Obtains the value the field was changed to.
      * @return the value in user-readable format
      */
+    @Nullable
     public String getToString() {
         return toString;
     }

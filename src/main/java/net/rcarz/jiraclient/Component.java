@@ -21,6 +21,8 @@ package net.rcarz.jiraclient;
 
 import net.sf.json.JSON;
 import net.sf.json.JSONObject;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 
@@ -36,12 +38,14 @@ public class Component extends Resource {
         /**
          * The Jira rest client.
          */
+        @Nullable
         RestClient restclient = null;
         
         /**
          * The JSON request that will be built incrementally as fluent methods
          * are invoked.
          */
+        @NotNull
         JSONObject req = new JSONObject();
 
         /**
@@ -59,6 +63,7 @@ public class Component extends Resource {
          * @param name the name
          * @return <code>this</code>
          */
+        @NotNull
         public FluentCreate name(String name) {
             req.put("name", name);
             return this;
@@ -69,6 +74,7 @@ public class Component extends Resource {
          * @param description the description
          * @return <code>this</code>
          */
+        @NotNull
         public FluentCreate description(String description) {
             req.put("description", description);
             return this;
@@ -79,6 +85,7 @@ public class Component extends Resource {
          * @param leadUserName the lead user name
          * @return <code>this</code>
          */
+        @NotNull
         public FluentCreate leadUserName(String leadUserName) {
             req.put("leadUserName", leadUserName);
             return this;
@@ -89,6 +96,7 @@ public class Component extends Resource {
          * @param assigneeType the assignee type
          * @return <code>this</code>
          */
+        @NotNull
         public FluentCreate assigneeType(String assigneeType) {
             req.put("assigneeType", assigneeType);
             return this;
@@ -99,6 +107,7 @@ public class Component extends Resource {
          * @param assigneeTypeValid is the assignee type valid?
          * @return <code>this</code>
          */
+        @NotNull
         public FluentCreate assigneeTypeValue(boolean assigneeTypeValid) {
             req.put("isAssigneeTypeValid", assigneeTypeValid);
             return this;
@@ -128,7 +137,9 @@ public class Component extends Resource {
         }
     }
 
+    @Nullable
     private String name = null;
+    @Nullable
     private String description = null;
     private boolean isAssigneeTypeValid = false;
 
@@ -138,7 +149,7 @@ public class Component extends Resource {
      * @param restclient REST client instance
      * @param json JSON payload
      */
-    protected Component(RestClient restclient, JSONObject json) {
+    protected Component(RestClient restclient, @Nullable JSONObject json) {
         super(restclient);
 
         if (json != null)
@@ -165,7 +176,7 @@ public class Component extends Resource {
      *
      * @throws JiraException when the retrieval fails
      */
-    public static Component get(RestClient restclient, String id)
+    public static Component get(@NotNull RestClient restclient, String id)
         throws JiraException {
 
         JSON result = null;
@@ -182,15 +193,18 @@ public class Component extends Resource {
         return new Component(restclient, (JSONObject)result);
     }
 
+    @Nullable
     @Override
     public String toString() {
         return getName();
     }
 
+    @Nullable
     public String getName() {
         return name;
     }
 
+    @Nullable
     public String getDescription() {
         return description;
     }
@@ -199,7 +213,7 @@ public class Component extends Resource {
         return isAssigneeTypeValid;
     }
     
-    private static String getRestUri(String id) {
+    private static String getRestUri(@Nullable String id) {
         return getBaseUri() + "component/" + (id != null ? id : "");
     }
 
@@ -211,6 +225,7 @@ public class Component extends Resource {
      *
      * @return a fluent create instance
      */
+    @NotNull
     public static FluentCreate create(RestClient restclient, String project) {
         FluentCreate fc = new FluentCreate(restclient, project);
         return fc;

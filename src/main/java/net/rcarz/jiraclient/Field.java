@@ -22,6 +22,8 @@ package net.rcarz.jiraclient;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONNull;
 import net.sf.json.JSONObject;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.sql.Timestamp;
 import java.text.ParsePosition;
@@ -38,10 +40,15 @@ public final class Field {
      */
     public static final class Meta {
         public boolean required;
+        @Nullable
         public String type;
+        @Nullable
         public String items;
+        @Nullable
         public String name;
+        @Nullable
         public String system;
+        @Nullable
         public String custom;
         public int customId;
     }
@@ -87,6 +94,7 @@ public final class Field {
      */
     public static final class ValueTuple {
         public final String type;
+        @Nullable
         public final Object value;
 
         /**
@@ -95,7 +103,7 @@ public final class Field {
          * @param type
          * @param value
          */
-        public ValueTuple(String type, Object value) {
+        public ValueTuple(String type, @Nullable Object value) {
             this.type = type;
             this.value = (value != null ? value : JSONNull.getInstance());
         }
@@ -175,6 +183,7 @@ public final class Field {
      *
      * @return a list of comments found in c
      */
+    @NotNull
     public static List<Comment> getComments(Object c, RestClient restclient,
                                             String issueKey) {
         List<Comment> results = new ArrayList<Comment>();
@@ -199,6 +208,7 @@ public final class Field {
      *
      * @return a list of work logs found in c
      */
+    @NotNull
     public static List<WorkLog> getWorkLogs(Object c, RestClient restclient) {
         List<WorkLog> results = new ArrayList<WorkLog>();
 
@@ -216,6 +226,7 @@ public final class Field {
      *
      * @return a list of remote links found in c
      */
+    @NotNull
     public static List<RemoteLink> getRemoteLinks(Object c, RestClient restclient) {
         List<RemoteLink> results = new ArrayList<RemoteLink>();
 
@@ -232,6 +243,7 @@ public final class Field {
      *
      * @return a Date instance or null if d isn't a string
      */
+    @Nullable
     public static Date getDate(Object d) {
         Date result = null;
 
@@ -250,6 +262,7 @@ public final class Field {
      *
      * @return a Date instance or null if d isn't a string
      */
+    @Nullable
     public static Date getDateTime(Object d) {
         Date result = null;
 
@@ -268,6 +281,7 @@ public final class Field {
      *
      * @return an floating-point number or null if i isn't a Double instance
      */
+    @Nullable
     public static Double getDouble(Object i) {
         Double result = null;
 
@@ -319,6 +333,7 @@ public final class Field {
      *
      * @return a Map instance with all entries found in m
      */
+    @NotNull
     public static <TK, TV> Map<TK, TV> getMap(
         Class<TK> keytype, Class<TV> valtype, Object m) {
 
@@ -345,6 +360,7 @@ public final class Field {
      *
      * @return a Resource instance or null if r isn't a JSONObject instance
      */
+    @Nullable
     public static <T extends Resource> T getResource(
         Class<T> type, Object r, RestClient restclient) {
 
@@ -361,6 +377,7 @@ public final class Field {
      *
      * @return a Resource instance or null if r isn't a JSONObject instance
      */
+    @Nullable
     public static <T extends Resource> T getResource(
         Class<T> type, Object r, RestClient restclient, String parentId) {
 
@@ -429,6 +446,7 @@ public final class Field {
      *
      * @return a String or null if s isn't a String instance
      */
+    @Nullable
     public static String getString(Object s) {
         String result = null;
 
@@ -445,6 +463,7 @@ public final class Field {
      *
      * @return a list of strings found in sa
      */
+    @NotNull
     public static List<String> getStringArray(Object sa) {
         List<String> results = new ArrayList<String>();
 
@@ -467,6 +486,7 @@ public final class Field {
      *
      * @return a list of Resources found in ra
      */
+    @NotNull
     public static <T extends Resource> List<T> getResourceArray(
         Class<T> type, Object ra, RestClient restclient) {
 
@@ -483,8 +503,9 @@ public final class Field {
      *
      * @return a list of Resources found in ra
      */
+    @NotNull
     public static <T extends Resource> List<T> getResourceArray(
-        Class<T> type, Object ra, RestClient restclient, String parentId) {
+            Class<T> type, Object ra, RestClient restclient, @Nullable String parentId) {
 
         List<T> results = new ArrayList<T>();
 
@@ -513,6 +534,7 @@ public final class Field {
      *
      * @return a TimeTracking instance or null if tt isn't a JSONObject instance
      */
+    @Nullable
     public static TimeTracking getTimeTracking(Object tt) {
         TimeTracking result = null;
 
@@ -532,6 +554,7 @@ public final class Field {
      *
      * @throws JiraException when the field is missing or metadata is bad
      */
+    @NotNull
     public static Meta getFieldMetadata(String name, JSONObject editmeta)
         throws JiraException {
 
@@ -586,7 +609,8 @@ public final class Field {
      *
      * @return a JSON-encoded array of items
      */
-    public static JSONArray toArray(Iterable iter, String type, String custom) throws JiraException {
+    @NotNull
+    public static JSONArray toArray(@NotNull Iterable iter, @Nullable String type, @Nullable String custom) throws JiraException {
         JSONArray results = new JSONArray();
 
         if (type == null)
@@ -649,7 +673,8 @@ public final class Field {
      * @throws JiraException when a value is bad or field has invalid metadata
      * @throws UnsupportedOperationException when a field type isn't supported
      */
-    public static Object toJson(String name, Object value, JSONObject editmeta)
+    @Nullable
+    public static Object toJson(String name, @Nullable Object value, @NotNull JSONObject editmeta)
         throws JiraException, UnsupportedOperationException {
 
         Meta m = getFieldMetadata(name, editmeta);

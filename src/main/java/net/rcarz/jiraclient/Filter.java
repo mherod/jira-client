@@ -2,6 +2,8 @@ package net.rcarz.jiraclient;
 
 import net.sf.json.JSON;
 import net.sf.json.JSONObject;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.net.URI;
 import java.util.Map;
@@ -11,11 +13,13 @@ import java.util.Map;
  */
 public class Filter extends Resource {
 
-	private String name;
-	private String jql;
+	@Nullable
+    private String name;
+	@Nullable
+    private String jql;
 	private boolean favourite;
 
-	public Filter(RestClient restclient, JSONObject json) {
+	public Filter(RestClient restclient, @Nullable JSONObject json) {
 		super(restclient);
 
 		if (json != null)
@@ -36,15 +40,17 @@ public class Filter extends Resource {
 		return favourite;
 	}
 
-	public String getJql() {
+	@Nullable
+    public String getJql() {
 		return jql;
 	}
 
-	public String getName() {
+	@Nullable
+    public String getName() {
 		return name;
 	}
 
-	public static Filter get(final RestClient restclient, final String id) throws JiraException {
+	public static Filter get(@NotNull final RestClient restclient, final String id) throws JiraException {
 		JSON result = null;
 
 		try {
@@ -61,7 +67,8 @@ public class Filter extends Resource {
 		return new Filter(restclient, (JSONObject) result);
 	}
 
-	@Override
+	@NotNull
+    @Override
 	public String toString() {
 		return "Filter{" +
 				"favourite=" + favourite +

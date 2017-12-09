@@ -22,6 +22,11 @@ package net.rcarz.jiraclient.greenhopper;
 import net.rcarz.jiraclient.Field;
 import net.rcarz.jiraclient.JiraException;
 import net.rcarz.jiraclient.RestClient;
+import net.sf.json.JSON;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -29,27 +34,31 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.json.JSON;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-
 /**
  * GreenHopper backlog data.
  */
 public class Backlog {
 
+    @Nullable
     private RestClient restclient = null;
+    @Nullable
     private List<SprintIssue> issues = null;
+    @Nullable
     private List<SprintIssue> backlogIssues = null;
     private int rankCustomFieldId = 0;
+    @Nullable
     private List<Sprint> sprints = null;
+    @Nullable
     private List<RapidViewProject> projects = null;
+    @Nullable
     private List<Marker> markers = null;
+    @Nullable
     private List<Epic> epics = null;
     private boolean canEditEpics = false;
     private boolean canManageSprints = false;
     private boolean maxIssuesExceeded = false;
     private int queryResultLimit = 0;
+    @Nullable
     private Map<String, List<RapidViewVersion>> versionsPerProject = null;
 
     /**
@@ -58,7 +67,7 @@ public class Backlog {
      * @param restclient REST client instance
      * @param json JSON payload
      */
-    protected Backlog(RestClient restclient, JSONObject json) {
+    protected Backlog(RestClient restclient, @Nullable JSONObject json) {
         this.restclient = restclient;
 
         if (json != null)
@@ -156,7 +165,7 @@ public class Backlog {
      *
      * @throws JiraException when the retrieval fails
      */
-    public static Backlog get(RestClient restclient, RapidView rv)
+    public static Backlog get(@NotNull RestClient restclient, RapidView rv)
         throws JiraException {
 
         final int rvId = rv.getId();
@@ -179,10 +188,12 @@ public class Backlog {
         return new Backlog(restclient, (JSONObject)result);
     }
 
+    @Nullable
     public List<SprintIssue> getIssues() {
         return issues;
     }
 
+    @Nullable
     public List<SprintIssue> getBacklogIssues() {
         return backlogIssues;
     }
@@ -191,18 +202,22 @@ public class Backlog {
         return rankCustomFieldId;
     }
 
+    @Nullable
     public List<Sprint> getSprints() {
         return sprints;
     }
 
+    @Nullable
     public List<RapidViewProject> getProjects() {
         return projects;
     }
 
+    @Nullable
     public List<Marker> getMarkers() {
         return markers;
     }
 
+    @Nullable
     public List<Epic> getEpics() {
         return epics;
     }
@@ -223,6 +238,7 @@ public class Backlog {
         return queryResultLimit;
     }
 
+    @Nullable
     public Map<String, List<RapidViewVersion>> getVersionsPerProject() {
         return versionsPerProject;
     }

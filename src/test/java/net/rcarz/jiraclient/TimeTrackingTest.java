@@ -1,6 +1,8 @@
 package net.rcarz.jiraclient;
 
 import net.sf.json.JSONObject;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.junit.Test;
 
 import static junit.framework.Assert.assertEquals;
@@ -8,7 +10,9 @@ import static junit.framework.Assert.assertNull;
 
 public class TimeTrackingTest {
 
+  @NotNull
   private Issue issue = new Issue(null, Utils.getTestIssue());
+  @Nullable
   private TimeTracking time = issue.getTimeTracking();
 
   @Test

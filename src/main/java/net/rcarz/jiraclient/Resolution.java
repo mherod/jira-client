@@ -19,17 +19,21 @@
 
 package net.rcarz.jiraclient;
 
-import java.util.Map;
-
 import net.sf.json.JSON;
 import net.sf.json.JSONObject;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Map;
 
 /**
  * Represents an issue resolution.
  */
 public class Resolution extends Resource {
 
+    @Nullable
     private String description = null;
+    @Nullable
     private String name = null;
 
     /**
@@ -38,7 +42,7 @@ public class Resolution extends Resource {
      * @param restclient REST client instance
      * @param json JSON payload
      */
-    protected Resolution(RestClient restclient, JSONObject json) {
+    protected Resolution(RestClient restclient, @Nullable JSONObject json) {
         super(restclient);
 
         if (json != null)
@@ -64,7 +68,7 @@ public class Resolution extends Resource {
      *
      * @throws JiraException when the retrieval fails
      */
-    public static Resolution get(RestClient restclient, String id)
+    public static Resolution get(@NotNull RestClient restclient, String id)
         throws JiraException {
 
         JSON result = null;
@@ -81,15 +85,18 @@ public class Resolution extends Resource {
         return new Resolution(restclient, (JSONObject)result);
     }
 
+    @Nullable
     @Override
     public String toString() {
         return getName();
     }
 
+    @Nullable
     public String getDescription() {
         return description;
     }
 
+    @Nullable
     public String getName() {
         return name;
     }

@@ -1,6 +1,7 @@
 package net.rcarz.jiraclient;
 
 import net.sf.json.JSONObject;
+import org.jetbrains.annotations.NotNull;
 import org.junit.Test;
 import org.powermock.api.mockito.PowerMockito;
 
@@ -13,8 +14,11 @@ import static org.powermock.api.mockito.PowerMockito.when;
 
 public class StatusTest {
 
+    @NotNull
     private String statusID = "10004";
+    @NotNull
     private String description = "Issue is currently in progress.";
+    @NotNull
     private String iconURL = "https://site/images/icons/statuses/open.png";
 
     @Test
@@ -50,6 +54,7 @@ public class StatusTest {
         Status.get(mockRestClient,"issueNumber");
     }
 
+    @NotNull
     private JSONObject getTestJSON() {
         JSONObject json = new JSONObject();
         json.put("description", description);

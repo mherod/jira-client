@@ -20,6 +20,7 @@
 package net.rcarz.jiraclient;
 
 import net.sf.json.JSONObject;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Date;
 import java.util.List;
@@ -35,16 +36,19 @@ public class ChangeLogEntry extends Resource {
     /**
      * Changelog author.
      */
+    @Nullable
     private User author = null;
 
     /**
      * Date when the changelog entry was created.
      */
+    @Nullable
     private Date created = null;
 
     /**
      * List of change log items in the change log entry.
      */
+    @Nullable
     private List<ChangeLogItem> items = null;
 
     /**
@@ -53,7 +57,7 @@ public class ChangeLogEntry extends Resource {
      * @param restclient REST client instance
      * @param json JSON payload
      */
-    protected ChangeLogEntry(RestClient restclient, JSONObject json) {
+    protected ChangeLogEntry(RestClient restclient, @Nullable JSONObject json) {
         super(restclient);
 
         if (json != null)
@@ -78,6 +82,7 @@ public class ChangeLogEntry extends Resource {
      * Obtains the author of the change log entry.
      * @return the author
      */
+    @Nullable
     public User getAuthor() {
         return author;
     }
@@ -86,6 +91,7 @@ public class ChangeLogEntry extends Resource {
      * Returns the date when the change log entry was created.
      * @return the date
      */
+    @Nullable
     public Date getCreated() {
         return created;
     }
@@ -94,6 +100,7 @@ public class ChangeLogEntry extends Resource {
      * Returns the list of items in the change log entry.
      * @return the list of items
      */
+    @Nullable
     public List<ChangeLogItem> getItems() {
         return items;
     }

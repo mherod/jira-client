@@ -23,6 +23,7 @@ import org.apache.http.HttpRequest;
 import org.apache.http.auth.Credentials;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.impl.auth.BasicScheme;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Basic HTTP authentication credentials.
@@ -48,7 +49,7 @@ public class BasicCredentials implements ICredentials {
      *
      * @param req HTTP request to authenticate
      */
-    public void authenticate(HttpRequest req) {
+    public void authenticate(@NotNull HttpRequest req) {
         Credentials creds = new UsernamePasswordCredentials(username, password);
         req.addHeader(BasicScheme.authenticate(creds, "utf-8", false));
     }

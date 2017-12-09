@@ -20,17 +20,19 @@
 package net.rcarz.jiraclient.greenhopper;
 
 import net.rcarz.jiraclient.Field;
+import net.sf.json.JSONObject;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
-
-import net.sf.json.JSONObject;
 
 /**
  * GreenHopper epic statistics.
  */
 public class EpicStats {
 
+    @Nullable
     private Double notDoneEstimate = null;
+    @Nullable
     private Double doneEstimate = null;
     private int estimated = 0;
     private int notEstimated = 0;
@@ -53,10 +55,12 @@ public class EpicStats {
         done = Field.getInteger(map.get("done"));
     }
 
+    @Nullable
     public Double getNotDoneEstimate() {
         return notDoneEstimate;
     }
 
+    @Nullable
     public Double getDoneEstimate() {
         return doneEstimate;
     }

@@ -1,6 +1,7 @@
 package net.rcarz.jiraclient;
 
 import net.sf.json.JSONObject;
+import org.jetbrains.annotations.NotNull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.api.mockito.PowerMockito;
@@ -15,6 +16,7 @@ import static org.mockito.Matchers.anyString;
 @RunWith(PowerMockRunner.class)
 public class WorklogTest {
 
+    @NotNull
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Field.DATETIME_FORMAT);
 
     @Test(expected = JiraException.class)

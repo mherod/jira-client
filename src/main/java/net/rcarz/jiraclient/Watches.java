@@ -21,6 +21,8 @@ package net.rcarz.jiraclient;
 
 import net.sf.json.JSON;
 import net.sf.json.JSONObject;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,9 +33,11 @@ import java.util.Map;
  */
 public class Watches extends Resource {
 
+    @Nullable
     private String name = null;
     private int watchCount = 0;
     private boolean isWatching = false;
+    @NotNull
     private List<User> watchers = new ArrayList<User>();
 
     /**
@@ -42,7 +46,7 @@ public class Watches extends Resource {
      * @param restclient REST client instance
      * @param json JSON payload
      */
-    protected Watches(RestClient restclient, JSONObject json) {
+    protected Watches(RestClient restclient, @Nullable JSONObject json) {
         super(restclient);
 
         if (json != null)
@@ -69,7 +73,7 @@ public class Watches extends Resource {
      *
      * @throws JiraException when the retrieval fails
      */
-    public static Watches get(RestClient restclient, String issue)
+    public static Watches get(@NotNull RestClient restclient, String issue)
         throws JiraException {
 
         JSON result = null;
@@ -86,6 +90,7 @@ public class Watches extends Resource {
         return new Watches(restclient, (JSONObject)result);
     }
 
+    @NotNull
     @Override
     public String toString() {
         return Integer.toString(getWatchCount());
@@ -99,7 +104,8 @@ public class Watches extends Resource {
         return isWatching;
     }
 
-	public List<User> getWatchers() {
+	@NotNull
+    public List<User> getWatchers() {
 		return watchers;
 	}
 }

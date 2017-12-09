@@ -20,17 +20,19 @@
 package net.rcarz.jiraclient.greenhopper;
 
 import net.rcarz.jiraclient.Field;
+import net.sf.json.JSONObject;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
-
-import net.sf.json.JSONObject;
 
 /**
  * GreenHopper estimate sum for rapid views.
  */
 public class EstimateSum {
 
+    @Nullable
     private Double value = null;
+    @Nullable
     private String text = null;
 
     /**
@@ -45,10 +47,12 @@ public class EstimateSum {
         text = Field.getString(map.get("text"));
     }
 
+    @Nullable
     public Double getValue() {
         return value;
     }
 
+    @Nullable
     public String getText() {
         return text;
     }

@@ -21,6 +21,8 @@ package net.rcarz.jiraclient;
 
 import net.sf.json.JSON;
 import net.sf.json.JSONObject;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -39,12 +41,14 @@ public class Version extends Resource {
         /**
          * The Jira rest client.
          */
+        @Nullable
         RestClient restclient = null;
 
         /**
          * The JSON request that will be built incrementally as fluent methods
          * are invoked.
          */
+        @NotNull
         JSONObject req = new JSONObject();
 
         /**
@@ -62,6 +66,7 @@ public class Version extends Resource {
          * @param name the name
          * @return <code>this</code>
          */
+        @NotNull
         public FluentCreate name(String name) {
             req.put("name", name);
             return this;
@@ -72,6 +77,7 @@ public class Version extends Resource {
          * @param description the description
          * @return <code>this</code>
          */
+        @NotNull
         public FluentCreate description(String description) {
             req.put("description", description);
             return this;
@@ -82,6 +88,7 @@ public class Version extends Resource {
          * @param isArchived archived status
          * @return <code>this</code>
          */
+        @NotNull
         public FluentCreate archived(boolean isArchived) {
             req.put("archived", isArchived);
             return this;
@@ -92,6 +99,7 @@ public class Version extends Resource {
          * @param isReleased released status
          * @return <code>this</code>
          */
+        @NotNull
         public FluentCreate released(boolean isReleased) {
             req.put("released", isReleased);
             return this;
@@ -102,6 +110,7 @@ public class Version extends Resource {
          * @param releaseDate release Date
          * @return <code>this</code>
          */
+        @NotNull
         public FluentCreate releaseDate(Date releaseDate) {
             DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
             req.put("releaseDate", df.format(releaseDate));
@@ -135,10 +144,13 @@ public class Version extends Resource {
         }
     }
 
+    @Nullable
     private String name = null;
     private boolean archived = false;
     private boolean released = false;
+    @Nullable
     private String releaseDate;
+    @Nullable
     private String description = null;
 
     /**
@@ -147,7 +159,7 @@ public class Version extends Resource {
      * @param restclient REST client instance
      * @param json       JSON payload
      */
-    protected Version(RestClient restclient, JSONObject json) {
+    protected Version(RestClient restclient, @Nullable JSONObject json) {
         super(restclient);
 
         if (json != null)
@@ -160,7 +172,7 @@ public class Version extends Resource {
      * @param version
      *            The version to merge
      */
-    public void mergeWith(Version version) throws JiraException {
+    public void mergeWith(@NotNull Version version) throws JiraException {
     
         JSONObject req = new JSONObject();
         req.put("description", version.getDescription());
@@ -182,7 +194,7 @@ public class Version extends Resource {
     * @param project
     *            The project the version will be copied to
     */
-    public void copyTo(Project project) throws JiraException {
+    public void copyTo(@NotNull Project project) throws JiraException {
     
         JSONObject req = new JSONObject();
         req.put("description", getDescription());
@@ -208,7 +220,7 @@ public class Version extends Resource {
      * @return a version instance
      * @throws JiraException when the retrieval fails
      */
-    public static Version get(RestClient restclient, String id)
+    public static Version get(@NotNull RestClient restclient, String id)
             throws JiraException {
 
         JSON result = null;
@@ -237,11 +249,13 @@ public class Version extends Resource {
         description = Field.getString(map.get("description"));
     }
 
+    @Nullable
     @Override
     public String toString() {
         return getName();
     }
 
+    @Nullable
     public String getName() {
         return name;
     }
@@ -254,16 +268,18 @@ public class Version extends Resource {
         return released;
     }
 
+    @Nullable
     public String getReleaseDate() {
         return releaseDate;
     }
 
+    @Nullable
     public String getDescription() {
         return description;
 
     }
 
-    private static String getRestUri(String id) {
+    private static String getRestUri(@Nullable String id) {
         return getBaseUri() + "version/" + (id != null ? id : "");
     }
 
@@ -275,6 +291,7 @@ public class Version extends Resource {
      *
      * @return a fluent create instance
      */
+    @NotNull
     public static FluentCreate create(RestClient restclient, String project) {
         FluentCreate fc = new FluentCreate(restclient, project);
         return fc;

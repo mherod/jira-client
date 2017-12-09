@@ -21,6 +21,8 @@ package net.rcarz.jiraclient;
 
 import net.sf.json.JSON;
 import net.sf.json.JSONObject;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 
@@ -38,7 +40,7 @@ public class Votes extends Resource {
      * @param restclient REST client instance
      * @param json JSON payload
      */
-    protected Votes(RestClient restclient, JSONObject json) {
+    protected Votes(RestClient restclient, @Nullable JSONObject json) {
         super(restclient);
 
         if (json != null)
@@ -64,7 +66,7 @@ public class Votes extends Resource {
      *
      * @throws JiraException when the retrieval fails
      */
-    public static Votes get(RestClient restclient, String issue)
+    public static Votes get(@NotNull RestClient restclient, String issue)
         throws JiraException {
 
         JSON result = null;
@@ -81,6 +83,7 @@ public class Votes extends Resource {
         return new Votes(restclient, (JSONObject)result);
     }
 
+    @NotNull
     @Override
     public String toString() {
         return Integer.toString(getVotes());

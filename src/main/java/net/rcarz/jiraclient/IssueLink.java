@@ -19,18 +19,23 @@
 
 package net.rcarz.jiraclient;
 
-import java.util.Map;
-
 import net.sf.json.JSON;
 import net.sf.json.JSONObject;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Map;
 
 /**
  * Represents an issue link.
  */
 public class IssueLink extends Resource {
 
+    @Nullable
     private LinkType type = null;
+    @Nullable
     private Issue inwardIssue = null;
+    @Nullable
     private Issue outwardIssue = null;
 
     /**
@@ -39,7 +44,7 @@ public class IssueLink extends Resource {
      * @param restclient REST client instance
      * @param json JSON payload
      */
-    protected IssueLink(RestClient restclient, JSONObject json) {
+    protected IssueLink(RestClient restclient, @Nullable JSONObject json) {
         super(restclient);
 
         if (json != null)
@@ -80,7 +85,7 @@ public class IssueLink extends Resource {
      *
      * @throws JiraException when the retrieval fails
      */
-    public static IssueLink get(RestClient restclient, String id)
+    public static IssueLink get(@NotNull RestClient restclient, String id)
         throws JiraException {
 
         JSON result = null;
@@ -102,14 +107,17 @@ public class IssueLink extends Resource {
         return String.format("%s %s", getType().getInward(), getOutwardIssue());
     }
 
+    @Nullable
     public LinkType getType() {
         return type;
     }
 
+    @Nullable
     public Issue getOutwardIssue() {
         return outwardIssue;
     }
     
+    @Nullable
     public Issue getInwardIssue() {
         return inwardIssue;
     }

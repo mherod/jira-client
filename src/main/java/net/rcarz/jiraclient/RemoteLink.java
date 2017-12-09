@@ -1,13 +1,17 @@
 package net.rcarz.jiraclient;
 
-import java.util.Map;
 import net.sf.json.JSONObject;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Map;
 
 public class RemoteLink extends Resource {
+    @Nullable
     private String remoteUrl;
+    @Nullable
     private String title;
 
-    public RemoteLink(RestClient restclient, JSONObject json) {
+    public RemoteLink(RestClient restclient, @Nullable JSONObject json) {
         super(restclient);
         if (json != null)
             deserialise(json);
@@ -25,6 +29,7 @@ public class RemoteLink extends Resource {
         title = Field.getString(object.get("title"));
     }
 
+    @Nullable
     public String getTitle() {
         return title;
     }
@@ -33,6 +38,7 @@ public class RemoteLink extends Resource {
         this.title = title;
     }
 
+    @Nullable
     public String getRemoteUrl() {
         return remoteUrl;
     }

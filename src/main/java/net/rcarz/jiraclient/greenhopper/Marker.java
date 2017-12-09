@@ -21,16 +21,17 @@ package net.rcarz.jiraclient.greenhopper;
 
 import net.rcarz.jiraclient.Field;
 import net.rcarz.jiraclient.RestClient;
+import net.sf.json.JSONObject;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
-
-import net.sf.json.JSONObject;
 
 /**
  * Represents a GreenHopper marker (a sprint that hasn't started).
  */
 public class Marker extends GreenHopperResource {
 
+    @Nullable
     private String name = null;
 
     /**
@@ -39,7 +40,7 @@ public class Marker extends GreenHopperResource {
      * @param restclient REST client instance
      * @param json JSON payload
      */
-    protected Marker(RestClient restclient, JSONObject json) {
+    protected Marker(RestClient restclient, @Nullable JSONObject json) {
         super(restclient);
 
         if (json != null)
@@ -53,11 +54,13 @@ public class Marker extends GreenHopperResource {
         name = Field.getString(map.get("name"));
     }
 
+    @Nullable
     @Override
     public String toString() {
         return name;
     }
 
+    @Nullable
     public String getName() {
         return name;
     }

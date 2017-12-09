@@ -23,16 +23,18 @@ import net.rcarz.jiraclient.Field;
 import net.rcarz.jiraclient.JiraException;
 import net.rcarz.jiraclient.RestClient;
 import net.rcarz.jiraclient.Version;
+import net.sf.json.JSONObject;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
-
-import net.sf.json.JSONObject;
 
 /**
  * Represents a GreenHopper JIRA project version.
  */
 public class RapidViewVersion extends GreenHopperResource {
 
+    @Nullable
     private String name = null;
     private int sequence = 0;
     private boolean released = false;
@@ -43,7 +45,7 @@ public class RapidViewVersion extends GreenHopperResource {
      * @param restclient REST client instance
      * @param json JSON payload
      */
-    protected RapidViewVersion(RestClient restclient, JSONObject json) {
+    protected RapidViewVersion(RestClient restclient, @Nullable JSONObject json) {
         super(restclient);
 
         if (json != null)
@@ -66,15 +68,18 @@ public class RapidViewVersion extends GreenHopperResource {
      *
      * @throws JiraException when the retrieval fails
      */
+    @NotNull
     public Version getJiraVersion() throws JiraException {
         return Version.get(restclient, Integer.toString(id));
     }
 
+    @Nullable
     @Override
     public String toString() {
         return name;
     }
 
+    @Nullable
     public String getName() {
         return name;
     }

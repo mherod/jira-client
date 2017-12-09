@@ -19,32 +19,45 @@
 
 package net.rcarz.jiraclient;
 
+import net.sf.json.JSON;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import static net.rcarz.jiraclient.Resource.getBaseUri;
-
-import net.sf.json.JSON;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 
 /**
  * Represents a JIRA project.
  */
 public class Project extends Resource {
 
+    @Nullable
     private Map<String, String> avatarUrls = null;
+    @Nullable
     private String key = null;
+    @Nullable
     private String name = null;
+    @Nullable
     private String description = null;
+    @Nullable
     private User lead = null;
+    @Nullable
     private String assigneeType = null;
+    @Nullable
     private List<Component> components = null;
+    @Nullable
     private List<IssueType> issueTypes = null;
+    @Nullable
     private List<Version> versions = null;
+    @Nullable
     private Map<String, String> roles = null;
+    @Nullable
     private ProjectCategory category = null;
+    @Nullable
     private String email = null;
 
     /**
@@ -53,7 +66,7 @@ public class Project extends Resource {
      * @param restclient REST client instance
      * @param json JSON payload
      */
-    protected Project(RestClient restclient, JSONObject json) {
+    protected Project(RestClient restclient, @Nullable JSONObject json) {
         super(restclient);
 
         if (json != null)
@@ -92,7 +105,7 @@ public class Project extends Resource {
      *
      * @throws JiraException when the retrieval fails
      */
-    public static Project get(RestClient restclient, String key)
+    public static Project get(@NotNull RestClient restclient, String key)
         throws JiraException {
 
         JSON result = null;
@@ -118,7 +131,8 @@ public class Project extends Resource {
      *
      * @throws JiraException when the retrieval fails
      */
-    public static List<Project> getAll(RestClient restclient) throws JiraException {
+    @NotNull
+    public static List<Project> getAll(@NotNull RestClient restclient) throws JiraException {
         JSON result = null;
 
         try {
@@ -133,6 +147,7 @@ public class Project extends Resource {
         return Field.getResourceArray(Project.class, result, restclient);
     }
 
+    @NotNull
     public List<User> getAssignableUsers() throws JiraException {
         JSON result = null;
 
@@ -151,55 +166,68 @@ public class Project extends Resource {
         return Field.getResourceArray(User.class, result, restclient);
     }
 
+    @Nullable
     @Override
     public String toString() {
         return getName();
     }
 
+    @Nullable
     public Map<String, String> getAvatarUrls() {
         return avatarUrls;
     }
 
+    @Nullable
     public String getKey() {
         return key;
     }
 
+    @Nullable
     public String getName() {
         return name;
     }
 
+    @Nullable
     public String getDescription() {
         return description;
     }
 
+    @Nullable
     public User getLead() {
         return lead;
     }
 
+    @Nullable
     public String getAssigneeType() {
         return assigneeType;
     }
 
+    @Nullable
     public List<Component> getComponents() {
         return components;
     }
 
+    @Nullable
     public List<IssueType> getIssueTypes() {
         return issueTypes;
     }
 
+    @Nullable
     public List<Version> getVersions() {
         return versions;
     }
 
+    @Nullable
     public Map<String, String> getRoles() {
         return roles;
     }
 
+    @Nullable
     public ProjectCategory getCategory() {
         return category;
     }
 
+    @Nullable
     public String getEmail() {
         return email;
     }

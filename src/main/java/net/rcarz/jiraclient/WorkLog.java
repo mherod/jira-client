@@ -21,6 +21,8 @@ package net.rcarz.jiraclient;
 
 import net.sf.json.JSON;
 import net.sf.json.JSONObject;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Date;
 import java.util.Map;
@@ -30,12 +32,19 @@ import java.util.Map;
  */
 public class WorkLog extends Resource {
 
+    @Nullable
     private User author = null;
+    @Nullable
     private String comment = null;
+    @Nullable
     private Date created = null;
+    @Nullable
     private Date updated = null;
+    @Nullable
     private User updateAuthor = null;
+    @Nullable
     private Date started = null;
+    @Nullable
     private String timeSpent = null;
     private int timeSpentSeconds = 0;
 
@@ -45,7 +54,7 @@ public class WorkLog extends Resource {
      * @param restclient REST client instance
      * @param json JSON payload
      */
-    protected WorkLog(RestClient restclient, JSONObject json) {
+    protected WorkLog(RestClient restclient, @Nullable JSONObject json) {
         super(restclient);
 
         if (json != null)
@@ -78,7 +87,7 @@ public class WorkLog extends Resource {
      *
      * @throws JiraException when the retrieval fails
      */
-    public static WorkLog get(RestClient restclient, String issue, String id)
+    public static WorkLog get(@NotNull RestClient restclient, String issue, String id)
         throws JiraException {
 
         JSON result = null;
@@ -95,33 +104,41 @@ public class WorkLog extends Resource {
         return new WorkLog(restclient, (JSONObject)result);
     }
 
+    @Nullable
     @Override
     public String toString() {
         return created + " by " + author;
     }
 
+    @Nullable
     public User getAuthor() {
         return author;
     }
 
+    @Nullable
     public String getComment() {
         return comment;
     }
 
+    @Nullable
     public Date getCreatedDate() {
         return created;
     }
 
+    @Nullable
     public User getUpdateAuthor() {
         return updateAuthor;
     }
 
+    @Nullable
     public Date getUpdatedDate() {
         return updated;
     }
 
+    @Nullable
     public Date getStarted(){ return started; }
 
+    @Nullable
     public String getTimeSpent(){ return timeSpent; }
 
     public int getTimeSpentSeconds() {

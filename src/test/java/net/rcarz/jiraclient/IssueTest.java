@@ -2,6 +2,7 @@ package net.rcarz.jiraclient;
 
 import net.sf.json.JSON;
 import net.sf.json.JSONNull;
+import org.jetbrains.annotations.Nullable;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.junit.Assert;
@@ -193,6 +194,7 @@ public class IssueTest {
             super(null, null);
         }
 
+        @Nullable
         @Override
         public JSON post(String path, JSON payload) {
             postPath = path;

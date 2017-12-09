@@ -19,6 +19,8 @@
 
 package net.rcarz.jiraclient;
 
+import org.jetbrains.annotations.Nullable;
+
 /**
  * A base class for JIRA resources.
  */
@@ -27,8 +29,11 @@ public abstract class Resource {
     public static final String DEFAULT_API_REV = "latest";
     public static String apirev = DEFAULT_API_REV;
 
+    @Nullable
     protected RestClient restclient = null;
+    @Nullable
     protected String id = null;
+    @Nullable
     protected String self = null;
 
     /**
@@ -71,6 +76,7 @@ public abstract class Resource {
     /**
      * Internal JIRA ID.
      */
+    @Nullable
     public String getId() {
         return id;
     }
@@ -78,6 +84,7 @@ public abstract class Resource {
     /**
      * REST API resource URL.
      */
+    @Nullable
     public String getUrl() {
         return self;
     }
@@ -85,6 +92,7 @@ public abstract class Resource {
     /**
      * Resource URL.
      */
+    @Nullable
     public String getSelf() {
         return self;
     }

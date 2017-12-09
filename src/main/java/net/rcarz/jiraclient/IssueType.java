@@ -19,20 +19,26 @@
 
 package net.rcarz.jiraclient;
 
-import java.util.Map;
-
 import net.sf.json.JSON;
 import net.sf.json.JSONObject;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Map;
 
 /**
  * Represents an issue type.
  */
 public class IssueType extends Resource {
 
+    @Nullable
     private String description = null;
+    @Nullable
     private String iconUrl = null;
+    @Nullable
     private String name = null;
     private boolean subtask = false;
+    @Nullable
     private JSONObject fields = null;
 
     /**
@@ -41,7 +47,7 @@ public class IssueType extends Resource {
      * @param restclient REST client instance
      * @param json JSON payload
      */
-    protected IssueType(RestClient restclient, JSONObject json) {
+    protected IssueType(RestClient restclient, @Nullable JSONObject json) {
         super(restclient);
 
         if (json != null)
@@ -72,7 +78,7 @@ public class IssueType extends Resource {
      *
      * @throws JiraException when the retrieval fails
      */
-    public static IssueType get(RestClient restclient, String id)
+    public static IssueType get(@NotNull RestClient restclient, String id)
         throws JiraException {
 
         JSON result = null;
@@ -89,19 +95,23 @@ public class IssueType extends Resource {
         return new IssueType(restclient, (JSONObject)result);
     }
 
+    @Nullable
     @Override
     public String toString() {
         return getName();
     }
 
+    @Nullable
     public String getDescription() {
         return description;
     }
 
+    @Nullable
     public String getName() {
         return name;
     }
 
+    @Nullable
     public String getIconUrl() {
         return iconUrl;
     }
@@ -110,6 +120,7 @@ public class IssueType extends Resource {
         return subtask;
     }
 
+    @Nullable
     public JSONObject getFields() {
         return fields;
     }

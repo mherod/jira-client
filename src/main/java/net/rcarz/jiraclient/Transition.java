@@ -20,6 +20,8 @@
 package net.rcarz.jiraclient;
 
 import net.sf.json.JSONObject;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.Map;
 
 /**
@@ -27,8 +29,11 @@ import java.util.Map;
  */
 public class Transition extends Resource {
 
+    @Nullable
     private String name = null;
+    @Nullable
     private Status toStatus = null;
+    @Nullable
     private Map fields = null;
 
     /**
@@ -37,7 +42,7 @@ public class Transition extends Resource {
      * @param restclient REST client instance
      * @param json JSON payload
      */
-    protected Transition(RestClient restclient, JSONObject json) {
+    protected Transition(RestClient restclient, @Nullable JSONObject json) {
         super(restclient);
 
         if (json != null)
@@ -55,19 +60,23 @@ public class Transition extends Resource {
         fields = (Map)map.get("fields");
     }
 
+    @Nullable
     @Override
     public String toString() {
         return getName();
     }
 
+    @Nullable
     public String getName() {
         return name;
     }
 
+    @Nullable
     public Status getToStatus() {
         return toStatus;
     }
 
+    @Nullable
     public Map getFields() {
         return fields;
     }

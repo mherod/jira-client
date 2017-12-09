@@ -26,6 +26,8 @@ import net.sf.json.JSON;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.apache.commons.lang.math.NumberUtils;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
@@ -45,10 +47,12 @@ public abstract class AgileResource {
 
     public static final String RESOURCE_URI = "/rest/agile/1.0/";
 
+    @Nullable
     private RestClient restclient = null;
     private long id = 0;
     private String name;
     private String self;
+    @NotNull
     private JSONObject attributes = new JSONObject();
 
     /**
@@ -58,7 +62,7 @@ public abstract class AgileResource {
      * @param json       JSON payload
      * @throws JiraException when the retrieval fails
      */
-    public AgileResource(RestClient restclient, JSONObject json) throws JiraException {
+    public AgileResource(RestClient restclient, @Nullable JSONObject json) throws JiraException {
         this.restclient = restclient;
         if (json != null) {
             deserialize(json);
@@ -74,8 +78,9 @@ public abstract class AgileResource {
      * @return a Resource instance or null if r isn't a JSONObject instance
      * @throws JiraException when the retrieval fails
      */
+    @Nullable
     protected static <T extends AgileResource> T getResource(
-            Class<T> type, Object r, RestClient restclient) throws JiraException {
+            @NotNull Class<T> type, Object r, RestClient restclient) throws JiraException {
 
         if (!(r instanceof JSONObject)) {
             throw new JiraException("JSON payload is malformed");
@@ -105,8 +110,9 @@ public abstract class AgileResource {
      * @return a list of Resources found in ra
      * @throws JiraException when the retrieval fails
      */
+    @NotNull
     protected static <T extends AgileResource> List<T> getResourceArray(
-            Class<T> type, Object ra, RestClient restclient, String listName) throws JiraException {
+            @NotNull Class<T> type, Object ra, RestClient restclient, String listName) throws JiraException {
         if (!(ra instanceof JSONObject)) {
             throw new JiraException("JSON payload is malformed");
         }
@@ -138,8 +144,9 @@ public abstract class AgileResource {
      * @return a list of boards
      * @throws JiraException when the retrieval fails
      */
+    @NotNull
     static <T extends AgileResource> List<T> list(
-            RestClient restclient, Class<T> type, String url) throws JiraException {
+            @NotNull RestClient restclient, @NotNull Class<T> type, String url) throws JiraException {
         return list(restclient, type, url, "values");
     }
 
@@ -153,8 +160,9 @@ public abstract class AgileResource {
      * @return a list of boards
      * @throws JiraException when the retrieval fails
      */
+    @NotNull
     static <T extends AgileResource> List<T> list(
-            RestClient restclient, Class<T> type, String url, String listName) throws JiraException {
+            @NotNull RestClient restclient, @NotNull Class<T> type, String url, String listName) throws JiraException {
 
         JSON result;
         try {
@@ -178,7 +186,8 @@ public abstract class AgileResource {
      * @return a list of boards
      * @throws JiraException when the retrieval fails
      */
-    static <T extends AgileResource> T get(RestClient restclient, Class<T> type, String url) throws JiraException {
+    @Nullable
+    static <T extends AgileResource> T get(@NotNull RestClient restclient, @NotNull Class<T> type, String url) throws JiraException {
 
         JSON result;
         try {
@@ -204,8 +213,9 @@ public abstract class AgileResource {
      * @return The list of resources if present.
      * @throws JiraException when the retrieval fails
      */
+    @Nullable
     <T extends AgileResource> List<T> getSubResourceArray(
-            Class<T> type, JSONObject subJson, String resourceName) throws JiraException {
+            @NotNull Class<T> type, @NotNull JSONObject subJson, String resourceName) throws JiraException {
         List<T> result = null;
         if (subJson.containsKey(resourceName)) {
             result = getResourceArray(type, subJson.get(resourceName), getRestclient(), resourceName + "s");
@@ -223,8 +233,9 @@ public abstract class AgileResource {
      * @return The resource if present.
      * @throws JiraException when the retrieval fails
      */
+    @Nullable
     <T extends AgileResource> T getSubResource(
-            Class<T> type, JSONObject subJson, String resourceName) throws JiraException {
+            @NotNull Class<T> type, @NotNull JSONObject subJson, String resourceName) throws JiraException {
         T result = null;
         if (subJson.containsKey(resourceName) && !subJson.get(resourceName).equals("null")) {
             result = getResource(type, subJson.get(resourceName), getRestclient());
@@ -263,6 +274,7 @@ public abstract class AgileResource {
     /**
      * @return The REST client used to access the current resource.
      */
+    @Nullable
     protected RestClient getRestclient() {
         return restclient;
     }
@@ -283,7 +295,7 @@ public abstract class AgileResource {
      *
      * @param json The JSON object to read.
      */
-    void deserialize(JSONObject json) throws JiraException {
+    void deserialize(@NotNull JSONObject json) throws JiraException {
 
         id = getLong(json.get("id"));
         name = Field.getString(json.get("name"));
@@ -296,7 +308,7 @@ public abstract class AgileResource {
      *
      * @param json The json object to extract attributes from.
      */
-    void addAttributes(JSONObject json) {
+    void addAttributes(@NotNull JSONObject json) {
         attributes.putAll(json);
     }
 

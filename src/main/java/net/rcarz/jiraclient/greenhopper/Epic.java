@@ -22,6 +22,7 @@ package net.rcarz.jiraclient.greenhopper;
 import net.rcarz.jiraclient.Field;
 import net.rcarz.jiraclient.RestClient;
 import net.sf.json.JSONObject;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 
@@ -30,8 +31,11 @@ import java.util.Map;
  */
 public class Epic extends GreenHopperIssue {
 
+    @Nullable
     public String epicLabel = null;
+    @Nullable
     public String epicColour = null;
+    @Nullable
     public EpicStats epicStats = null;
 
     /**
@@ -40,7 +44,7 @@ public class Epic extends GreenHopperIssue {
      * @param restclient REST client instance
      * @param json JSON payload
      */
-    protected Epic(RestClient restclient, JSONObject json) {
+    protected Epic(RestClient restclient, @Nullable JSONObject json) {
         super(restclient, json);
 
         if (json != null)
@@ -55,14 +59,17 @@ public class Epic extends GreenHopperIssue {
         epicStats = GreenHopperField.getEpicStats(map.get("epicStats"));
     }
 
+    @Nullable
     public String getEpicLabel() {
         return epicLabel;
     }
 
+    @Nullable
     public String getEpicColour() {
         return epicColour;
     }
 
+    @Nullable
     public EpicStats getEpicStats() {
         return epicStats;
     }

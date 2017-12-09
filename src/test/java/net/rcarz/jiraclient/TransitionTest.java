@@ -2,6 +2,7 @@ package net.rcarz.jiraclient;
 
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
+import org.jetbrains.annotations.NotNull;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -47,6 +48,7 @@ public class TransitionTest {
 
     }
 
+    @NotNull
     public static JSONObject getTestJson() {
         JSONObject jsonObject = (JSONObject) JSONSerializer.toJSON(
                 "{\n" +

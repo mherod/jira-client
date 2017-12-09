@@ -20,6 +20,7 @@
 package net.rcarz.jiraclient.greenhopper;
 
 import net.rcarz.jiraclient.RestClient;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * A base class for GreenHopper resources.
@@ -28,6 +29,7 @@ public abstract class GreenHopperResource {
 
     protected static final String RESOURCE_URI = "/rest/greenhopper/1.0/";
 
+    @Nullable
     protected RestClient restclient = null;
     protected int id = 0;
 

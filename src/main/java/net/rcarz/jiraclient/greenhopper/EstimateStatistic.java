@@ -20,18 +20,22 @@
 package net.rcarz.jiraclient.greenhopper;
 
 import net.rcarz.jiraclient.Field;
+import net.sf.json.JSONObject;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
-
-import net.sf.json.JSONObject;
 
 /**
  * GreenHopper estimate statistics for rapid views.
  */
 public class EstimateStatistic {
 
+    @Nullable
     private String statFieldId = null;
+    @Nullable
     private Double statFieldValue = 0.0;
+    @Nullable
     private String statFieldText = null;
 
     /**
@@ -39,7 +43,7 @@ public class EstimateStatistic {
      *
      * @param json JSON payload
      */
-    protected EstimateStatistic(JSONObject json) {
+    protected EstimateStatistic(@NotNull JSONObject json) {
         Map map = json;
 
         statFieldId = Field.getString(map.get("statFieldId"));
@@ -54,14 +58,17 @@ public class EstimateStatistic {
         }
     }
 
+    @Nullable
     public String getFieldId() {
         return statFieldId;
     }
 
+    @Nullable
     public Double getFieldValue() {
         return statFieldValue;
     }
 
+    @Nullable
     public String getFieldText() {
         return statFieldText;
     }
