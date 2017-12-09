@@ -19,18 +19,15 @@
 
 package net.rcarz.jiraclient.greenhopper;
 
-import net.rcarz.jiraclient.Field;
-import net.rcarz.jiraclient.Issue;
 import net.rcarz.jiraclient.JiraException;
 import net.rcarz.jiraclient.RestClient;
+import net.sf.json.JSON;
+import net.sf.json.JSONObject;
 
 import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import net.sf.json.JSON;
-import net.sf.json.JSONObject;
 
 /**
  * GreenHopper sprint statistics.

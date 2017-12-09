@@ -19,12 +19,10 @@
 
 package net.rcarz.jiraclient;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import net.rcarz.jiraclient.Issue.FluentCreate;
 import net.sf.json.JSON;
 import net.sf.json.JSONObject;
+
+import java.util.Map;
 
 /**
  * Represents an issue component.

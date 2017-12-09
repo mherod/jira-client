@@ -6,7 +6,7 @@ import org.junit.runner.RunWith;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import static junit.framework.Assert.*;
+import static org.junit.Assert.*;
 import static org.mockito.Matchers.anyString;
 
 @RunWith(PowerMockRunner.class)
@@ -18,7 +18,7 @@ public class VotesTest {
     }
 
     @Test
-    public void testVoteMap() throws Exception {
+    public void testVoteMap() {
         final JSONObject json = new JSONObject();
         json.put("self","someURL");
         json.put("id","1111");

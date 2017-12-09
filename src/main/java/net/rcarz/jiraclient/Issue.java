@@ -19,20 +19,18 @@
 
 package net.rcarz.jiraclient;
 
-import java.io.File;
-import java.io.InputStream;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.text.SimpleDateFormat;
-import java.util.*;
-
 import net.rcarz.utils.WorklogUtils;
 import net.sf.json.JSON;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
+
+import java.io.File;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.*;
 
 /**
  * Represents a JIRA issue.
@@ -631,7 +629,7 @@ public class Issue extends Resource {
          */
         private List<Issue> getNextIssues() throws JiraException {
             if (issues == null && startAt == null) {
-                startAt = Integer.valueOf(0);
+                startAt = 0;
             } else if (issues != null) {
                 startAt = startAt + issues.size();
             }

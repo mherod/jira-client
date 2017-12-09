@@ -4,7 +4,6 @@ import net.sf.json.JSONObject;
 import org.junit.Test;
 import org.powermock.api.mockito.PowerMockito;
 
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Map;
@@ -17,15 +16,13 @@ import static org.powermock.api.mockito.PowerMockito.when;
 
 public class UserTest {
 
-    private java.lang.String username = "joseph";
-    private java.lang.String displayName = "Joseph McCarthy";
-    private java.lang.String email = "joseph.b.mccarthy2012@googlemail.com";
-    private java.lang.String userID = "10";
-    private boolean isActive = true;
-    private String self = "https://brainbubble.atlassian.net/rest/api/2/user?username=joseph";
+    private String username = "joseph";
+    private String displayName = "Joseph McCarthy";
+    private String email = "joseph.b.mccarthy2012@googlemail.com";
+    private String userID = "10";
 
     @Test
-    public void testJSONDeserializer() throws IOException, URISyntaxException {
+    public void testJSONDeserializer() throws URISyntaxException {
         User user = new User(new RestClient(null, new URI("/123/asd")), getTestJSON());
         assertEquals(user.getName(), username);
         assertEquals(user.getDisplayName(), displayName);
@@ -47,8 +44,10 @@ public class UserTest {
 
         json.put("name", username);
         json.put("email", email);
+        boolean isActive = true;
         json.put("active", isActive);
         json.put("displayName", displayName);
+        String self = "https://brainbubble.atlassian.net/rest/api/2/user?username=joseph";
         json.put("self", self);
 
         JSONObject images = new JSONObject();

@@ -1,13 +1,11 @@
 package net.rcarz.jiraclient;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Map;
 
 public class IssueHistory extends Resource {
 

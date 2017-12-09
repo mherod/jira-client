@@ -19,20 +19,14 @@
 
 package net.rcarz.jiraclient;
 
-import java.lang.Iterable;
-import java.lang.UnsupportedOperationException;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONNull;
+import net.sf.json.JSONObject;
+
 import java.sql.Timestamp;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-import net.sf.json.JSONNull;
+import java.util.*;
 
 /**
  * Utility functions for translating between JSON and fields.
@@ -78,7 +72,7 @@ public final class Field {
         KEY("key"), NAME("name"), ID_NUMBER("id"), VALUE("value");
         private String typeName;
 
-        private ValueType(String typeName) {
+        ValueType(String typeName) {
             this.typeName = typeName;
         }
 
@@ -86,7 +80,7 @@ public final class Field {
         public String toString() {
             return typeName;
         }
-    };
+    }
 
     /**
      * Value and value type pair.
@@ -167,7 +161,7 @@ public final class Field {
         boolean result = false;
 
         if (b instanceof Boolean)
-            result = ((Boolean)b).booleanValue();
+            result = (Boolean) b;
 
         return result;
     }
@@ -294,7 +288,7 @@ public final class Field {
         int result = 0;
 
         if (i instanceof Integer)
-            result = ((Integer)i).intValue();
+            result = (Integer) i;
 
         return result;
     }
@@ -309,9 +303,9 @@ public final class Field {
     public static long getLong(Object i) {
         long result = 0;
         if (i instanceof Long) {
-            result = ((Long) i).longValue();
+            result = (Long) i;
         } else if (i instanceof Integer) {
-            result = ((Integer) i).intValue();
+            result = (Integer) i;
         }
         return result;
     }
@@ -325,7 +319,7 @@ public final class Field {
      *
      * @return a Map instance with all entries found in m
      */
-    public static <TK extends Object, TV extends Object> Map<TK, TV> getMap(
+    public static <TK, TV> Map<TK, TV> getMap(
         Class<TK> keytype, Class<TV> valtype, Object m) {
 
         Map<TK, TV> result = new HashMap<TK, TV>();

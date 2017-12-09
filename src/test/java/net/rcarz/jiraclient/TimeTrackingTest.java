@@ -3,11 +3,8 @@ package net.rcarz.jiraclient;
 import net.sf.json.JSONObject;
 import org.junit.Test;
 
-import java.sql.Time;
-
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNull;
-import static junit.framework.Assert.assertSame;
 
 public class TimeTrackingTest {
 

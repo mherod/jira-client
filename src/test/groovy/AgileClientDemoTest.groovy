@@ -10,11 +10,11 @@ import org.junit.Test
  */
 class AgileClientDemoTest {
 
-    private static final long BOARD_ID = 507L;
-    private static final long SPRINT_ID = 1165L;
-    private static final long EPIC_ID = 62133L;
-    private static final long ISSUE_ID = 63080L;
-    private static final String ISSUE_KEY = "TEST-1551";
+    private static final long BOARD_ID = 507L
+    private static final long SPRINT_ID = 1165L
+    private static final long EPIC_ID = 62133L
+    private static final long ISSUE_ID = 63080L
+    private static final String ISSUE_KEY = "TEST-1551"
 
     @Test
     @Ignore("Demo to use the AgileClient")
@@ -64,22 +64,22 @@ class AgileClientDemoTest {
         println issue1.getProject()
         println issue1.getEpic()
         println issue1.getSprint()
-        println issue1.getKey();
-        println issue1.isFlagged();
-        println issue1.getDescription();
-        println issue1.getComments();
-        println issue1.getWorklogs();
-        println issue1.getTimeTracking();
-        println issue1.getIssueType();
-        println issue1.getStatus();
-        println issue1.getResolution();
-        println issue1.getCreated();
-        println issue1.getUpdated();
-        println issue1.getPriority();
-        println issue1.getAssignee();
-        println issue1.getCreator();
-        println issue1.getReporter();
-        println issue1.getEnvironment();
+        println issue1.getKey()
+        println issue1.isFlagged()
+        println issue1.getDescription()
+        println issue1.getComments()
+        println issue1.getWorklogs()
+        println issue1.getTimeTracking()
+        println issue1.getIssueType()
+        println issue1.getStatus()
+        println issue1.getResolution()
+        println issue1.getCreated()
+        println issue1.getUpdated()
+        println issue1.getPriority()
+        println issue1.getAssignee()
+        println issue1.getCreator()
+        println issue1.getReporter()
+        println issue1.getEnvironment()
     }
 
     static void demoEpic(AgileClient agileClient) {
