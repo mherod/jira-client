@@ -52,11 +52,10 @@ public class Epic extends GreenHopperIssue {
     }
 
     private void deserialise(JSONObject json) {
-        Map map = json;
 
-        epicLabel = Field.getString(map.get("epicLabel"));
-        epicColour = Field.getString(map.get("epicColor"));
-        epicStats = GreenHopperField.getEpicStats(map.get("epicStats"));
+        epicLabel = Field.getString(((Map) json).get("epicLabel"));
+        epicColour = Field.getString(((Map) json).get("epicColor"));
+        epicStats = GreenHopperField.getEpicStats(((Map) json).get("epicStats"));
     }
 
     @Nullable

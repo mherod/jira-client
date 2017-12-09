@@ -45,14 +45,13 @@ public class EpicStats {
      * @param json JSON payload
      */
     protected EpicStats(JSONObject json) {
-        Map map = json;
 
-        notDoneEstimate = Field.getDouble(map.get("notDoneEstimate"));
-        doneEstimate = Field.getDouble(map.get("doneEstimate"));
-        estimated = Field.getInteger(map.get("estimated"));
-        notEstimated = Field.getInteger(map.get("notEstimated"));
-        notDone = Field.getInteger(map.get("notDone"));
-        done = Field.getInteger(map.get("done"));
+        notDoneEstimate = Field.getDouble(((Map) json).get("notDoneEstimate"));
+        doneEstimate = Field.getDouble(((Map) json).get("doneEstimate"));
+        estimated = Field.getInteger(((Map) json).get("estimated"));
+        notEstimated = Field.getInteger(((Map) json).get("notEstimated"));
+        notDone = Field.getInteger(((Map) json).get("notDone"));
+        done = Field.getInteger(((Map) json).get("done"));
     }
 
     @Nullable

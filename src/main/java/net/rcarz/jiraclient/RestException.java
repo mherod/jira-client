@@ -26,9 +26,9 @@ import org.apache.http.Header;
  */
 public class RestException extends Exception {
 
-    private int status;
-    private String result;
-    private Header[] headers;
+    private final int status;
+    private final String result;
+    private final Header[] headers;
 
     public RestException(String msg, int status, String result, Header[] headers) {
         super(msg);

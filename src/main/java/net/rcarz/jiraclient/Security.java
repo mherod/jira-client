@@ -50,12 +50,11 @@ public class Security extends Resource {
     }
 
     private void deserialise(JSONObject json) {
-        Map map = json;
 
-        self = Field.getString(map.get("self"));
-        id = Field.getString(map.get("id"));
-        description = Field.getString(map.get("description"));
-        name = Field.getString(map.get("name"));
+        self = Field.getString(((Map) json).get("self"));
+        id = Field.getString(((Map) json).get("id"));
+        description = Field.getString(((Map) json).get("description"));
+        name = Field.getString(((Map) json).get("name"));
     }
 
     /**

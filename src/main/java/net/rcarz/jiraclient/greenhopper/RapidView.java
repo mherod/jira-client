@@ -55,12 +55,11 @@ public class RapidView extends GreenHopperResource {
     }
 
     private void deserialise(JSONObject json) {
-        Map map = json;
 
-        id = Field.getInteger(map.get("id"));
-        name = Field.getString(map.get("name"));
-        canEdit = Field.getBoolean(map.get("canEdit"));
-        sprintSupportEnabled = Field.getBoolean(map.get("sprintSupportEnabled"));
+        id = Field.getInteger(((Map) json).get("id"));
+        name = Field.getString(((Map) json).get("name"));
+        canEdit = Field.getBoolean(((Map) json).get("canEdit"));
+        sprintSupportEnabled = Field.getBoolean(((Map) json).get("sprintSupportEnabled"));
     }
 
     /**

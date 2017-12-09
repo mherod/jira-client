@@ -53,7 +53,7 @@ public abstract class AgileResource {
     private String name;
     private String self;
     @NotNull
-    private JSONObject attributes = new JSONObject();
+    private final JSONObject attributes = new JSONObject();
 
     /**
      * Creates a new Agile resource.
@@ -62,7 +62,7 @@ public abstract class AgileResource {
      * @param json       JSON payload
      * @throws JiraException when the retrieval fails
      */
-    public AgileResource(RestClient restclient, @Nullable JSONObject json) throws JiraException {
+    public AgileResource(@Nullable RestClient restclient, @Nullable JSONObject json) throws JiraException {
         this.restclient = restclient;
         if (json != null) {
             deserialize(json);

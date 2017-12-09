@@ -63,7 +63,7 @@ public class SprintReport {
      * @param restclient REST client instance
      * @param json JSON payload
      */
-    protected SprintReport(RestClient restclient, @Nullable JSONObject json) {
+    protected SprintReport(@Nullable RestClient restclient, @Nullable JSONObject json) {
         this.restclient = restclient;
 
         if (json != null)
@@ -71,31 +71,30 @@ public class SprintReport {
     }
 
     private void deserialise(JSONObject json) {
-        Map map = json;
 
-        sprint = GreenHopperField.getResource(Sprint.class, map.get("sprint"), restclient);
+        sprint = GreenHopperField.getResource(Sprint.class, ((Map) json).get("sprint"), restclient);
         completedIssues = GreenHopperField.getResourceArray(
             SprintIssue.class,
-            map.get("completedIssues"),
+            ((Map) json).get("completedIssues"),
             restclient);
         incompletedIssues = GreenHopperField.getResourceArray(
             SprintIssue.class,
-            map.get("incompletedIssues"),
+            ((Map) json).get("incompletedIssues"),
             restclient);
         puntedIssues = GreenHopperField.getResourceArray(
             SprintIssue.class,
-            map.get("puntedIssues"),
+            ((Map) json).get("puntedIssues"),
             restclient);
         completedIssuesEstimateSum = GreenHopperField.getEstimateSum(
-            map.get("completedIssuesEstimateSum"));
+            ((Map) json).get("completedIssuesEstimateSum"));
         incompletedIssuesEstimateSum = GreenHopperField.getEstimateSum(
-            map.get("incompletedIssuesEstimateSum"));
+            ((Map) json).get("incompletedIssuesEstimateSum"));
         allIssuesEstimateSum = GreenHopperField.getEstimateSum(
-            map.get("allIssuesEstimateSum"));
+            ((Map) json).get("allIssuesEstimateSum"));
         puntedIssuesEstimateSum = GreenHopperField.getEstimateSum(
-            map.get("puntedIssuesEstimateSum"));
+            ((Map) json).get("puntedIssuesEstimateSum"));
         issueKeysAddedDuringSprint = GreenHopperField.getStringArray(
-            map.get("issueKeysAddedDuringSprint"));
+            ((Map) json).get("issueKeysAddedDuringSprint"));
     }
 
     /**

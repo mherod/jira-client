@@ -48,12 +48,11 @@ public class Votes extends Resource {
     }
 
     private void deserialise(JSONObject json) {
-        Map map = json;
 
-        self = Field.getString(map.get("self"));
-        id = Field.getString(map.get("id"));
-        votes = Field.getInteger(map.get("votes"));
-        hasVoted = Field.getBoolean(map.get("hasVoted"));
+        self = Field.getString(((Map) json).get("self"));
+        id = Field.getString(((Map) json).get("id"));
+        votes = Field.getInteger(((Map) json).get("votes"));
+        hasVoted = Field.getBoolean(((Map) json).get("hasVoted"));
     }
 
     /**

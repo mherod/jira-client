@@ -48,11 +48,10 @@ public class CustomFieldOption extends Resource {
     }
 
     private void deserialise(JSONObject json) {
-        Map map = json;
 
-        self = Field.getString(map.get("self"));
-        id = Field.getString(map.get("id"));
-        value = Field.getString(map.get("value"));
+        self = Field.getString(((Map) json).get("self"));
+        id = Field.getString(((Map) json).get("id"));
+        value = Field.getString(((Map) json).get("value"));
     }
 
     /**

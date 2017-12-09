@@ -55,17 +55,16 @@ public class IssueType extends Resource {
     }
 
     private void deserialise(JSONObject json) {
-        Map map = json;
 
-        self = Field.getString(map.get("self"));
-        id = Field.getString(map.get("id"));
-        description = Field.getString(map.get("description"));
-        iconUrl = Field.getString(map.get("iconUrl"));
-        name = Field.getString(map.get("name"));
-        subtask = Field.getBoolean(map.get("subtask"));
+        self = Field.getString(((Map) json).get("self"));
+        id = Field.getString(((Map) json).get("id"));
+        description = Field.getString(((Map) json).get("description"));
+        iconUrl = Field.getString(((Map) json).get("iconUrl"));
+        name = Field.getString(((Map) json).get("name"));
+        subtask = Field.getBoolean(((Map) json).get("subtask"));
 
-        if (map.containsKey("fields") && map.get("fields") instanceof JSONObject)
-            fields = (JSONObject)map.get("fields");
+        if (json.containsKey("fields") && ((Map) json).get("fields") instanceof JSONObject)
+            fields = (JSONObject) ((Map) json).get("fields");
     }
 
     /**

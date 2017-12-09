@@ -53,12 +53,11 @@ public class RapidViewVersion extends GreenHopperResource {
     }
 
     private void deserialise(JSONObject json) {
-        Map map = json;
 
-        id = Field.getInteger(map.get("id"));
-        name = Field.getString(map.get("name"));
-        sequence = Field.getInteger(map.get("sequence"));
-        released = Field.getBoolean(map.get("released"));
+        id = Field.getInteger(((Map) json).get("id"));
+        name = Field.getString(((Map) json).get("name"));
+        sequence = Field.getInteger(((Map) json).get("sequence"));
+        released = Field.getBoolean(((Map) json).get("released"));
     }
 
     /**

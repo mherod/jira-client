@@ -18,12 +18,11 @@ public class RemoteLink extends Resource {
     }
 
     private void deserialise(JSONObject json) {
-        Map map = json;
 
-        self = Field.getString(map.get("self"));
-        id = Field.getString(map.get("id"));
+        self = Field.getString(((Map) json).get("self"));
+        id = Field.getString(((Map) json).get("id"));
         
-        Map object = (Map)map.get("object");
+        Map object = (Map) ((Map) json).get("object");
         
         remoteUrl = Field.getString(object.get("url"));
         title = Field.getString(object.get("title"));
@@ -34,7 +33,7 @@ public class RemoteLink extends Resource {
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(@Nullable String title) {
         this.title = title;
     }
 
@@ -43,7 +42,7 @@ public class RemoteLink extends Resource {
         return remoteUrl;
     }
 
-    public void setRemoteUrl(String remoteUrl) {
+    public void setRemoteUrl(@Nullable String remoteUrl) {
         this.remoteUrl = remoteUrl;
     }
 }

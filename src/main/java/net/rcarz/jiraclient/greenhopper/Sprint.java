@@ -62,15 +62,14 @@ public class Sprint extends GreenHopperResource {
     }
 
     private void deserialise(JSONObject json) {
-        Map map = json;
 
-        id = Field.getInteger(map.get("id"));
-        name = Field.getString(map.get("name"));
-        closed = map.containsValue("CLOSED");
-        startDate = GreenHopperField.getDateTime(map.get("startDate"));
-        endDate = GreenHopperField.getDateTime(map.get("endDate"));
-        completeDate = GreenHopperField.getDateTime(map.get("completeDate"));
-        issuesIds = GreenHopperField.getIntegerArray(map.get("issuesIds"));
+        id = Field.getInteger(((Map) json).get("id"));
+        name = Field.getString(((Map) json).get("name"));
+        closed = json.containsValue("CLOSED");
+        startDate = GreenHopperField.getDateTime(((Map) json).get("startDate"));
+        endDate = GreenHopperField.getDateTime(((Map) json).get("endDate"));
+        completeDate = GreenHopperField.getDateTime(((Map) json).get("completeDate"));
+        issuesIds = GreenHopperField.getIntegerArray(((Map) json).get("issuesIds"));
     }
 
     @Nullable

@@ -30,8 +30,8 @@ import org.jetbrains.annotations.NotNull;
  */
 public class BasicCredentials implements ICredentials {
 
-    private String username;
-    private String password;
+    private final String username;
+    private final String password;
 
     /**
      * Creates new basic HTTP credentials.

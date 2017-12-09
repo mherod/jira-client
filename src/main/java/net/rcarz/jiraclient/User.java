@@ -84,15 +84,14 @@ public class User extends Resource {
     }
 
     private void deserialise(JSONObject json) {
-        Map map = json;
 
-        self = Field.getString(map.get("self"));
-        id = Field.getString(map.get("id"));
-        active = Field.getBoolean(map.get("active"));
-        avatarUrls = Field.getMap(String.class, String.class, map.get("avatarUrls"));
-        displayName = Field.getString(map.get("displayName"));
-        email = getEmailFromMap(map);
-        name = Field.getString(map.get("name"));
+        self = Field.getString(((Map) json).get("self"));
+        id = Field.getString(((Map) json).get("id"));
+        active = Field.getBoolean(((Map) json).get("active"));
+        avatarUrls = Field.getMap(String.class, String.class, ((Map) json).get("avatarUrls"));
+        displayName = Field.getString(((Map) json).get("displayName"));
+        email = getEmailFromMap(json);
+        name = Field.getString(((Map) json).get("name"));
     }
 
     /**

@@ -64,16 +64,15 @@ public class Attachment extends Resource {
     }
 
     private void deserialise(JSONObject json) {
-        Map map = json;
 
-        self = Field.getString(map.get("self"));
-        id = Field.getString(map.get("id"));
-        author = Field.getResource(User.class, map.get("author"), restclient);
-        filename = Field.getString(map.get("filename"));
-        created = Field.getDate(map.get("created"));
-        size = Field.getInteger(map.get("size"));
-        mimeType = Field.getString(map.get("mimeType"));
-        content = Field.getString(map.get("content"));
+        self = Field.getString(((Map) json).get("self"));
+        id = Field.getString(((Map) json).get("id"));
+        author = Field.getResource(User.class, ((Map) json).get("author"), restclient);
+        filename = Field.getString(((Map) json).get("filename"));
+        created = Field.getDate(((Map) json).get("created"));
+        size = Field.getInteger(((Map) json).get("size"));
+        mimeType = Field.getString(((Map) json).get("mimeType"));
+        content = Field.getString(((Map) json).get("content"));
     }
 
     /**

@@ -49,14 +49,13 @@ public class TimeTracking {
      * @param json JSON payload
      */
     protected TimeTracking(JSONObject json) {
-        Map<?, ?> map = json;
 
-        originalEstimate = Field.getString(map.get("originalEstimate"));
-        remainingEstimate = Field.getString(map.get("remainingEstimate"));
-        timeSpent = Field.getString(map.get("timeSpent"));
-        originalEstimateSeconds = Field.getInteger(map.get("originalEstimateSeconds"));
-        remainingEstimateSeconds = Field.getInteger(map.get("remainingEstimateSeconds"));
-        timeSpentSeconds = Field.getInteger(map.get("timeSpentSeconds"));
+        originalEstimate = Field.getString(((Map<?, ?>) json).get("originalEstimate"));
+        remainingEstimate = Field.getString(((Map<?, ?>) json).get("remainingEstimate"));
+        timeSpent = Field.getString(((Map<?, ?>) json).get("timeSpent"));
+        originalEstimateSeconds = Field.getInteger(((Map<?, ?>) json).get("originalEstimateSeconds"));
+        remainingEstimateSeconds = Field.getInteger(((Map<?, ?>) json).get("remainingEstimateSeconds"));
+        timeSpentSeconds = Field.getInteger(((Map<?, ?>) json).get("timeSpentSeconds"));
     }
 
     public TimeTracking() {
@@ -112,11 +111,11 @@ public class TimeTracking {
         return remainingEstimateSeconds;
     }
 
-    public void setOriginalEstimate(String originalEstimate) {
+    public void setOriginalEstimate(@Nullable String originalEstimate) {
         this.originalEstimate = originalEstimate;
     }
 
-    public void setRemainingEstimate(String remainingEstimate) {
+    public void setRemainingEstimate(@Nullable String remainingEstimate) {
         this.remainingEstimate = remainingEstimate;
     }
 

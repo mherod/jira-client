@@ -27,13 +27,12 @@ public class Filter extends Resource {
 	}
 
 	private void deserialise(JSONObject json) {
-		Map map = json;
 
-		id = Field.getString(map.get("id"));
-		self = Field.getString(map.get("self"));
-		name = Field.getString(map.get("name"));
-		jql = Field.getString(map.get("jql"));
-		favourite = Field.getBoolean(map.get("favourite"));
+		id = Field.getString(((Map) json).get("id"));
+		self = Field.getString(((Map) json).get("self"));
+		name = Field.getString(((Map) json).get("name"));
+		jql = Field.getString(((Map) json).get("jql"));
+		favourite = Field.getBoolean(((Map) json).get("favourite"));
 	}
 
 	public boolean isFavourite() {

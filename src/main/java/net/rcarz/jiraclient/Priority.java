@@ -50,12 +50,11 @@ public class Priority extends Resource {
     }
 
     private void deserialise(JSONObject json) {
-        Map map = json;
 
-        self = Field.getString(map.get("self"));
-        id = Field.getString(map.get("id"));
-        iconUrl = Field.getString(map.get("iconUrl"));
-        name = Field.getString(map.get("name"));
+        self = Field.getString(((Map) json).get("self"));
+        id = Field.getString(((Map) json).get("id"));
+        iconUrl = Field.getString(((Map) json).get("iconUrl"));
+        name = Field.getString(((Map) json).get("name"));
     }
 
     /**

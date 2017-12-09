@@ -67,7 +67,7 @@ public class Backlog {
      * @param restclient REST client instance
      * @param json JSON payload
      */
-    protected Backlog(RestClient restclient, @Nullable JSONObject json) {
+    protected Backlog(@Nullable RestClient restclient, @Nullable JSONObject json) {
         this.restclient = restclient;
 
         if (json != null)
@@ -75,38 +75,37 @@ public class Backlog {
     }
 
     private void deserialise(JSONObject json) {
-        Map map = json;
 
         issues = GreenHopperField.getResourceArray(
             SprintIssue.class,
-            map.get("issues"),
+            ((Map) json).get("issues"),
             restclient);
-        rankCustomFieldId = Field.getInteger(map.get("rankCustomFieldId"));
+        rankCustomFieldId = Field.getInteger(((Map) json).get("rankCustomFieldId"));
         sprints = GreenHopperField.getResourceArray(
             Sprint.class,
-            map.get("sprints"),
+            ((Map) json).get("sprints"),
             restclient);
         projects = GreenHopperField.getResourceArray(
             RapidViewProject.class,
-            map.get("projects"),
+            ((Map) json).get("projects"),
             restclient);
         markers = GreenHopperField.getResourceArray(
             Marker.class,
-            map.get("markers"),
+            ((Map) json).get("markers"),
             restclient);
-        canManageSprints = Field.getBoolean(map.get("canManageSprints"));
-        maxIssuesExceeded = Field.getBoolean(map.get("maxIssuesExceeded"));
-        queryResultLimit = Field.getInteger(map.get("queryResultLimit"));
+        canManageSprints = Field.getBoolean(((Map) json).get("canManageSprints"));
+        maxIssuesExceeded = Field.getBoolean(((Map) json).get("maxIssuesExceeded"));
+        queryResultLimit = Field.getInteger(((Map) json).get("queryResultLimit"));
 
-        if (map.containsKey("epicData") && map.get("epicData") instanceof JSONObject) {
-            Map epicData = (Map)map.get("epicData");
+        if (json.containsKey("epicData") && ((Map) json).get("epicData") instanceof JSONObject) {
+            Map epicData = (Map) ((Map) json).get("epicData");
 
             epics = GreenHopperField.getResourceArray(Epic.class, epicData.get("epics"), restclient);
             canEditEpics = Field.getBoolean(epicData.get("canEditEpics"));
         }
 
-        if (map.containsKey("versionData") && map.get("versionData") instanceof JSONObject) {
-            Map verData = (JSONObject)map.get("versionData");
+        if (json.containsKey("versionData") && ((Map) json).get("versionData") instanceof JSONObject) {
+            Map verData = (JSONObject) ((Map) json).get("versionData");
 
             if (verData.containsKey("versionsPerProject") &&
                 verData.get("versionsPerProject") instanceof JSONObject) {

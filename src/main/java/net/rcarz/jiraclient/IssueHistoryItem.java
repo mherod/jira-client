@@ -30,14 +30,13 @@ public class IssueHistoryItem extends Resource {
     }
 
     private void deserialise(RestClient restclient, JSONObject json) {
-        Map map = json;
-        self = Field.getString(map.get("self"));
-        id = Field.getString(map.get("id"));
-        field = Field.getString(map.get("field"));
-        from = Field.getString(map.get("from"));
-        to = Field.getString(map.get("to"));
-        fromStr = Field.getString(map.get("fromString"));
-        toStr = Field.getString(map.get("toString"));
+        self = Field.getString(((Map) json).get("self"));
+        id = Field.getString(((Map) json).get("id"));
+        field = Field.getString(((Map) json).get("field"));
+        from = Field.getString(((Map) json).get("from"));
+        to = Field.getString(((Map) json).get("to"));
+        fromStr = Field.getString(((Map) json).get("fromString"));
+        toStr = Field.getString(((Map) json).get("toString"));
     }
 
     @Nullable

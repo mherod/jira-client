@@ -41,10 +41,9 @@ public class EstimateSum {
      * @param json JSON payload
      */
     protected EstimateSum(JSONObject json) {
-        Map map = json;
 
-        value = Field.getDouble(map.get("value"));
-        text = Field.getString(map.get("text"));
+        value = Field.getDouble(((Map) json).get("value"));
+        text = Field.getString(((Map) json).get("text"));
     }
 
     @Nullable

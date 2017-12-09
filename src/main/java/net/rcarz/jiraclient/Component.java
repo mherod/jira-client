@@ -32,109 +32,16 @@ import java.util.Map;
 public class Component extends Resource {
     
     /**
-     * Used to chain fields to a create action.
+     * Creates a new JIRA component.
+     *
+     * @param restclient REST client instance
+     * @param project Key of the project to create the component in
+     *
+     * @return a fluent create instance
      */
-    public static final class FluentCreate {
-        /**
-         * The Jira rest client.
-         */
-        @Nullable
-        RestClient restclient = null;
-        
-        /**
-         * The JSON request that will be built incrementally as fluent methods
-         * are invoked.
-         */
-        @NotNull
-        JSONObject req = new JSONObject();
-
-        /**
-         * Creates a new fluent.
-         * @param restclient the REST client
-         * @param project the project key
-         */
-        private FluentCreate(RestClient restclient, String project) {
-            this.restclient = restclient;
-            req.put("project", project);
-        }
-        
-        /**
-         * Sets the name of the component.
-         * @param name the name
-         * @return <code>this</code>
-         */
-        @NotNull
-        public FluentCreate name(String name) {
-            req.put("name", name);
-            return this;
-        }
-        
-        /**
-         * Sets the description of the component.
-         * @param description the description
-         * @return <code>this</code>
-         */
-        @NotNull
-        public FluentCreate description(String description) {
-            req.put("description", description);
-            return this;
-        }
-        
-        /**
-         * Sets the lead user name.
-         * @param leadUserName the lead user name
-         * @return <code>this</code>
-         */
-        @NotNull
-        public FluentCreate leadUserName(String leadUserName) {
-            req.put("leadUserName", leadUserName);
-            return this;
-        }
-        
-        /**
-         * Sets the assignee type.
-         * @param assigneeType the assignee type
-         * @return <code>this</code>
-         */
-        @NotNull
-        public FluentCreate assigneeType(String assigneeType) {
-            req.put("assigneeType", assigneeType);
-            return this;
-        }
-        
-        /**
-         * Sets whether the assignee type is valid.
-         * @param assigneeTypeValid is the assignee type valid?
-         * @return <code>this</code>
-         */
-        @NotNull
-        public FluentCreate assigneeTypeValue(boolean assigneeTypeValid) {
-            req.put("isAssigneeTypeValid", assigneeTypeValid);
-            return this;
-        }
-        
-        /**
-         * Executes the create action.
-         * @return the created component
-         *
-         * @throws JiraException when the create fails
-         */
-        public Component execute() throws JiraException {
-            JSON result = null;
-
-            try {
-                result = restclient.post(getRestUri(null), req);
-            } catch (Exception ex) {
-                throw new JiraException("Failed to create issue", ex);
-            }
-
-            if (!(result instanceof JSONObject) || !((JSONObject) result).containsKey("id")
-                    || !(((JSONObject) result).get("id") instanceof String)) {
-                throw new JiraException("Unexpected result on create component");
-            }
-
-            return new Component(restclient, (JSONObject) result);
-        }
+    @NotNull
+    public static FluentCreate create(RestClient restclient, String project) {
+        return new FluentCreate(restclient, project);
     }
 
     @Nullable
@@ -157,13 +64,12 @@ public class Component extends Resource {
     }
 
     private void deserialise(JSONObject json) {
-        Map map = json;
 
-        self = Field.getString(map.get("self"));
-        id = Field.getString(map.get("id"));
-        name = Field.getString(map.get("name"));
-        description = Field.getString(map.get("description"));
-        isAssigneeTypeValid = Field.getBoolean(map.get("isAssigneeTypeValid"));
+        self = Field.getString(((Map) json).get("self"));
+        id = Field.getString(((Map) json).get("id"));
+        name = Field.getString(((Map) json).get("name"));
+        description = Field.getString(((Map) json).get("description"));
+        isAssigneeTypeValid = Field.getBoolean(((Map) json).get("isAssigneeTypeValid"));
     }
 
     /**
@@ -218,17 +124,110 @@ public class Component extends Resource {
     }
 
     /**
-     * Creates a new JIRA component.
-     *
-     * @param restclient REST client instance
-     * @param project Key of the project to create the component in
-     *
-     * @return a fluent create instance
+     * Used to chain fields to a create action.
      */
-    @NotNull
-    public static FluentCreate create(RestClient restclient, String project) {
-        FluentCreate fc = new FluentCreate(restclient, project);
-        return fc;
+    public static final class FluentCreate {
+        /**
+         * The Jira rest client.
+         */
+        @Nullable
+        RestClient restclient = null;
+
+        /**
+         * The JSON request that will be built incrementally as fluent methods
+         * are invoked.
+         */
+        @NotNull
+        final
+        JSONObject req = new JSONObject();
+
+        /**
+         * Creates a new fluent.
+         * @param restclient the REST client
+         * @param project the project key
+         */
+        private FluentCreate(@Nullable RestClient restclient, String project) {
+            this.restclient = restclient;
+            req.put("project", project);
+        }
+
+        /**
+         * Sets the name of the component.
+         * @param name the name
+         * @return <code>this</code>
+         */
+        @NotNull
+        public FluentCreate name(String name) {
+            req.put("name", name);
+            return this;
+        }
+
+        /**
+         * Sets the description of the component.
+         * @param description the description
+         * @return <code>this</code>
+         */
+        @NotNull
+        public FluentCreate description(String description) {
+            req.put("description", description);
+            return this;
+        }
+
+        /**
+         * Sets the lead user name.
+         * @param leadUserName the lead user name
+         * @return <code>this</code>
+         */
+        @NotNull
+        public FluentCreate leadUserName(String leadUserName) {
+            req.put("leadUserName", leadUserName);
+            return this;
+        }
+
+        /**
+         * Sets the assignee type.
+         * @param assigneeType the assignee type
+         * @return <code>this</code>
+         */
+        @NotNull
+        public FluentCreate assigneeType(String assigneeType) {
+            req.put("assigneeType", assigneeType);
+            return this;
+        }
+
+        /**
+         * Sets whether the assignee type is valid.
+         * @param assigneeTypeValid is the assignee type valid?
+         * @return <code>this</code>
+         */
+        @NotNull
+        public FluentCreate assigneeTypeValue(boolean assigneeTypeValid) {
+            req.put("isAssigneeTypeValid", assigneeTypeValid);
+            return this;
+        }
+
+        /**
+         * Executes the create action.
+         * @return the created component
+         *
+         * @throws JiraException when the create fails
+         */
+        public Component execute() throws JiraException {
+            JSON result = null;
+
+            try {
+                result = restclient.post(getRestUri(null), req);
+            } catch (Exception ex) {
+                throw new JiraException("Failed to create issue", ex);
+            }
+
+            if (!(result instanceof JSONObject) || !((JSONObject) result).containsKey("id")
+                    || !(((JSONObject) result).get("id") instanceof String)) {
+                throw new JiraException("Unexpected result on create component");
+            }
+
+            return new Component(restclient, (JSONObject) result);
+        }
     }
 
     /**

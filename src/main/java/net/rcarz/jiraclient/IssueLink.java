@@ -52,13 +52,12 @@ public class IssueLink extends Resource {
     }
 
     private void deserialise(JSONObject json) {
-        Map map = json;
 
-        self = Field.getString(map.get("self"));
-        id = Field.getString(map.get("id"));
-        type = Field.getResource(LinkType.class, map.get("type"), restclient);
-        outwardIssue = Field.getResource(Issue.class, map.get("outwardIssue"), restclient);
-        inwardIssue = Field.getResource(Issue.class, map.get("inwardIssue"), restclient);
+        self = Field.getString(((Map) json).get("self"));
+        id = Field.getString(((Map) json).get("id"));
+        type = Field.getResource(LinkType.class, ((Map) json).get("type"), restclient);
+        outwardIssue = Field.getResource(Issue.class, ((Map) json).get("outwardIssue"), restclient);
+        inwardIssue = Field.getResource(Issue.class, ((Map) json).get("inwardIssue"), restclient);
     }
 
     /**

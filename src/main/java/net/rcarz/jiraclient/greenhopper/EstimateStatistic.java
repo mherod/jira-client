@@ -44,12 +44,11 @@ public class EstimateStatistic {
      * @param json JSON payload
      */
     protected EstimateStatistic(@NotNull JSONObject json) {
-        Map map = json;
 
-        statFieldId = Field.getString(map.get("statFieldId"));
+        statFieldId = Field.getString(((Map) json).get("statFieldId"));
 
-        if (map.containsKey("statFieldValue") &&
-            map.get("statFieldValue") instanceof JSONObject) {
+        if (json.containsKey("statFieldValue") &&
+            ((Map) json).get("statFieldValue") instanceof JSONObject) {
 
             Map val = (Map)json.get("statFieldValue");
 

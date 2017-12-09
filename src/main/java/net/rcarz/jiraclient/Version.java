@@ -35,113 +35,16 @@ import java.util.Map;
 public class Version extends Resource {
 
     /**
-     * Used to chain fields to a create action.
+     * Creates a new JIRA Version.
+     *
+     * @param restclient REST client instance
+     * @param project Key of the project to create the version in
+     *
+     * @return a fluent create instance
      */
-    public static final class FluentCreate {
-        /**
-         * The Jira rest client.
-         */
-        @Nullable
-        RestClient restclient = null;
-
-        /**
-         * The JSON request that will be built incrementally as fluent methods
-         * are invoked.
-         */
-        @NotNull
-        JSONObject req = new JSONObject();
-
-        /**
-         * Creates a new fluent.
-         * @param restclient the REST client
-         * @param project the project key
-         */
-        private FluentCreate(RestClient restclient, String project) {
-            this.restclient = restclient;
-            req.put("project", project);
-        }
-
-        /**
-         * Sets the name of the version.
-         * @param name the name
-         * @return <code>this</code>
-         */
-        @NotNull
-        public FluentCreate name(String name) {
-            req.put("name", name);
-            return this;
-        }
-
-        /**
-         * Sets the description of the version.
-         * @param description the description
-         * @return <code>this</code>
-         */
-        @NotNull
-        public FluentCreate description(String description) {
-            req.put("description", description);
-            return this;
-        }
-
-        /**
-         * Sets the archived status of the version.
-         * @param isArchived archived status
-         * @return <code>this</code>
-         */
-        @NotNull
-        public FluentCreate archived(boolean isArchived) {
-            req.put("archived", isArchived);
-            return this;
-        }
-
-        /**
-         * Sets the released status of the version.
-         * @param isReleased released status
-         * @return <code>this</code>
-         */
-        @NotNull
-        public FluentCreate released(boolean isReleased) {
-            req.put("released", isReleased);
-            return this;
-        }
-
-        /**
-         * Sets the release date of the version.
-         * @param releaseDate release Date
-         * @return <code>this</code>
-         */
-        @NotNull
-        public FluentCreate releaseDate(Date releaseDate) {
-            DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-            req.put("releaseDate", df.format(releaseDate));
-            return this;
-        }
-
-
-
-
-        /**
-         * Executes the create action.
-         * @return the created Version
-         *
-         * @throws JiraException when the create fails
-         */
-        public Version execute() throws JiraException {
-            JSON result = null;
-
-            try {
-                result = restclient.post(getRestUri(null), req);
-            } catch (Exception ex) {
-                throw new JiraException("Failed to create version", ex);
-            }
-
-            if (!(result instanceof JSONObject) || !((JSONObject) result).containsKey("id")
-                    || !(((JSONObject) result).get("id") instanceof String)) {
-                throw new JiraException("Unexpected result on create version");
-            }
-
-            return new Version(restclient, (JSONObject) result);
-        }
+    @NotNull
+    public static FluentCreate create(RestClient restclient, String project) {
+        return new FluentCreate(restclient, project);
     }
 
     @Nullable
@@ -238,15 +141,14 @@ public class Version extends Resource {
     }
 
     private void deserialise(JSONObject json) {
-        Map map = json;
 
-        self = Field.getString(map.get("self"));
-        id = Field.getString(map.get("id"));
-        name = Field.getString(map.get("name"));
-        archived = Field.getBoolean(map.get("archived"));
-        released = Field.getBoolean(map.get("released"));
-        releaseDate = Field.getString(map.get("releaseDate"));
-        description = Field.getString(map.get("description"));
+        self = Field.getString(((Map) json).get("self"));
+        id = Field.getString(((Map) json).get("id"));
+        name = Field.getString(((Map) json).get("name"));
+        archived = Field.getBoolean(((Map) json).get("archived"));
+        released = Field.getBoolean(((Map) json).get("released"));
+        releaseDate = Field.getString(((Map) json).get("releaseDate"));
+        description = Field.getString(((Map) json).get("description"));
     }
 
     @Nullable
@@ -284,17 +186,114 @@ public class Version extends Resource {
     }
 
     /**
-     * Creates a new JIRA Version.
-     *
-     * @param restclient REST client instance
-     * @param project Key of the project to create the version in
-     *
-     * @return a fluent create instance
+     * Used to chain fields to a create action.
      */
-    @NotNull
-    public static FluentCreate create(RestClient restclient, String project) {
-        FluentCreate fc = new FluentCreate(restclient, project);
-        return fc;
+    public static final class FluentCreate {
+        /**
+         * The Jira rest client.
+         */
+        @Nullable
+        RestClient restclient = null;
+
+        /**
+         * The JSON request that will be built incrementally as fluent methods
+         * are invoked.
+         */
+        @NotNull
+        final
+        JSONObject req = new JSONObject();
+
+        /**
+         * Creates a new fluent.
+         * @param restclient the REST client
+         * @param project the project key
+         */
+        private FluentCreate(@Nullable RestClient restclient, String project) {
+            this.restclient = restclient;
+            req.put("project", project);
+        }
+
+        /**
+         * Sets the name of the version.
+         * @param name the name
+         * @return <code>this</code>
+         */
+        @NotNull
+        public FluentCreate name(String name) {
+            req.put("name", name);
+            return this;
+        }
+
+        /**
+         * Sets the description of the version.
+         * @param description the description
+         * @return <code>this</code>
+         */
+        @NotNull
+        public FluentCreate description(String description) {
+            req.put("description", description);
+            return this;
+        }
+
+        /**
+         * Sets the archived status of the version.
+         * @param isArchived archived status
+         * @return <code>this</code>
+         */
+        @NotNull
+        public FluentCreate archived(boolean isArchived) {
+            req.put("archived", isArchived);
+            return this;
+        }
+
+        /**
+         * Sets the released status of the version.
+         * @param isReleased released status
+         * @return <code>this</code>
+         */
+        @NotNull
+        public FluentCreate released(boolean isReleased) {
+            req.put("released", isReleased);
+            return this;
+        }
+
+        /**
+         * Sets the release date of the version.
+         * @param releaseDate release Date
+         * @return <code>this</code>
+         */
+        @NotNull
+        public FluentCreate releaseDate(Date releaseDate) {
+            DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+            req.put("releaseDate", df.format(releaseDate));
+            return this;
+        }
+
+
+
+
+        /**
+         * Executes the create action.
+         * @return the created Version
+         *
+         * @throws JiraException when the create fails
+         */
+        public Version execute() throws JiraException {
+            JSON result = null;
+
+            try {
+                result = restclient.post(getRestUri(null), req);
+            } catch (Exception ex) {
+                throw new JiraException("Failed to create version", ex);
+            }
+
+            if (!(result instanceof JSONObject) || !((JSONObject) result).containsKey("id")
+                    || !(((JSONObject) result).get("id") instanceof String)) {
+                throw new JiraException("Unexpected result on create version");
+            }
+
+            return new Version(restclient, (JSONObject) result);
+        }
     }
 }
 

@@ -41,7 +41,7 @@ public abstract class Resource {
      *
      * @param restclient REST client instance
      */
-    public Resource(RestClient restclient) {
+    public Resource(@Nullable RestClient restclient) {
         this.restclient = restclient;
     }
 

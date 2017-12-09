@@ -69,7 +69,7 @@ public class RestClient {
      * @param creds Credentials to send with each request
      * @param uri Base URI of the remote REST service
      */
-    public RestClient(HttpClient httpclient, ICredentials creds, URI uri) {
+    public RestClient(@Nullable HttpClient httpclient, @Nullable ICredentials creds, @Nullable URI uri) {
         this.httpClient = httpclient;
         this.creds = creds;
         this.uri = uri;
@@ -187,10 +187,9 @@ public class RestClient {
     private JSON request(@NotNull HttpEntityEnclosingRequestBase req, @Nullable File file)
         throws RestException, IOException {
         if (file != null) {
-            File fileUpload = file;
             req.setHeader("X-Atlassian-Token", "nocheck");
             MultipartEntity ent = new MultipartEntity();
-            ent.addPart("file", new FileBody(fileUpload));
+            ent.addPart("file", new FileBody(file));
             req.setEntity(ent);
         }
         return request(req);

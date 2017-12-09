@@ -59,7 +59,7 @@ public class Comment extends Resource {
      * @param restclient REST client instance
      * @param json JSON payload
      */
-    protected Comment(RestClient restclient, @Nullable JSONObject json, String issueKey) {
+    protected Comment(RestClient restclient, @Nullable JSONObject json, @Nullable String issueKey) {
         super(restclient);
 
         this.issueKey = issueKey;
@@ -68,17 +68,16 @@ public class Comment extends Resource {
     }
 
     private void deserialise(JSONObject json) {
-        Map map = json;
 
-        self = Field.getString(map.get("self"));
-        id = Field.getString(map.get("id"));
-        author = Field.getResource(User.class, map.get("author"), restclient);
-        body = Field.getString(map.get("body"));
-        created = Field.getDateTime(map.get("created"));
-        updated = Field.getDateTime(map.get("updated"));
-        updatedAuthor = Field.getResource(User.class, map.get("updatedAuthor"), restclient);
-        Object obj = map.get("visibility");
-        visibility = Field.getResource(Visibility.class, map.get("visibility"),restclient);
+        self = Field.getString(((Map) json).get("self"));
+        id = Field.getString(((Map) json).get("id"));
+        author = Field.getResource(User.class, ((Map) json).get("author"), restclient);
+        body = Field.getString(((Map) json).get("body"));
+        created = Field.getDateTime(((Map) json).get("created"));
+        updated = Field.getDateTime(((Map) json).get("updated"));
+        updatedAuthor = Field.getResource(User.class, ((Map) json).get("updatedAuthor"), restclient);
+        Object obj = ((Map) json).get("visibility");
+        visibility = Field.getResource(Visibility.class, ((Map) json).get("visibility"),restclient);
     }
 
     /**
@@ -112,7 +111,6 @@ public class Comment extends Resource {
     /**
      * Updates the comment body.
      *
-     * @param issue associated issue record
      * @param body Comment text
      *
      * @throws JiraException when the comment update fails
@@ -124,7 +122,6 @@ public class Comment extends Resource {
     /**
      * Updates the comment body with limited visibility.
      *
-     * @param issue associated issue record
      * @param body Comment text
      * @param visType Target audience type (role or group)
      * @param visName Name of the role or group to limit visibility to

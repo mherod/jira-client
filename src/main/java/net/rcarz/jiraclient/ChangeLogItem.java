@@ -82,14 +82,13 @@ public class ChangeLogItem extends Resource {
      * @param json the json payload
      */
     private void deserialise(JSONObject json) {
-        Map map = json;
 
-        field = Field.getString(map.get("field"));
-        fieldType = Field.getString(map.get("fieldtype"));
-        from = Field.getString(map.get("from"));
-        fromString = Field.getString(map.get("fromString"));
-        to = Field.getString(map.get("to"));
-        toString = Field.getString(map.get("toString"));
+        field = Field.getString(((Map) json).get("field"));
+        fieldType = Field.getString(((Map) json).get("fieldtype"));
+        from = Field.getString(((Map) json).get("from"));
+        fromString = Field.getString(((Map) json).get("fromString"));
+        to = Field.getString(((Map) json).get("to"));
+        toString = Field.getString(((Map) json).get("toString"));
     }
 
     /**

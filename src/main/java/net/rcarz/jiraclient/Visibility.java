@@ -32,9 +32,8 @@ public class Visibility extends Resource {
     }
 
     private void deserialise(JSONObject json) {
-        Map map = json;
 
-        type = Field.getString(map.get("type"));
-        value = Field.getString(map.get("value"));
+        type = Field.getString(((Map) json).get("type"));
+        value = Field.getString(((Map) json).get("value"));
     }
 }

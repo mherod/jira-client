@@ -54,13 +54,12 @@ public class Watches extends Resource {
     }
 
     private void deserialise(JSONObject json) {
-        Map map = json;
 
-        self = Field.getString(map.get("self"));
-        id = Field.getString(map.get("id"));
-        watchCount = Field.getInteger(map.get("watchCount"));
-        isWatching = Field.getBoolean(map.get("isWatching"));
-        watchers = Field.getResourceArray(User.class, map.get("watchers"), null);
+        self = Field.getString(((Map) json).get("self"));
+        id = Field.getString(((Map) json).get("id"));
+        watchCount = Field.getInteger(((Map) json).get("watchCount"));
+        isWatching = Field.getBoolean(((Map) json).get("isWatching"));
+        watchers = Field.getResourceArray(User.class, ((Map) json).get("watchers"), null);
     }
 
     /**

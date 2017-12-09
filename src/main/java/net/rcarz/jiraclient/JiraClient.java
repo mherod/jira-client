@@ -376,7 +376,7 @@ public class JiraClient {
     @NotNull
     public Issue.SearchResult searchIssues(String jql, String includedFields,
                                            String expandFields, Integer maxResults,
-                                           Integer startAt) throws JiraException {
+                                           Integer startAt) {
 
         return Issue.search(
             restclient,
@@ -438,12 +438,11 @@ public class JiraClient {
     public List<CustomFieldOption> getCustomFieldAllowedValues(String field, String project, String issueType) throws JiraException {
         JSONObject createMetadata = Issue.getCreateMetadata(restclient, project, issueType);
         JSONObject fieldMetadata = (JSONObject) createMetadata.get(field);
-        List<CustomFieldOption> customFieldOptions = Field.getResourceArray(
+        return Field.getResourceArray(
                 CustomFieldOption.class,
                 fieldMetadata.get("allowedValues"),
             restclient
         );
-        return customFieldOptions;
     }
 
     /**
@@ -460,12 +459,11 @@ public class JiraClient {
     public List<Component> getComponentsAllowedValues(String project, String issueType) throws JiraException {
         JSONObject createMetadata = Issue.getCreateMetadata(restclient, project, issueType);
         JSONObject fieldMetadata = (JSONObject) createMetadata.get(Field.COMPONENTS);
-        List<Component> componentOptions = Field.getResourceArray(
+        return Field.getResourceArray(
                 Component.class,
                 fieldMetadata.get("allowedValues"),
             restclient
         );
-        return componentOptions;
     }
 
     @Nullable

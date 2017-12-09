@@ -38,7 +38,7 @@ public abstract class GreenHopperResource {
      *
      * @param restclient REST client instance
      */
-    public GreenHopperResource(RestClient restclient) {
+    public GreenHopperResource(@Nullable RestClient restclient) {
         this.restclient = restclient;
     }
 

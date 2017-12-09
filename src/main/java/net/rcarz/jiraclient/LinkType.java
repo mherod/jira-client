@@ -52,13 +52,12 @@ public class LinkType extends Resource {
     }
 
     private void deserialise(JSONObject json) {
-        Map map = json;
 
-        self = Field.getString(map.get("self"));
-        id = Field.getString(map.get("id"));
-        name = Field.getString(map.get("name"));
-        inward = Field.getString(map.get("inward"));
-        outward = Field.getString(map.get("outward"));
+        self = Field.getString(((Map) json).get("self"));
+        id = Field.getString(((Map) json).get("id"));
+        name = Field.getString(((Map) json).get("name"));
+        inward = Field.getString(((Map) json).get("inward"));
+        outward = Field.getString(((Map) json).get("outward"));
     }
 
     /**

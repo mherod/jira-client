@@ -40,12 +40,11 @@ public class IssueHistory extends Resource {
     }
 
     private void deserialise(RestClient restclient, JSONObject json) {
-        Map map = json;
-        self = Field.getString(map.get("self"));
-        id = Field.getString(map.get("id"));
-        user = new User(restclient,(JSONObject)map.get("author"));
-        created = Field.getDateTime(map.get("created"));
-        JSONArray items = JSONArray.fromObject(map.get("items"));
+        self = Field.getString(((Map) json).get("self"));
+        id = Field.getString(((Map) json).get("id"));
+        user = new User(restclient,(JSONObject) ((Map) json).get("author"));
+        created = Field.getDateTime(((Map) json).get("created"));
+        JSONArray items = JSONArray.fromObject(((Map) json).get("items"));
         changes = new ArrayList<IssueHistoryItem>(items.size());
         for (int i = 0; i < items.size(); i++) {
             JSONObject p = items.getJSONObject(i);

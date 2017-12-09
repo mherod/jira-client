@@ -69,12 +69,11 @@ public class ChangeLogEntry extends Resource {
      * @param json the json payload
      */
     private void deserialise(JSONObject json) {
-        Map map = json;
 
-        id = Field.getString(map.get("id"));
-        author = Field.getResource(User.class, map.get("author"), restclient);
-        created = Field.getDateTime(map.get("created"));
-        items = Field.getResourceArray(ChangeLogItem.class, map.get(
+        id = Field.getString(((Map) json).get("id"));
+        author = Field.getResource(User.class, ((Map) json).get("author"), restclient);
+        created = Field.getDateTime(((Map) json).get("created"));
+        items = Field.getResourceArray(ChangeLogItem.class, ((Map) json).get(
                 Field.CHANGE_LOG_ITEMS), restclient);
     }
 

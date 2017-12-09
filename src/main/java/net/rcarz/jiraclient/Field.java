@@ -54,11 +54,28 @@ public final class Field {
     }
 
     /**
+     * Allowed value types.
+     */
+    public enum ValueType {
+        KEY("key"), NAME("name"), ID_NUMBER("id"), VALUE("value");
+        private final String typeName;
+
+        ValueType(String typeName) {
+            this.typeName = typeName;
+        }
+
+        @Override
+        public String toString() {
+            return typeName;
+        }
+    }
+
+    /**
      * Field update operation.
      */
     public static final class Operation {
-        public String name;
-        public Object value;
+        public final String name;
+        public final Object value;
 
         /**
          * Initialises a new update operation.
@@ -69,23 +86,6 @@ public final class Field {
         public Operation(String name, Object value) {
             this.name = name;
             this.value = value;
-        }
-    }
-
-    /**
-     * Allowed value types.
-     */
-    public enum ValueType {
-        KEY("key"), NAME("name"), ID_NUMBER("id"), VALUE("value");
-        private String typeName;
-
-        ValueType(String typeName) {
-            this.typeName = typeName;
-        }
-
-        @Override
-        public String toString() {
-            return typeName;
         }
     }
 

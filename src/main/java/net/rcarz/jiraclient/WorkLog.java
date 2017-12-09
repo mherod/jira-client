@@ -62,18 +62,17 @@ public class WorkLog extends Resource {
     }
 
     private void deserialise(JSONObject json) {
-        Map map = json;
 
-        self = Field.getString(map.get("self"));
-        id = Field.getString(map.get("id"));
-        author = Field.getResource(User.class, map.get("author"), restclient);
-        comment = Field.getString(map.get("comment"));
-        created = Field.getDateTime(map.get("created"));
-        updated = Field.getDateTime(map.get("updated"));
-        updateAuthor = Field.getResource(User.class, map.get("updateAuthor"), restclient);
-        started = Field.getDateTime(map.get("started"));
-        timeSpent = Field.getString(map.get("timeSpent"));
-        timeSpentSeconds = Field.getInteger(map.get("timeSpentSeconds"));
+        self = Field.getString(((Map) json).get("self"));
+        id = Field.getString(((Map) json).get("id"));
+        author = Field.getResource(User.class, ((Map) json).get("author"), restclient);
+        comment = Field.getString(((Map) json).get("comment"));
+        created = Field.getDateTime(((Map) json).get("created"));
+        updated = Field.getDateTime(((Map) json).get("updated"));
+        updateAuthor = Field.getResource(User.class, ((Map) json).get("updateAuthor"), restclient);
+        started = Field.getDateTime(((Map) json).get("started"));
+        timeSpent = Field.getString(((Map) json).get("timeSpent"));
+        timeSpentSeconds = Field.getInteger(((Map) json).get("timeSpentSeconds"));
     }
 
     /**

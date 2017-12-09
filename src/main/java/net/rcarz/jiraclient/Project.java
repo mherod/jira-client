@@ -74,25 +74,24 @@ public class Project extends Resource {
     }
 
     private void deserialise(JSONObject json) {
-        Map map = json;
 
-        self = Field.getString(map.get("self"));
-        id = Field.getString(map.get("id"));
-        avatarUrls = Field.getMap(String.class, String.class, map.get("avatarUrls"));
-        key = Field.getString(map.get("key"));
-        name = Field.getString(map.get("name"));
-        description = Field.getString(map.get("description"));
-        lead = Field.getResource(User.class, map.get("lead"), restclient);
-        assigneeType = Field.getString(map.get("assigneeType"));
-        components = Field.getResourceArray(Component.class, map.get("components"), restclient);
+        self = Field.getString(((Map) json).get("self"));
+        id = Field.getString(((Map) json).get("id"));
+        avatarUrls = Field.getMap(String.class, String.class, ((Map) json).get("avatarUrls"));
+        key = Field.getString(((Map) json).get("key"));
+        name = Field.getString(((Map) json).get("name"));
+        description = Field.getString(((Map) json).get("description"));
+        lead = Field.getResource(User.class, ((Map) json).get("lead"), restclient);
+        assigneeType = Field.getString(((Map) json).get("assigneeType"));
+        components = Field.getResourceArray(Component.class, ((Map) json).get("components"), restclient);
         issueTypes = Field.getResourceArray(
             IssueType.class,
-            map.containsKey("issueTypes") ? map.get("issueTypes") : map.get("issuetypes"),
+            json.containsKey("issueTypes") ? ((Map) json).get("issueTypes") : ((Map) json).get("issuetypes"),
             restclient);
-        versions = Field.getResourceArray(Version.class, map.get("versions"), restclient);
-        roles = Field.getMap(String.class, String.class, map.get("roles"));
-        category = Field.getResource(ProjectCategory.class, map.get( "projectCategory" ), restclient);
-        email = Field.getString( map.get("email"));
+        versions = Field.getResourceArray(Version.class, ((Map) json).get("versions"), restclient);
+        roles = Field.getMap(String.class, String.class, ((Map) json).get("roles"));
+        category = Field.getResource(ProjectCategory.class, ((Map) json).get( "projectCategory" ), restclient);
+        email = Field.getString( ((Map) json).get("email"));
     }
 
     /**
